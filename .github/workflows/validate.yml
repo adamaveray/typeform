@@ -1,0 +1,77 @@
+---
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches: ['*']
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        php-version: [7.4, 8.0, 8.1]
+
+    env:
+      NODE_ENV: development
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Use PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: bcmath, curl, gd, intl, mbstring
+        env:
+          fail-fast: true
+
+      - name: Cache NPM packages
+        uses: actions/cache@v2
+        env:
+          cache-name: npm
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-test-${{ env.cache-name }}-
+            ${{ runner.os }}-test-
+            ${{ runner.os }}-
+
+      - name: Cache Composer packages
+        uses: actions/cache@v2
+        env:
+          cache-name: composer
+        with:
+          path: vendor
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-test-${{ env.cache-name }}-
+            ${{ runner.os }}-test-
+            ${{ runner.os }}-
+
+      - name: Install NPM packages
+        run: npm ci --no-audit
+
+      - name: Install Composer packages
+        run: composer install
+
+      - name: Check code format
+        run: composer run-script format-check
+
+      - name: Check code format
+        run: composer run-script analyze
+
+      - name: Run tests
+        run: composer run-script test

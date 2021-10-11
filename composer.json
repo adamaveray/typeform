@@ -1,0 +1,49 @@
+{
+  "name": "adamaveray/typeform",
+  "description": "A library providing a strongly-typed interface to all Typeform API endpoints.",
+  "version": "1.0.0",
+  "type": "library",
+  "license": "MIT",
+  "prefer-stable": true,
+  "minimum-stability": "dev",
+  "homepage": "https://github.com/adamaveray/typeform",
+  "readme": "README.md",
+  "authors": [
+    {
+      "name": "Adam Averay",
+      "homepage": "https://adamaveray.com.au"
+    }
+  ],
+  "scripts": {
+    "analyze": "./vendor/bin/psalm",
+    "format": "npx prettier --write src/ tests/ .github/ *.{md,xml,json} .*.json",
+    "format-check": "npx prettier --check src/ tests/ .github/ *.{md,xml,json} .*.json",
+    "test": "./vendor/bin/phpunit"
+  },
+  "archive": {
+    "exclude": [
+      "/.github",
+      "/tests"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "AdamAveray\\Typeform\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AdamAveray\\Typeform\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=7.4",
+    "symfony/http-client": "^4.0|^5.0"
+  },
+  "require-dev": {
+    "ext-json": "*",
+    "phpunit/phpunit": "^9.5",
+    "roave/security-advisories": "dev-latest",
+    "vimeo/psalm": "^4.10"
+  }
+}
