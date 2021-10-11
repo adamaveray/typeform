@@ -50,25 +50,25 @@ The following methods are available on ApiClient instances to manage forms. Unle
 
   Update the form messages for a specific form. See the API docs for the possible message keys. [(API docs)](https://developer.typeform.com/create/reference/update-custom-messages/)
 
-- ##`getResponses`
+- ## `getResponses`
 
   **`getResponses(string|Form $form, array $options): PaginatedResponse<Response>`**
 
   Load responses for a specific form. See the API docs for the possible `$options` values. [(API docs)](https://developer.typeform.com/responses/reference/retrieve-responses/)
 
-- ##`deleteResponses`
+- ## `deleteResponses`
 
   **`deleteResponses(string|Form|FormStub $form, (string|Response)[] $responses): void`**
 
   Delete specific responses from a specified form. [(API docs)](https://developer.typeform.com/responses/reference/delete-responses/)
 
-- ##`getResponseFile`
+- ## `getResponseFile`
 
   **`getResponseFile(string|Form|FormStub $form, string|Response $response, string|Field $field, string $filename): string`**
 
   Load the raw source for a specific form response file. [(API docs)](https://developer.typeform.com/responses/reference/retrieve-response-file/)
 
-- ##`getFormInsights`
+- ## `getFormInsights`
 
   **`getFormInsights(string|Form $form): InsightsSummary`**
 
