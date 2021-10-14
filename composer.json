@@ -18,6 +18,7 @@
     "analyze": "./vendor/bin/psalm",
     "format": "npx prettier --write src/ tests/ .github/ *.{md,xml,json} .*.json",
     "format-check": "npx prettier --check src/ tests/ .github/ *.{md,xml,json} .*.json",
+    "scan-malware": "php vendor/marcocesarato/amwscan/dist/scanner",
     "test": "./vendor/bin/phpunit"
   },
   "archive": {
@@ -42,6 +43,7 @@
   },
   "require-dev": {
     "ext-json": "*",
+    "marcocesarato/amwscan": "^0.10",
     "phpunit/phpunit": "^9.5",
     "roave/security-advisories": "dev-latest",
     "vimeo/psalm": "^4.10"
