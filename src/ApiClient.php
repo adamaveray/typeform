@@ -162,6 +162,14 @@ final class ApiClient
   }
 
   /**
+   * @link https://developer.typeform.com/create/reference/retrieve-your-own-user/
+   */
+  public function getCurrentUser(): Models\Users\User
+  {
+    return new Models\Users\User($this->get('/me'));
+  }
+
+  /**
    * @psalm-return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
    * @link https://developer.typeform.com/create/reference/retrieve-account-workspaces/
    */
