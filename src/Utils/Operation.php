@@ -29,14 +29,14 @@ final class Operation
    * @psalm-var TValue
    * @readonly
    */
-  private $value;
+  private mixed $value;
 
   /**
    * @psalm-param TType $type
    * @psalm-param TPath $path
    * @psalm-param TValue $value
    */
-  private function __construct(string $type, string $path, $value)
+  private function __construct(string $type, string $path, mixed $value)
   {
     $this->type = $type;
     $this->path = $path;
@@ -63,7 +63,7 @@ final class Operation
    * @psalm-return Operation<self::TYPE_ADD, TPathIn, TValueIn>
    * @psalm-pure
    */
-  public static function add(string $path, $value): self
+  public static function add(string $path, mixed $value): self
   {
     return new self(self::TYPE_ADD, $path, $value);
   }
@@ -76,7 +76,7 @@ final class Operation
    * @psalm-return Operation<self::TYPE_REMOVE, TPathIn, TValueIn>
    * @psalm-pure
    */
-  public static function remove(string $path, $value): self
+  public static function remove(string $path, mixed $value): self
   {
     return new self(self::TYPE_REMOVE, $path, $value);
   }
@@ -89,7 +89,7 @@ final class Operation
    * @psalm-return Operation<self::TYPE_REPLACE, TPathIn, TValueIn>
    * @psalm-pure
    */
-  public static function replace(string $path, $value): self
+  public static function replace(string $path, mixed $value): self
   {
     return new self(self::TYPE_REPLACE, $path, $value);
   }

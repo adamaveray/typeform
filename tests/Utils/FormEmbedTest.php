@@ -11,7 +11,6 @@ use AdamAveray\Typeform\Utils\FormEmbed;
 
 /**
  * @coversDefaultClass FormEmbed
- * @psalm-type AnyForm = string|Form|FormStub
  */
 class FormEmbedTest extends TestCase
 {
@@ -45,18 +44,16 @@ class FormEmbedTest extends TestCase
     // Strip expected newlines & indentation
     $expected = str_replace("\n", '', preg_replace('~\n +~', ' ', $expected));
 
-    $this->assertEmbedHtmlForAllTypes(
-      $expected,
-      $formId,
-      /** @psalm-param AnyForm $form */
-      function ($form) use ($type, $configurator): FormEmbed {
-        $embed = new FormEmbed($form, $type);
-        if ($configurator !== null) {
-          $configurator($embed);
-        }
-        return $embed;
-      },
-    );
+    $this->assertEmbedHtmlForAllTypes($expected, $formId, function (Form|FormStub|string $form) use (
+      $type,
+      $configurator
+    ): FormEmbed {
+      $embed = new FormEmbed($form, $type);
+      if ($configurator !== null) {
+        $configurator($embed);
+      }
+      return $embed;
+    });
   }
 
   public function generationDataProvider(): iterable
@@ -246,22 +243,21 @@ class FormEmbedTest extends TestCase
   }
 
   /**
-   * @psalm-param callable(AnyForm):FormEmbed $generator
+   * @psalm-param callable(Form|FormStub|string):FormEmbed $generator
    */
   private function assertEmbedHtmlForAllTypes(string $expected, string $formId, callable $generator): void
   {
-    self::runForAllFormTypes(
-      $formId,
-      /** @psalm-param AnyForm $form */
-      function ($form, string $type) use ($expected, $generator): void {
-        $embed = $generator($form);
-        $this->assertEmbedHtml($expected, $embed, 'The correct embed HTML should be generated for ' . $type . ' forms');
-      },
-    );
+    self::runForAllFormTypes($formId, function (Form|FormStub|string $form, string $type) use (
+      $expected,
+      $generator
+    ): void {
+      $embed = $generator($form);
+      $this->assertEmbedHtml($expected, $embed, 'The correct embed HTML should be generated for ' . $type . ' forms');
+    });
   }
 
   /**
-   * @psalm-param callable(AnyForm, string):void $fn
+   * @psalm-param callable(Form|FormStub|string, string):void $fn
    */
   private static function runForAllFormTypes(string $formId, callable $fn): void
   {

@@ -237,7 +237,7 @@ final class ApiClient
    * @param string|Models\Workspaces\WorkspaceStub $workspace A workspace ID or WorkspaceStub instance
    * @link https://developer.typeform.com/create/reference/delete-workspace/
    */
-  public function deleteWorkspace($workspace): void
+  public function deleteWorkspace(Models\Workspaces\WorkspaceStub|string $workspace): void
   {
     $this->delete(
       self::buildEndpoint('/workspaces/%', self::getId($workspace, [Models\Workspaces\WorkspaceStub::class])),
@@ -249,8 +249,10 @@ final class ApiClient
    * @param Utils\Operation[]|Utils\Operation $operations One or more operations to perform on the workspace
    * @link https://developer.typeform.com/create/reference/update-workspace/
    */
-  public function updateWorkspace($workspace, $operations): void
-  {
+  public function updateWorkspace(
+    Models\Workspaces\WorkspaceStub|string $workspace,
+    Utils\Operation|array $operations
+  ): void {
     $this->patch(
       self::buildEndpoint('/workspaces/%', self::getId($workspace, [Models\Workspaces\WorkspaceStub::class])),
       self::formatOperations($operations),
@@ -263,7 +265,7 @@ final class ApiClient
    * @link https://developer.typeform.com/create/reference/retrieve-forms/
    */
   public function getForms(
-    $workspace = null,
+    Models\Workspaces\WorkspaceStub|string $workspace = null,
     ?string $search = null,
     ?int $page1 = null,
     ?int $pageSize = null
@@ -287,7 +289,7 @@ final class ApiClient
    * @param string|Models\Forms\FormStub $form A form ID or FormStub instance
    * @link https://developer.typeform.com/create/reference/retrieve-form/
    */
-  public function getForm($form): Models\Forms\Form
+  public function getForm(Models\Forms\FormStub|string $form): Models\Forms\Form
   {
     $data = $this->get(self::buildEndpoint('/forms/%', self::getId($form, [Models\Forms\FormStub::class])));
     return new Models\Forms\Form($data);
@@ -306,7 +308,7 @@ final class ApiClient
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @link https://developer.typeform.com/create/reference/delete-form/
    */
-  public function deleteForm($form): void
+  public function deleteForm(Models\Forms\Form|Models\Forms\FormStub|string $form): void
   {
     $this->delete(
       self::buildEndpoint('/forms/%', self::getId($form, [Models\Forms\FormStub::class, Models\Forms\Form::class])),
@@ -320,8 +322,10 @@ final class ApiClient
    * @psalm-param Op[]|Op $operations
    * @link https://developer.typeform.com/create/reference/update-form-patch/
    */
-  public function updateForm($form, $operations): void
-  {
+  public function updateForm(
+    Models\Forms\Form|Models\Forms\FormStub|string $form,
+    Utils\Operation|array $operations
+  ): void {
     $this->patch(
       self::buildEndpoint('/forms/%', self::getId($form, [Models\Forms\FormStub::class, Models\Forms\Form::class])),
       self::formatOperations($operations),
@@ -332,7 +336,7 @@ final class ApiClient
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @link https://developer.typeform.com/create/reference/update-form/
    */
-  public function overwriteForm($form, array $data): void
+  public function overwriteForm(Models\Forms\Form|Models\Forms\FormStub|string $form, array $data): void
   {
     $this->put(
       self::buildEndpoint('/forms/%', self::getId($form, [Models\Forms\FormStub::class, Models\Forms\Form::class])),
@@ -346,7 +350,7 @@ final class ApiClient
    * @psalm-return array<string, string|null>
    * @link https://developer.typeform.com/create/reference/retrieve-custom-form-messages/
    */
-  public function getFormMessages($form): array
+  public function getFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form): array
   {
     return $this->get(
       self::buildEndpoint(
@@ -362,7 +366,7 @@ final class ApiClient
    * @psalm-param array<string, string|null> $messages
    * @link https://developer.typeform.com/create/reference/update-custom-messages/
    */
-  public function updateFormMessages($form, array $messages): void
+  public function updateFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form, array $messages): void
   {
     $this->put(
       self::buildEndpoint(
@@ -394,8 +398,11 @@ final class ApiClient
    * @link https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/
    * @link https://developer.typeform.com/create/reference/retrieve-image-by-size/
    */
-  public function getImage($image, ?string $format = null, ?string $size = null): Models\Images\Image
-  {
+  public function getImage(
+    Models\Images\Image|string $image,
+    ?string $format = null,
+    ?string $size = null
+  ): Models\Images\Image {
     $endpoint = self::buildImageEndpoint($image, $format, $size);
     $data = $this->get($endpoint);
     return new Models\Images\Image($data);
@@ -410,8 +417,11 @@ final class ApiClient
    * @link https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/
    * @link https://developer.typeform.com/create/reference/retrieve-image-by-size/
    */
-  public function getImageSource($image, ?string $format = null, ?string $size = null): string
-  {
+  public function getImageSource(
+    Models\Images\Image|string $image,
+    ?string $format = null,
+    ?string $size = null
+  ): string {
     $endpoint = self::buildImageEndpoint($image, $format, $size);
     return $this->makeRequest('GET', self::URL_BASE . $endpoint, null, null, false)->getContent();
   }
@@ -432,7 +442,7 @@ final class ApiClient
    * @param string|Models\Images\Image $image An image ID or Image instance
    * @link https://developer.typeform.com/create/reference/delete-image/
    */
-  public function deleteImage($image): void
+  public function deleteImage(Models\Images\Image|string $image): void
   {
     $this->delete(self::buildEndpoint('/images/%', self::getId($image, [Models\Images\Image::class])));
   }
@@ -459,7 +469,7 @@ final class ApiClient
    * @param string|Models\Themes\Theme $theme A theme ID or Theme instance
    * @link https://developer.typeform.com/create/reference/retrieve-theme/
    */
-  public function getTheme($theme): Models\Themes\Theme
+  public function getTheme(Models\Themes\Theme|string $theme): Models\Themes\Theme
   {
     $data = $this->get(self::buildEndpoint('/themes/%', self::getId($theme, [Models\Themes\Theme::class])));
     return new Models\Themes\Theme($data);
@@ -478,7 +488,7 @@ final class ApiClient
    * @param string|Models\Themes\Theme $theme A theme ID or Theme instance
    * @link https://developer.typeform.com/create/reference/delete-theme/
    */
-  public function deleteTheme($theme): void
+  public function deleteTheme(Models\Themes\Theme|string $theme): void
   {
     $this->delete(self::buildEndpoint('/themes/%', self::getId($theme, [Models\Themes\Theme::class])));
   }
@@ -487,7 +497,7 @@ final class ApiClient
    * @param string|Models\Themes\Theme $theme A theme ID or Theme instance
    * @link https://developer.typeform.com/create/reference/update-theme/
    */
-  public function updateTheme($theme, array $data): Models\Themes\Theme
+  public function updateTheme(Models\Themes\Theme|string $theme, array $data): Models\Themes\Theme
   {
     /** @var array $responseData */
     $responseData = $this->put(
@@ -516,8 +526,10 @@ final class ApiClient
    * } $options
    * @link https://developer.typeform.com/responses/reference/retrieve-responses/
    */
-  public function getResponses($form, array $options): Utils\PaginatedResponse
-  {
+  public function getResponses(
+    Models\Forms\Form|Models\Forms\FormStub|string $form,
+    array $options
+  ): Utils\PaginatedResponse {
     $query = self::formatQuery(
       $options,
       [
@@ -548,7 +560,7 @@ final class ApiClient
    * @psalm-param (string|Models\Forms\Response)[] $responses Response IDs or Response instances
    * @link https://developer.typeform.com/responses/reference/delete-responses/
    */
-  public function deleteResponses($form, array $responses): void
+  public function deleteResponses(Models\Forms\Form|Models\Forms\FormStub|string $form, array $responses): void
   {
     $endpoint = self::buildEndpoint(
       '/forms/%/responses',
@@ -567,8 +579,12 @@ final class ApiClient
    * @param string|Models\Forms\Field $field A field ID or Field instance
    * @link https://developer.typeform.com/responses/reference/retrieve-response-file/
    */
-  public function getResponseFile($form, $response, $field, string $filename): string
-  {
+  public function getResponseFile(
+    Models\Forms\Form|Models\Forms\FormStub|string $form,
+    Models\Forms\Response|string $response,
+    Models\Forms\Field|string $field,
+    string $filename
+  ): string {
     $endpoint = self::buildEndpoint(
       '/forms/%/responses/%/fields/%/files/%',
       self::getId($form, [Models\Forms\Form::class, Models\Forms\FormStub::class]),
@@ -583,7 +599,7 @@ final class ApiClient
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @link https://developer.typeform.com/responses/reference/retrieve-form-insights/
    */
-  public function getFormInsights($form): Models\Forms\InsightsSummary
+  public function getFormInsights(Models\Forms\Form|Models\Forms\FormStub|string $form): Models\Forms\InsightsSummary
   {
     $endpoint = self::buildEndpoint(
       '/insights/%/summary',
@@ -596,7 +612,7 @@ final class ApiClient
    * @param string|Models\Jobs\Job $job A job ID or Job instance
    * @link https://developer.typeform.com/responses/reference/rtbf-retrieve-job-status/
    */
-  public function rtbfGetJobStatus(string $accountId, $job): Models\Jobs\Status
+  public function rtbfGetJobStatus(string $accountId, Models\Jobs\Job|string $job): Models\Jobs\Status
   {
     $endpoint = self::buildEndpoint('/rtbf/%/job/%', $accountId, self::getId($job, [Models\Jobs\Job::class]));
     return new Models\Jobs\Status($this->get($endpoint));
@@ -617,7 +633,7 @@ final class ApiClient
    * @return Models\Forms\Webhook[]
    * @link https://developer.typeform.com/webhooks/reference/retrieve-webhooks/
    */
-  public function getWebhooks($form): array
+  public function getWebhooks(Models\Forms\Form|Models\Forms\FormStub|string $form): array
   {
     $endpoint = self::buildEndpoint(
       '/forms/%/webhooks',
@@ -634,8 +650,10 @@ final class ApiClient
    * @param string|Models\Forms\Webhook $tagOrWebhook A webhook tag or Webhook instance
    * @link https://developer.typeform.com/webhooks/reference/retrieve-single-webhook/
    */
-  public function getWebhook($form, $tagOrWebhook): Models\Forms\Webhook
-  {
+  public function getWebhook(
+    Models\Forms\Form|Models\Forms\FormStub|string $form,
+    Models\Forms\Webhook|string $tagOrWebhook
+  ): Models\Forms\Webhook {
     $endpoint = self::buildEndpoint(
       '/forms/%/webhooks/%',
       self::getId($form, [Models\Forms\Form::class, Models\Forms\FormStub::class]),
@@ -649,8 +667,10 @@ final class ApiClient
    * @param string|Models\Forms\Webhook $tagOrWebhook A webhook tag or Webhook instance
    * @link https://developer.typeform.com/webhooks/reference/delete-webhook/
    */
-  public function deleteWebhook($form, $tagOrWebhook): void
-  {
+  public function deleteWebhook(
+    Models\Forms\Form|Models\Forms\FormStub|string $form,
+    Models\Forms\Webhook|string $tagOrWebhook
+  ): void {
     $endpoint = self::buildEndpoint(
       '/forms/%/webhooks/%',
       self::getId($form, [Models\Forms\Form::class, Models\Forms\FormStub::class]),
@@ -665,8 +685,8 @@ final class ApiClient
    * @link https://developer.typeform.com/webhooks/reference/create-or-update-webhook/
    */
   public function createUpdateWebhook(
-    $form,
-    $tagOrWebhook,
+    Models\Forms\Form|Models\Forms\FormStub|string $form,
+    Models\Forms\Webhook|string $tagOrWebhook,
     bool $enabled,
     string $url,
     ?string $secret = null,
@@ -742,11 +762,11 @@ final class ApiClient
     return $url;
   }
 
-  /**
-   * @psalm-param string|Models\Images\Image $image
-   */
-  private static function buildImageEndpoint($image, ?string $format = null, ?string $size = null): string
-  {
+  private static function buildImageEndpoint(
+    Models\Images\Image|string $image,
+    ?string $format = null,
+    ?string $size = null
+  ): string {
     $imageId = self::getId($image, [Models\Images\Image::class]);
     if ($format === null) {
       return self::buildEndpoint('/images/%', $imageId);
@@ -768,10 +788,9 @@ final class ApiClient
   /**
    * Converts a model or ID to an ID
    *
-   * @psalm-param mixed $modelOrId
    * @psalm-param class-string<Models\Model>[] $classNames
    */
-  private static function getId($modelOrId, array $classNames): string
+  private static function getId(mixed $modelOrId, array $classNames): string
   {
     if (\is_string($modelOrId)) {
       return $modelOrId;
@@ -797,7 +816,7 @@ final class ApiClient
    * @return array{ op: Utils\Operation::TYPE_*, path: string, value: mixed }[]
    * @psalm-pure
    */
-  private static function formatOperations($operations): array
+  private static function formatOperations(Utils\Operation|array $operations): array
   {
     if (!\is_array($operations)) {
       $operations = [$operations];

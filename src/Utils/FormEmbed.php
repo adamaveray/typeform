@@ -119,7 +119,7 @@ class FormEmbed
    * @link https://developer.typeform.com/embed/configuration/#options-in-plain-html-embed
    * @see setOptions
    */
-  public function setOption(string $option, $value): self
+  public function setOption(string $option, mixed $value): self
   {
     if ($value !== null) {
       $this->options[$option] = $value;
@@ -148,7 +148,7 @@ class FormEmbed
    * @see setHiddenFields
    * @link https://developer.typeform.com/embed/hidden-fields/#pass-values-from-host-page-url
    */
-  public function setHiddenField($field, string $value): self
+  public function setHiddenField(string $field, string $value): self
   {
     $this->hiddenFields[$field] = $value;
     return $this;
@@ -245,10 +245,8 @@ class FormEmbed
 
   /**
    * HTML-escapes a value for safe insertion into a HTML document
-   *
-   * @param string|int|float $value
    */
-  private static function e($value): string
+  private static function e(string|int|float $value): string
   {
     return htmlspecialchars((string) $value, \ENT_QUOTES | \ENT_HTML5);
   }
@@ -282,7 +280,7 @@ class FormEmbed
    * @return string|null A serialised string representation of $value, or null if it should be omitted
    * @link https://developer.typeform.com/embed/configuration/#options-in-plain-html-embed
    */
-  private static function getOptionAttrValue($value): ?string
+  private static function getOptionAttrValue(mixed $value): ?string
   {
     if ($value === true) {
       return null;

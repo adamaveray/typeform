@@ -44,13 +44,10 @@ class OperationTest extends TestCase
     );
   }
 
-  /**
-   * @param mixed $expectedValue
-   */
   private function assertOperationFormats(
     string $expectedType,
     string $expectedPath,
-    $expectedValue,
+    mixed $expectedValue,
     Operation $operation
   ): void {
     $this->assertEquals(
