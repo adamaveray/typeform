@@ -1,7 +1,7 @@
 {
   "name": "adamaveray/typeform",
   "description": "A library providing a strongly-typed interface to all Typeform API endpoints.",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "type": "library",
   "license": "MIT",
   "prefer-stable": true,
