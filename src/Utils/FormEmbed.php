@@ -216,16 +216,10 @@ class FormEmbed
   {
     $attrs = $this->getHtmlAttrs();
 
-    switch ($this->type) {
-      case self::TYPE_INLINE:
-        $html = '<div ' . $attrs . '></div>';
-        break;
-
-      case self::TYPE_MODAL:
-        /** @psalm-var array<string,Option> $options */
-        $html = '<button ' . $attrs . '>' . self::e($this->label) . '</button>';
-        break;
-    }
+    $html = match ($this->type) {
+      self::TYPE_INLINE => '<div ' . $attrs . '></div>',
+      self::TYPE_MODAL => '<button ' . $attrs . '>' . self::e($this->label) . '</button>'
+    };
 
     return $html . ($this->loadLib ? $this->getLibHtml() : '');
   }
