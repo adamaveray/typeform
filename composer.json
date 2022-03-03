@@ -46,6 +46,6 @@
     "marcocesarato/amwscan": "^0.10",
     "phpunit/phpunit": "^9.5",
     "roave/security-advisories": "dev-latest",
-    "vimeo/psalm": "^4.10"
+    "vimeo/psalm": "^4.22"
   }
 }
