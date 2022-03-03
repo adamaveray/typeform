@@ -1,6 +1,6 @@
 # Typeform API Client
 
-A library providing a strongly-typed interface to all [Typeform API](https://developer.typeform.com/get-started/) endpoints.
+A strongly-typed interface to the complete [Typeform API](https://developer.typeform.com/get-started/).
 
 ```
 composer require adamaveray/typeform
