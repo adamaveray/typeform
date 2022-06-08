@@ -72,7 +72,7 @@ class ModelTest extends TestCase
    */
   public function testConvertTimestamps(): void
   {
-    $timestamp = '2000-01-30T12:11:10.123456Z';
+    $timestamp = '2000-01-30T12:11:10Z';
     $datetime = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))
       ->setDate(2000, 1, 30)
       ->setTime(12, 11, 10, 123456);
