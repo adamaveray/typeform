@@ -24,6 +24,6 @@ final class Field extends Model
     $this->title = $data['title'];
     $this->type = $data['type'];
     $this->properties = $data['properties'];
-    $this->validations = isset($data['validations']) ? $data['validations'] : [];
+    $this->validations = $data['validations'] ?? [];
   }
 }
