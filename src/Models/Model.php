@@ -11,7 +11,7 @@ use AdamAveray\Typeform\Utils\Refs;
  */
 abstract class Model
 {
-  private const TIMESTAMP_FORMAT = 'Y-m-d\\TH:i:s.u\\Z';
+  private const TIMESTAMP_FORMAT = 'Y-m-d\\TH:i:s\\Z';
 
   public string $id;
   public array $rawData;
