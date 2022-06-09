@@ -69,8 +69,9 @@ class ModelTest extends TestCase
 
   /**
    * @covers ::convertTimestamp
+   * @dataProvider convertTimestampsDataProvider
    */
-  public function testConvertTimestamps(): void
+  public function testConvertTimestamps(\DateTimeInterface $datetime, string $timestamp): void
   {
     $timestamp = '2000-01-30T12:11:10Z';
     $datetime = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))
@@ -83,6 +84,17 @@ class ModelTest extends TestCase
       $model->dummyTimestamp->format('c'),
       'The timestamp should be parsed correctly',
     );
+  }
+
+  public function convertTimestampsDataProvider(): iterable
+  {
+    $datetime = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))
+      ->setDate(2000, 1, 30)
+      ->setTime(12, 11, 10, 123456);
+
+    yield 'Whole seconds' => [$datetime, '2000-01-30T12:11:10Z'];
+
+    yield 'Microseconds' => [$datetime, '2000-01-30T12:11:10.123456Z'];
   }
 
   /**
