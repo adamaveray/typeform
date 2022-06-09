@@ -12,6 +12,7 @@ use AdamAveray\Typeform\Utils\Refs;
 abstract class Model
 {
   private const TIMESTAMP_FORMAT = 'Y-m-d\\TH:i:s\\Z';
+  private const TIMESTAMP_FORMAT_ALT = 'Y-m-d\\TH:i:s.u\\Z';
 
   public string $id;
   public array $rawData;
@@ -29,7 +30,10 @@ abstract class Model
   {
     $datetime = \DateTimeImmutable::createFromFormat(self::TIMESTAMP_FORMAT, $timestamp, new \DateTimeZone('UTC'));
     if ($datetime === false) {
-      throw new \RuntimeException('Invalid timestamp');
+      $datetime = \DateTimeImmutable::createFromFormat(self::TIMESTAMP_FORMAT_ALT, $timestamp, new \DateTimeZone('UTC'));
+      if ($datetime === false) {
+        throw new \RuntimeException('Invalid timestamp: ' . $timestamp);
+      }
     }
     return $datetime;
   }
