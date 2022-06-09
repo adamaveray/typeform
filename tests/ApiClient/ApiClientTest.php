@@ -88,7 +88,7 @@ class ApiClientTest extends ApiClientTestCase
     Refs\CollectionRef $ref,
     MockRequest $request,
     bool $loadMax = true,
-    ?int $pageSize = null
+    ?int $pageSize = null,
   ): void {
     $httpClient = $this->buildClient([$request]);
     if ($pageSize !== null) {

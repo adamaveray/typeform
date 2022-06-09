@@ -46,7 +46,7 @@ class FormEmbedTest extends TestCase
 
     $this->assertEmbedHtmlForAllTypes($expected, $formId, function (Form|FormStub|string $form) use (
       $type,
-      $configurator
+      $configurator,
     ): FormEmbed {
       $embed = new FormEmbed($form, $type);
       if ($configurator !== null) {
@@ -249,7 +249,7 @@ class FormEmbedTest extends TestCase
   {
     self::runForAllFormTypes($formId, function (Form|FormStub|string $form, string $type) use (
       $expected,
-      $generator
+      $generator,
     ): void {
       $embed = $generator($form);
       $this->assertEmbedHtml($expected, $embed, 'The correct embed HTML should be generated for ' . $type . ' forms');

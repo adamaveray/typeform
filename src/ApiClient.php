@@ -93,7 +93,7 @@ final class ApiClient
     string $url,
     ?array $query = null,
     ?array $json = null,
-    bool $loadJson = true
+    bool $loadJson = true,
   ): ResponseInterface {
     return $this->httpClient->request($method, $url, [
       'auth_bearer' => $this->accessToken,
@@ -177,7 +177,7 @@ final class ApiClient
     string $accountId,
     ?string $search = null,
     ?int $page1 = null,
-    ?int $pageSize = null
+    ?int $pageSize = null,
   ): Utils\PaginatedResponse {
     self::validatePageNumber($page1);
     self::validatePageSize($pageSize);
@@ -198,7 +198,7 @@ final class ApiClient
   public function getWorkspaces(
     ?string $search = null,
     ?int $page1 = null,
-    ?int $pageSize = null
+    ?int $pageSize = null,
   ): Utils\PaginatedResponse {
     self::validatePageNumber($page1);
     self::validatePageSize($pageSize);
@@ -251,7 +251,7 @@ final class ApiClient
    */
   public function updateWorkspace(
     Models\Workspaces\WorkspaceStub|string $workspace,
-    Utils\Operation|array $operations
+    Utils\Operation|array $operations,
   ): void {
     $this->patch(
       self::buildEndpoint('/workspaces/%', self::getId($workspace, [Models\Workspaces\WorkspaceStub::class])),
@@ -268,7 +268,7 @@ final class ApiClient
     Models\Workspaces\WorkspaceStub|string $workspace = null,
     ?string $search = null,
     ?int $page1 = null,
-    ?int $pageSize = null
+    ?int $pageSize = null,
   ): Utils\PaginatedResponse {
     self::validatePageNumber($page1);
     self::validatePageSize($pageSize);
@@ -324,7 +324,7 @@ final class ApiClient
    */
   public function updateForm(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
-    Utils\Operation|array $operations
+    Utils\Operation|array $operations,
   ): void {
     $this->patch(
       self::buildEndpoint('/forms/%', self::getId($form, [Models\Forms\FormStub::class, Models\Forms\Form::class])),
@@ -401,7 +401,7 @@ final class ApiClient
   public function getImage(
     Models\Images\Image|string $image,
     ?string $format = null,
-    ?string $size = null
+    ?string $size = null,
   ): Models\Images\Image {
     $endpoint = self::buildImageEndpoint($image, $format, $size);
     $data = $this->get($endpoint);
@@ -420,7 +420,7 @@ final class ApiClient
   public function getImageSource(
     Models\Images\Image|string $image,
     ?string $format = null,
-    ?string $size = null
+    ?string $size = null,
   ): string {
     $endpoint = self::buildImageEndpoint($image, $format, $size);
     return $this->makeRequest('GET', self::URL_BASE . $endpoint, null, null, false)->getContent();
@@ -528,7 +528,7 @@ final class ApiClient
    */
   public function getResponses(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
-    array $options
+    array $options,
   ): Utils\PaginatedResponse {
     $query = self::formatQuery(
       $options,
@@ -583,7 +583,7 @@ final class ApiClient
     Models\Forms\Form|Models\Forms\FormStub|string $form,
     Models\Forms\Response|string $response,
     Models\Forms\Field|string $field,
-    string $filename
+    string $filename,
   ): string {
     $endpoint = self::buildEndpoint(
       '/forms/%/responses/%/fields/%/files/%',
@@ -652,7 +652,7 @@ final class ApiClient
    */
   public function getWebhook(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
-    Models\Forms\Webhook|string $tagOrWebhook
+    Models\Forms\Webhook|string $tagOrWebhook,
   ): Models\Forms\Webhook {
     $endpoint = self::buildEndpoint(
       '/forms/%/webhooks/%',
@@ -669,7 +669,7 @@ final class ApiClient
    */
   public function deleteWebhook(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
-    Models\Forms\Webhook|string $tagOrWebhook
+    Models\Forms\Webhook|string $tagOrWebhook,
   ): void {
     $endpoint = self::buildEndpoint(
       '/forms/%/webhooks/%',
@@ -690,7 +690,7 @@ final class ApiClient
     bool $enabled,
     string $url,
     ?string $secret = null,
-    bool $verifySsl = true
+    bool $verifySsl = true,
   ): Models\Forms\Webhook {
     $endpoint = self::buildEndpoint(
       '/forms/%/webhooks/%',
@@ -765,7 +765,7 @@ final class ApiClient
   private static function buildImageEndpoint(
     Models\Images\Image|string $image,
     ?string $format = null,
-    ?string $size = null
+    ?string $size = null,
   ): string {
     $imageId = self::getId($image, [Models\Images\Image::class]);
     if ($format === null) {

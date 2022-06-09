@@ -45,7 +45,7 @@ class PaginatedResponseTest extends TestCase
     string $modelClass,
     array $itemsData,
     int $pageCount,
-    int $totalItems
+    int $totalItems,
   ): void {
     $response = PaginatedResponse::createForModel($modelClass, [
       'page_count' => $pageCount,

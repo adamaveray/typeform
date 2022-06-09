@@ -7,7 +7,7 @@ set_error_handler(static function (
   int $errorNo,
   string $errorString,
   string $errorFile = '',
-  int $errorLine = 0
+  int $errorLine = 0,
 ): bool {
   throw new \ErrorException($errorString, $errorNo, 1, $errorFile, $errorLine);
 });

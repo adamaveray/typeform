@@ -48,7 +48,7 @@ class OperationTest extends TestCase
     string $expectedType,
     string $expectedPath,
     mixed $expectedValue,
-    Operation $operation
+    Operation $operation,
   ): void {
     $this->assertEquals(
       [
