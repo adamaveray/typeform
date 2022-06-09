@@ -73,11 +73,6 @@ class ModelTest extends TestCase
    */
   public function testConvertTimestamps(\DateTimeInterface $datetime, string $timestamp): void
   {
-    $timestamp = '2000-01-30T12:11:10Z';
-    $datetime = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))
-      ->setDate(2000, 1, 30)
-      ->setTime(12, 11, 10, 123456);
-
     $model = new DummyTimestampModel(['id' => '123', 'dummy_time' => $timestamp]);
     $this->assertEquals(
       $datetime->format('c'),
