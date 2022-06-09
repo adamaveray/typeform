@@ -32,7 +32,7 @@ abstract class Model
     if ($datetime === false) {
       $datetime = \DateTimeImmutable::createFromFormat(self::TIMESTAMP_FORMAT_ALT, $timestamp, new \DateTimeZone('UTC'));
       if ($datetime === false) {
-        throw new \RuntimeException('Invalid timestamp: ' . $timestamp);
+        throw new \RuntimeException('Invalid timestamp');
       }
     }
     return $datetime;
