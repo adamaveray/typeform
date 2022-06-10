@@ -6,7 +6,7 @@ The following utility methods are available on ApiClient instances:
 
 - **`loadRef(SingleRef $ref): Model`**: Load a single referenced item (see the Refs section for more detail). The full referenced item’s Model instance will be returned.
 
-- **`loadCollectionRef(CollectionRef $ref, bool $loadMax = true): Model[]`**: Load a collection of referenced items (see the Refs section for more detail). Pass `false` to `$loadMax` to respect the previously-set default page size rather than attempting to load the maximum items possible. No more than `$apiClient::PAGE_SIZE_MAX` items will be loaded. An array of the full referenced item Model instances will be returned.
+- **`loadCollectionRef(CollectionRef $ref, bool $loadMax = true): list<Model>`**: Load a collection of referenced items (see the Refs section for more detail). Pass `false` to `$loadMax` to respect the previously-set default page size rather than attempting to load the maximum items possible. No more than `$apiClient::PAGE_SIZE_MAX` items will be loaded. An array of the full referenced item Model instances will be returned.
 
 ## Refs
 
@@ -16,7 +16,7 @@ Certain models provide Ref instances referencing either a single item or collect
 
 Requests for single items will return single Model instances, however requests for a collection of items will return PaginatedResponse instances, providing pagination details:
 
-- **`Model[] $items`:** The Model instances for each item in the current page.
+- **`list<Model> $items`:** The Model instances for each item in the current page.
 
 - **`bool $containsAllItems`:** Whether the instance contains all possible items, suggesting pagination is not applicable.
 

@@ -34,6 +34,6 @@ The following methods are available on ApiClient instances to manage workspaces.
 
 - ## `updateWorkspace`
 
-  **`updateWorkspace(string|Workspace|WorkspaceStub $workspace, Operation[]|Operation $operation): Models\Workspaces\Workspace`**
+  **`updateWorkspace(string|Workspace|WorkspaceStub $workspace, list<Operation>|Operation $operation): Models\Workspaces\Workspace`**
 
   Update an existing workspace with one or more operations. [(API docs)](https://developer.typeform.com/create/reference/update-workspace/)

@@ -4,7 +4,7 @@ The following methods are available on ApiClient instances to manage webhooks. U
 
 - ## `getWebhooks`
 
-  **`getWebhooks(string|Models\Forms\Form $form): Webhook[]`**
+  **`getWebhooks(string|Models\Forms\Form $form): list<Webhook>`**
 
   Load all webhooks for a specific form. [(API docs)](https://developer.typeform.com/webhooks/reference/retrieve-webhooks/)
 

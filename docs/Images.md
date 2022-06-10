@@ -4,7 +4,7 @@ The following methods are available on ApiClient instances to manage images. Unl
 
 - ## `getImages`
 
-  **`getImages(): Image[]`**
+  **`getImages(): list<Image>`**
 
   Load all images within the account. [(API docs)](https://developer.typeform.com/create/reference/retrieve-images-collection/)
 

@@ -14,6 +14,6 @@
 
 - ## `rtbfDeleteResponses`
 
-  **`rtbfDeleteResponses(string $accountId, string[] $emails): array`**
+  **`rtbfDeleteResponses(string $accountId, list<string> $emails): array`**
 
   Undefined – see API docs. [(API docs)](https://developer.typeform.com/responses/reference/rtbf-delete-responses/)

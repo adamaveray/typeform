@@ -28,7 +28,7 @@ The following methods are available on ApiClient instances to manage forms. Unle
 
 - ## `updateForm`
 
-  **`updateForm(string|Form|FormStub $form, Operation[]|Operation $operations): void`**
+  **`updateForm(string|Form|FormStub $form, list<Operation>|Operation $operations): void`**
 
   Update an existing form with one or more operations. [(API docs)](https://developer.typeform.com/create/reference/update-form-patch/)
 
@@ -58,7 +58,7 @@ The following methods are available on ApiClient instances to manage forms. Unle
 
 - ## `deleteResponses`
 
-  **`deleteResponses(string|Form|FormStub $form, (string|Response)[] $responses): void`**
+  **`deleteResponses(string|Form|FormStub $form, list<string|Response> $responses): void`**
 
   Delete specific responses from a specified form. [(API docs)](https://developer.typeform.com/responses/reference/delete-responses/)
 
