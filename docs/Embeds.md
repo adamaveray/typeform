@@ -23,7 +23,7 @@ Call `->getEmbed(FormEmbed::TYPE_* $type)` on a `Form` or `FormStub` instance to
 The following types should be passed to `->getEmbed()` calls to determine how the form will be rendered:
 
 - **`FormEmbed::TYPE_INLINE`:** Will render the form directly on the page. See [the API docs](https://developer.typeform.com/embed/inline/) for full details.
--
+
 - **`FormEmbed::TYPE_MODAL`:** Will render a button opening the form in a modal when clicked. See [the API docs](https://developer.typeform.com/embed/modal/) for full details.
 
 ## Configuration
@@ -52,7 +52,7 @@ The `->getHtml()` method provides a simple way to render a form suitable for mos
 
 - **`getHtml(): string`/`__toString(): string`:** Generate the full HTML required to render the form on a page, including loading the JavaScript SDK unless configured otherwise.
 
-- **`getLibHtml(): string`: string`:** Generate the HTML to load only the JavaScript SDK without displaying the form itself, useful for loading the SDK only once if multiple forms will be rendered on the same page.
+- **`getLibHtml(): string`:** Generate the HTML to load only the JavaScript SDK without displaying the form itself, useful for loading the SDK only once if multiple forms will be rendered on the same page.
 
 - **`getFullOptions(): array<string,mixed>`:** Generate the complete set of options able to be used manually in the JavaScript SDK. See [the API docs](https://developer.typeform.com/embed/configuration/#available-options) for the possible options and values.
 
