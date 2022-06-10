@@ -23,7 +23,7 @@ final class Response extends Model
   public function __construct(array $data)
   {
     parent::__construct($data + ['id' => $data['token']]);
-    $this->answers = $data['answers'];
+    $this->answers = $data['answers'] ?? [];
     $this->calculated = $data['calculated'];
     $this->hidden = $data['hidden'];
     $this->metadata = $data['metadata'];
