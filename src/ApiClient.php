@@ -516,13 +516,13 @@ final class ApiClient
    *   until?: string,
    *   after?: string,
    *   before?: string,
-   *   included_response_ids?: string|string[],
-   *   excluded_response_ids?: string|string[],
+   *   included_response_ids?: string|list<string>,
+   *   excluded_response_ids?: string|list<string>,
    *   completed?: bool,
    *   sort?: string,
    *   query?: string,
-   *   fields?: string|string[],
-   *   answered_fields?: string|string[],
+   *   fields?: string|list<string>,
+   *   answered_fields?: string|list<string>,
    * } $options
    * @link https://developer.typeform.com/responses/reference/retrieve-responses/
    */
