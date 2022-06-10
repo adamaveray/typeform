@@ -34,11 +34,11 @@ final class Form extends Model
   /** @psalm-var Refs\SingleRef<Theme> */
   public Refs\SingleRef $theme;
   public array $settings;
-  /** @var Screen[] */
+  /** @var list<Screen> */
   public array $thankyouScreens;
-  /** @var Screen[] */
+  /** @var list<Screen> */
   public array $welcomeScreens;
-  /** @var Field[] */
+  /** @var list<Field> */
   public array $fields;
   public array $links;
 

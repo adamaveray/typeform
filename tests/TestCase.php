@@ -23,7 +23,7 @@ class TestCase extends BaseTestCase
   }
 
   /**
-   * @param MockRequest[] $requests
+   * @param list<MockRequest> $requests
    * @return MockObject&HttpClientInterface
    */
   protected function getMockHttpClient(array $requests, ?string $accessToken = null): MockObject

@@ -25,8 +25,8 @@ final class CollectionRef extends Ref
   }
 
   /**
-   * @return Model[]
-   * @psalm-return T2[]
+   * @return list<Model>
+   * @psalm-return list<T2>
    * @psalm-mutation-free
    */
   public function instantiateCollection(array $data): array

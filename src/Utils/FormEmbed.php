@@ -21,9 +21,9 @@ class FormEmbed
   private const LIB_URL = 'https://embed.typeform.com/next/embed.js';
   private const OPTION_PREFIX = 'data-tf-';
 
-  /** @psalm-var self::TYPE_*[] $types */
+  /** @psalm-var list<self::TYPE_*> $types */
   private static array $types = [self::TYPE_INLINE, self::TYPE_MODAL];
-  /** @psalm-var self::MODAL_*[] $modalTypes */
+  /** @psalm-var list<self::MODAL_*> $modalTypes */
   private static array $modalTypes = [self::MODAL_POPUP, self::MODAL_SLIDER, self::MODAL_SIDETAB, self::MODAL_POPOVER];
 
   /** @readonly */

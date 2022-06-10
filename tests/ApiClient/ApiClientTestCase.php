@@ -16,7 +16,7 @@ class ApiClientTestCase extends TestCase
   protected const DEFAULT_PAGE_SIZE = 123;
 
   /**
-   * @param MockRequest[] $requests
+   * @param list<MockRequest> $requests
    */
   protected function buildClient(array $requests): ApiClient
   {

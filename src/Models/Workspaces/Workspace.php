@@ -8,7 +8,7 @@ namespace AdamAveray\Typeform\Models\Workspaces;
  */
 final class Workspace extends WorkspaceStub
 {
-  /** @var Member[] */
+  /** @var list<Member> */
   public array $members;
 
   public function __construct(array $data)

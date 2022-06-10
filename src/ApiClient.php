@@ -151,7 +151,7 @@ final class ApiClient
    * @param bool $loadMax Whether to attempt to load all referenced items, overriding the default page size
    * @psalm-template TModel of Models\Model
    * @psalm-param Utils\Refs\CollectionRef<TModel> $ref
-   * @psalm-return TModel[]
+   * @psalm-return list<TModel>
    * @see loadRef
    */
   public function loadCollectionRef(Utils\Refs\CollectionRef $ref, bool $loadMax = true): array
@@ -246,7 +246,7 @@ final class ApiClient
 
   /**
    * @param string|Models\Workspaces\WorkspaceStub $workspace A workspace ID or WorkspaceStub instance
-   * @param Utils\Operation[]|Utils\Operation $operations One or more operations to perform on the workspace
+   * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the workspace
    * @link https://developer.typeform.com/create/reference/update-workspace/
    */
   public function updateWorkspace(
@@ -317,9 +317,9 @@ final class ApiClient
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @param Utils\Operation[]|Utils\Operation $operations One or more operations to perform on the form
+   * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the form
    * @psalm-type Op = Utils\Operation<Utils\Operation::TYPE_*, Models\Forms\Form::OPERATION_PATH_*, mixed>
-   * @psalm-param Op[]|Op $operations
+   * @psalm-param list<Op>|Op $operations
    * @link https://developer.typeform.com/create/reference/update-form-patch/
    */
   public function updateForm(
@@ -346,7 +346,7 @@ final class ApiClient
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @return string[]
+   * @return list<string>
    * @psalm-return array<string, string|null>
    * @link https://developer.typeform.com/create/reference/retrieve-custom-form-messages/
    */
@@ -362,7 +362,7 @@ final class ApiClient
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @param string[] $messages
+   * @param list<string> $messages
    * @psalm-param array<string, string|null> $messages
    * @link https://developer.typeform.com/create/reference/update-custom-messages/
    */
@@ -378,7 +378,7 @@ final class ApiClient
   }
 
   /**
-   * @return Models\Images\Image[]
+   * @return list<Models\Images\Image>
    * @link https://developer.typeform.com/create/reference/retrieve-images-collection/
    */
   public function getImages(): array
@@ -557,7 +557,7 @@ final class ApiClient
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @psalm-param (string|Models\Forms\Response)[] $responses Response IDs or Response instances
+   * @psalm-param list<string|Models\Forms\Response> $responses Response IDs or Response instances
    * @link https://developer.typeform.com/responses/reference/delete-responses/
    */
   public function deleteResponses(Models\Forms\Form|Models\Forms\FormStub|string $form, array $responses): void
@@ -619,8 +619,8 @@ final class ApiClient
   }
 
   /**
-   * @param string[] $emails
-   * @return string[]
+   * @param list<string> $emails
+   * @return list<string>
    * @link https://developer.typeform.com/responses/reference/rtbf-delete-responses/
    */
   public function rtbfDeleteResponses(string $accountId, array $emails): array
@@ -630,7 +630,7 @@ final class ApiClient
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @return Models\Forms\Webhook[]
+   * @return list<Models\Forms\Webhook>
    * @link https://developer.typeform.com/webhooks/reference/retrieve-webhooks/
    */
   public function getWebhooks(Models\Forms\Form|Models\Forms\FormStub|string $form): array
@@ -788,7 +788,7 @@ final class ApiClient
   /**
    * Converts a model or ID to an ID
    *
-   * @psalm-param class-string<Models\Model>[] $classNames
+   * @psalm-param list<class-string<Models\Model>> $classNames
    */
   private static function getId(mixed $modelOrId, array $classNames): string
   {
@@ -812,8 +812,8 @@ final class ApiClient
   }
 
   /**
-   * @param Utils\Operation[]|Utils\Operation $operations One or more operations to perform on the form
-   * @return array{ op: Utils\Operation::TYPE_*, path: string, value: mixed }[]
+   * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the form
+   * @return list<array{ op: Utils\Operation::TYPE_*, path: string, value: mixed }>
    * @psalm-pure
    */
   private static function formatOperations(Utils\Operation|array $operations): array

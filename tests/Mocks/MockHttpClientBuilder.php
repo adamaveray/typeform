@@ -20,7 +20,7 @@ class MockHttpClientBuilder
   private TestCase $testCase;
   /** @readonly */
   private MockBuilder $mockBuilder;
-  /** @var MockRequest[] $requests */
+  /** @var list<MockRequest> $requests */
   private array $requests = [];
 
   public function __construct(TestCase $testCase)
@@ -37,7 +37,7 @@ class MockHttpClientBuilder
   }
 
   /**
-   * @param MockRequest[] $requests
+   * @param list<MockRequest> $requests
    * @return $this
    */
   public function addRequests(array $requests): self
