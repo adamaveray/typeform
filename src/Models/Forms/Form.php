@@ -36,7 +36,7 @@ final class Form extends Model
   public array $settings;
   /** @var list<Screen> */
   public array $thankyouScreens;
-  /** @var list<Screen> */
+  /** @var array<empty,Screen> */
   public array $welcomeScreens;
   /** @var list<Field> */
   public array $fields;
@@ -56,7 +56,7 @@ final class Form extends Model
     );
     $this->welcomeScreens = array_map(
       static fn(array $screen): Screen => new Screen($screen),
-      $data['welcome_screens'],
+      $data['welcome_screens'] ?? [],
     );
     $this->fields = array_map(static fn(array $field): Field => new Field($field), $data['fields']);
     $this->links = $data['_links'];
