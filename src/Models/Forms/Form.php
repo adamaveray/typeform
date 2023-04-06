@@ -36,7 +36,7 @@ final class Form extends Model
   public array $settings;
   /** @var list<Screen> */
   public array $thankyouScreens;
-  /** @var list<Screen> */
+  /** @var array<empty,Screen> */
   public array $welcomeScreens;
   /** @var list<Field> */
   public array $fields;
