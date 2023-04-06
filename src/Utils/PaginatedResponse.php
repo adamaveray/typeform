@@ -34,6 +34,7 @@ final class PaginatedResponse
   {
     $this->pageCount = $data['page_count'];
     $this->totalItems = $data['total_items'];
+    /** @psalm-var list<T> */
     $this->items = $data['items'];
     $this->pageItems = \count($this->items);
     $this->containsAllItems = $this->pageCount === 1 && $this->pageItems === $this->totalItems;
@@ -47,11 +48,7 @@ final class PaginatedResponse
    */
   public static function createForModel(string $modelClass, array $data): self
   {
-    $data['items'] = array_map(
-      /** @psalm-suppress UnsafeInstantiation */
-      static fn(array $item): Model => new $modelClass($item),
-      $data['items'],
-    );
+    $data['items'] = array_map(static fn(array $item): Model => new $modelClass($item), $data['items']);
     /** @psalm-var self<TStatic> $instance */
     $instance = new self($data);
     return $instance;

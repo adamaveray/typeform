@@ -36,7 +36,7 @@ final class Form extends Model
   public array $settings;
   /** @var list<Screen> */
   public array $thankyouScreens;
-  /** @var array<empty,Screen> */
+  /** @var list<Screen> */
   public array $welcomeScreens;
   /** @var list<Field> */
   public array $fields;
@@ -50,15 +50,13 @@ final class Form extends Model
     $this->workspace = Workspace::ref($data['workspace']);
     $this->theme = Theme::ref($data['theme']);
     $this->settings = $data['settings'];
-    $this->thankyouScreens = array_map(
-      static fn(array $screen): Screen => new Screen($screen),
-      $data['thankyou_screens'],
-    );
-    $this->welcomeScreens = array_map(
-      static fn(array $screen): Screen => new Screen($screen),
-      $data['welcome_screens'] ?? [],
-    );
-    $this->fields = array_map(static fn(array $field): Field => new Field($field), $data['fields']);
+    $this->thankyouScreens = isset($data['thankyou_screens'])
+      ? array_map(static fn(array $screen): Screen => new Screen($screen), array_values($data['thankyou_screens']))
+      : [];
+    $this->welcomeScreens = isset($data['welcome_screens'])
+      ? array_map(static fn(array $screen): Screen => new Screen($screen), array_values($data['welcome_screens']))
+      : [];
+    $this->fields = array_map(static fn(array $field): Field => new Field($field), array_values($data['fields']));
     $this->links = $data['_links'];
   }
 }

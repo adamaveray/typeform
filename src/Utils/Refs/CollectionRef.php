@@ -20,8 +20,10 @@ final class CollectionRef extends Ref
    */
   public function __construct(string $className, array $data)
   {
-    parent::__construct($className, $data);
     $this->count = $data['count'];
+    unset($data['count']);
+
+    parent::__construct($className, $data);
   }
 
   /**
@@ -32,6 +34,6 @@ final class CollectionRef extends Ref
   public function instantiateCollection(array $data): array
   {
     /** @psalm-suppress ImpureFunctionCall */
-    return array_map(fn(array $item): Model => $this->instantiateOne($item), $data);
+    return array_map(fn(array $item): Model => $this->instantiateOne($item), array_values($data));
   }
 }

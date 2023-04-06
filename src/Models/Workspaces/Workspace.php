@@ -14,6 +14,6 @@ final class Workspace extends WorkspaceStub
   public function __construct(array $data)
   {
     parent::__construct($data);
-    $this->members = array_map(static fn(array $member): Member => new Member($member), $data['members']);
+    $this->members = array_map(static fn(array $member): Member => new Member($member), array_values($data['members']));
   }
 }

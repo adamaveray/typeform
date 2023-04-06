@@ -385,7 +385,7 @@ final class ApiClient
   {
     return array_map(
       static fn(array $image): Models\Images\Image => new Models\Images\Image($image),
-      $this->get('/images'),
+      array_values($this->get('/images')),
     );
   }
 
@@ -625,7 +625,9 @@ final class ApiClient
    */
   public function rtbfDeleteResponses(string $accountId, array $emails): array
   {
-    return $this->makeRequest('DELETE', self::buildEndpoint('/rtbf/%/responses', $accountId), null, $emails)->toArray();
+    $request = $this->makeRequest('DELETE', self::buildEndpoint('/rtbf/%/responses', $accountId), null, $emails);
+    /** @var list<string> */
+    return $request->toArray();
   }
 
   /**
@@ -641,7 +643,7 @@ final class ApiClient
     );
     return array_map(
       static fn(array $item): Models\Forms\Webhook => new Models\Forms\Webhook($item),
-      $this->get($endpoint)['items'], // Docs don't show regular pagination values
+      array_values($this->get($endpoint)['items']), // Docs don't show regular pagination values
     );
   }
 
