@@ -87,15 +87,15 @@ class FormEmbedTest extends TestCase
 
     yield 'Default' => [
       <<<HTML
-      <div data-tf-widget="${formIdSafe}"></div>
-      ${lib}
+      <div data-tf-widget="{$formIdSafe}"></div>
+      {$lib}
       HTML
     ,
     ];
 
     yield 'No lib' => [
       <<<HTML
-      <div data-tf-widget="${formIdSafe}"></div>
+      <div data-tf-widget="{$formIdSafe}"></div>
       HTML
       ,
       static function (FormEmbed $embed): void {
@@ -105,8 +105,8 @@ class FormEmbedTest extends TestCase
 
     yield 'Sync lib' => [
       <<<HTML
-      <div data-tf-widget="${formIdSafe}"></div>
-      ${libSync}
+      <div data-tf-widget="{$formIdSafe}"></div>
+      {$libSync}
       HTML
       ,
       static function (FormEmbed $embed): void {
@@ -117,7 +117,7 @@ class FormEmbedTest extends TestCase
     yield 'Customised' => [
       <<<HTML
       <div
-        data-tf-widget="${formIdSafe}"
+        data-tf-widget="{$formIdSafe}"
         data-tf-replacement-option="replaced-value"
         data-tf-true-option
         data-tf-false-option="0"
@@ -132,7 +132,7 @@ class FormEmbedTest extends TestCase
         data-tf-hide-footer
         data-tf-opacity="0"
       ></div>
-      ${lib}
+      {$lib}
       HTML
       ,
       static function (FormEmbed $embed): void {
@@ -170,15 +170,15 @@ class FormEmbedTest extends TestCase
 
     yield 'Default' => [
       <<<HTML
-      <button data-tf-popup="${formIdSafe}">Open Form</button>
-      ${lib}
+      <button data-tf-popup="{$formIdSafe}">Open Form</button>
+      {$lib}
       HTML
     ,
     ];
 
     yield 'No lib' => [
       <<<HTML
-      <button data-tf-popup="${formIdSafe}">Open Form</button>
+      <button data-tf-popup="{$formIdSafe}">Open Form</button>
       HTML
       ,
       static function (FormEmbed $embed): void {
@@ -188,8 +188,8 @@ class FormEmbedTest extends TestCase
 
     yield 'Sync lib' => [
       <<<HTML
-      <button data-tf-popup="${formIdSafe}">Open Form</button>
-      ${libSync}
+      <button data-tf-popup="{$formIdSafe}">Open Form</button>
+      {$libSync}
       HTML
       ,
       static function (FormEmbed $embed): void {
@@ -200,7 +200,7 @@ class FormEmbedTest extends TestCase
     yield 'Customised' => [
       <<<HTML
       <button
-        data-tf-slider="${formIdSafe}"
+        data-tf-slider="{$formIdSafe}"
         data-tf-replacement-option="replaced-value"
         data-tf-true-option
         data-tf-false-option="0"
@@ -212,7 +212,7 @@ class FormEmbedTest extends TestCase
         data-tf-merge-option="merged-value"
         data-tf-hidden="some_field=field value,another_field=field value 2,merged_field=merge value"
       >New Label</button>
-      ${lib}
+      {$lib}
       HTML
       ,
       static function (FormEmbed $embed): void {
