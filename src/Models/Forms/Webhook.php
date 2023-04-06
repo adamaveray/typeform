@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace AdamAveray\Typeform\Models\Forms;
 
 use AdamAveray\Typeform\Models\Model;
-use AdamAveray\Typeform\Utils\Refs\SingleRef;
 
 /**
  * @psalm-immutable
@@ -20,7 +19,6 @@ class Webhook extends Model
   public ?string $secret;
   public \DateTimeImmutable $createdAt;
   public \DateTimeImmutable $updatedAt;
-  public SingleRef $formRef;
 
   public function __construct(array $data)
   {
@@ -34,6 +32,5 @@ class Webhook extends Model
     $this->secret = $data['secret'] ?? null;
     $this->createdAt = self::convertTimestamp($data['created_at']);
     $this->updatedAt = self::convertTimestamp($data['updated_at']);
-    $this->formRef = new SingleRef(Form::class, $this->formId);
   }
 }
