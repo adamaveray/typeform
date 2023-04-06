@@ -218,7 +218,7 @@ class FormEmbed
 
     $html = match ($this->type) {
       self::TYPE_INLINE => '<div ' . $attrs . '></div>',
-      self::TYPE_MODAL => '<button ' . $attrs . '>' . self::e($this->label) . '</button>'
+      self::TYPE_MODAL => '<button ' . $attrs . '>' . self::e($this->label) . '</button>',
     };
 
     return $html . ($this->loadLib ? $this->getLibHtml() : '');
