@@ -93,7 +93,6 @@ class MockRequest
    */
   public function getResponse(TestCase $testCase): MockObject
   {
-    /** @var MockObject&ResponseInterface $mock */
     $mock = (new MockBuilder($testCase, ResponseInterface::class))
       ->onlyMethods(['toArray', 'getContent'])
       ->getMockForAbstractClass();
