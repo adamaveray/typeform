@@ -31,6 +31,7 @@ abstract class Model
     $format = preg_match('~\.\d+Z$~', $timestamp)
       ? self::TIMESTAMP_FORMAT_MICROSECONDS
       : self::TIMESTAMP_FORMAT_SECONDS;
+    /** @psalm-suppress ImpureMethodCall */
     $datetime = \DateTimeImmutable::createFromFormat($format, $timestamp, new \DateTimeZone('UTC'));
     if ($datetime === false) {
       throw new \RuntimeException('Invalid timestamp');
