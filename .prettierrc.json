@@ -1,5 +1,6 @@
 {
   "phpVersion": "8.0",
+  "plugins": ["@prettier/plugin-php", "@prettier/plugin-xml"],
   "proseWrap": "never",
   "singleQuote": true,
   "trailingComma": "all"
