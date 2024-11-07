@@ -87,9 +87,13 @@ class ModelTest extends TestCase
       ->setDate(2000, 1, 30)
       ->setTime(12, 11, 10, 123456);
 
-    yield 'Whole seconds' => [$datetime, '2000-01-30T12:11:10Z'];
+    yield 'Whole seconds at Zulu' => [$datetime, '2000-01-30T12:11:10Z'];
 
-    yield 'Microseconds' => [$datetime, '2000-01-30T12:11:10.123456Z'];
+    yield 'Microseconds at Zulu' => [$datetime, '2000-01-30T12:11:10.123456Z'];
+
+    yield 'Whole seconds at offset 0' => [$datetime, '2000-01-30T12:11:10+00:00'];
+
+    yield 'Microseconds at offset 0' => [$datetime, '2000-01-30T12:11:10.123456+00:00'];
   }
 
   /**

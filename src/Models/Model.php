@@ -28,6 +28,7 @@ abstract class Model
    */
   protected static function convertTimestamp(string $timestamp): \DateTimeImmutable
   {
+    $timestamp = preg_replace('~[+-]00:00$~', 'Z', $timestamp);
     $format = preg_match('~\.\d+Z$~', $timestamp)
       ? self::TIMESTAMP_FORMAT_MICROSECONDS
       : self::TIMESTAMP_FORMAT_SECONDS;
