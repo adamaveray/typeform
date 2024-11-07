@@ -28,6 +28,8 @@ final class Form extends Model
   public const OPERATION_PATH_WORKSPACE = '/workspace';
 
   public string $title;
+  public \DateTimeImmutable $createdAt;
+  public \DateTimeImmutable $lastUpdatedAt;
   public string $type;
   /** @psalm-var Refs\SingleRef<Workspace> */
   public Refs\SingleRef $workspace;
@@ -46,6 +48,8 @@ final class Form extends Model
   {
     parent::__construct($data);
     $this->title = $data['title'];
+    $this->createdAt = self::convertTimestamp($data['created_at']);
+    $this->lastUpdatedAt = self::convertTimestamp($data['last_updated_at']);
     $this->type = $data['type'];
     $this->workspace = Workspace::ref($data['workspace']);
     $this->theme = Theme::ref($data['theme']);
