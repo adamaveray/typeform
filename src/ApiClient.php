@@ -7,7 +7,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-final class ApiClient
+final class ApiClient implements ApiClientInterface
 {
   private const URL_BASE = 'https://api.typeform.com';
 
@@ -18,24 +18,6 @@ final class ApiClient
   private const QUERY_PARAM_SEARCH = 'search';
   private const QUERY_PARAM_PAGE_NUMBER = 'page';
   private const QUERY_PARAM_PAGE_SIZE = 'page_size';
-
-  public const IMAGE_FORMAT_BACKGROUND = 'background';
-  public const IMAGE_FORMAT_CHOICE = 'choice';
-  public const IMAGE_FORMAT_IMAGE = 'image';
-
-  public const IMAGE_SIZE_BACKGROUND_DEFAULT = 'default';
-  public const IMAGE_SIZE_BACKGROUND_TABLET = 'tablet';
-  public const IMAGE_SIZE_BACKGROUND_MOBILE = 'mobile';
-  public const IMAGE_SIZE_BACKGROUND_THUMBNAIL = 'thumbnail';
-  public const IMAGE_SIZE_CHOICE_DEFAULT = 'default';
-  public const IMAGE_SIZE_CHOICE_THUMBNAIL = 'thumbnail';
-  public const IMAGE_SIZE_CHOICE_SUPERSIZE = 'supersize';
-  public const IMAGE_SIZE_CHOICE_SUPERMOBILE = 'supermobile';
-  public const IMAGE_SIZE_CHOICE_SUPERSIZEFIT = 'supersizefit';
-  public const IMAGE_SIZE_CHOICE_SUPERMOBILEFIT = 'supermobilefit';
-  public const IMAGE_SIZE_IMAGE_DEFAULT = 'default';
-  public const IMAGE_SIZE_IMAGE_MOBILE = 'mobile';
-  public const IMAGE_SIZE_IMAGE_THUMBNAIL = 'thumbnail';
 
   /** @readonly  */
   private static array $imageFormats = [
