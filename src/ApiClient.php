@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace AdamAveray\Typeform;
 
-use PhpParser\Node\Expr\AssignOp\Mod;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
