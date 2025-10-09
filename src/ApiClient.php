@@ -52,7 +52,7 @@ final class ApiClient implements ApiClientInterface
   private readonly HttpClientInterface $httpClient;
   private int $defaultPageSize = 10;
 
-  public function __construct(string $accessToken, ?HttpClientInterface $httpClient = null)
+  public function __construct(#[\SensitiveParameter] string $accessToken, ?HttpClientInterface $httpClient = null)
   {
     $this->accessToken = $accessToken;
     $this->httpClient = $httpClient ?? HttpClient::create();
