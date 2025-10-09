@@ -4,7 +4,7 @@ The following methods are available on ApiClient instances to manage forms. Unle
 
 - ## `getForms`
 
-  **`getForms(?string|Models\Workspaces\WorkspaceStub $workspace = null, ?string $search = null, ?int $page1 = null, ?int $pageSize = null): PaginatedResponse<FormStub>`**
+  **`getForms(string|Models\Workspaces\WorkspaceStub|null $workspace = null, ?string $search = null, ?int $page1 = null, ?int $pageSize = null): PaginatedResponse<FormStub>`**
 
   Load all forms, optionally limited to a specific workspace. [(API docs)](https://developer.typeform.com/create/reference/retrieve-forms/)
 

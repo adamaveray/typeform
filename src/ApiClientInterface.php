@@ -101,7 +101,7 @@ interface ApiClientInterface
    * @link https://developer.typeform.com/create/reference/retrieve-forms/
    */
   public function getForms(
-    Models\Workspaces\WorkspaceStub|string $workspace = null,
+    Models\Workspaces\WorkspaceStub|string|null $workspace = null,
     ?string $search = null,
     ?int $page1 = null,
     ?int $pageSize = null,
