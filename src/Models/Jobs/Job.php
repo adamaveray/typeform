@@ -8,6 +8,4 @@ use AdamAveray\Typeform\Models\Model;
 /**
  * @psalm-immutable
  */
-class Job extends Model
-{
-}
+class Job extends Model {}

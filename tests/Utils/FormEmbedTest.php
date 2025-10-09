@@ -83,9 +83,7 @@ class FormEmbedTest extends TestCase
   {
     $formIdSafe = self::e($formId);
     $lib = (new FormEmbed($formId, FormEmbed::TYPE_INLINE))->getLibHtml();
-    $libSync = (new FormEmbed($formId, FormEmbed::TYPE_INLINE))
-      ->setLoadLib(true, false)
-      ->getLibHtml();
+    $libSync = (new FormEmbed($formId, FormEmbed::TYPE_INLINE))->setLoadLib(true, false)->getLibHtml();
 
     yield 'Default' => [
       <<<HTML
@@ -168,9 +166,7 @@ class FormEmbedTest extends TestCase
   {
     $formIdSafe = self::e($formId);
     $lib = (new FormEmbed($formId, FormEmbed::TYPE_MODAL))->getLibHtml();
-    $libSync = (new FormEmbed($formId, FormEmbed::TYPE_MODAL))
-      ->setLoadLib(true, false)
-      ->getLibHtml();
+    $libSync = (new FormEmbed($formId, FormEmbed::TYPE_MODAL))->setLoadLib(true, false)->getLibHtml();
 
     yield 'Default' => [
       <<<HTML
