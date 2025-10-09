@@ -15,7 +15,6 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
         php-version: [8.0, 8.1, 8.2, 8.3, 8.4]
 
     env:
@@ -24,10 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+      - name: Use Bun ${{ matrix.bun-version }}
+        uses: oven-sh/setup-bun@v1
+        with: { bun-version: latest }
 
       - name: Use PHP ${{ matrix.php-version }}
         uses: shivammathur/setup-php@v2
@@ -62,13 +60,13 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install NPM packages
-        run: npm ci --no-audit
+        run: bun install --frozen-lockfile
 
       - name: Install Composer packages
         run: composer install
 
       - name: Check code format
-        run: composer run-script format-check
+        run: bun run-script format-check
 
       - name: Check code format
         run: composer run-script analyze

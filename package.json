@@ -1,5 +1,9 @@
 {
   "private": true,
+  "scripts": {
+    "format": "bun --bun x prettier --write src/ tests/ .github/ *.{md,xml,json} .*.json",
+    "format-check": "bun --bun x prettier --check src/ tests/ .github/ *.{md,xml,json} .*.json"
+  },
   "devDependencies": {
     "@prettier/plugin-php": "^0.24.0",
     "@prettier/plugin-xml": "^3.4.2",

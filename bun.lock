@@ -1,0 +1,29 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "devDependencies": {
+        "@prettier/plugin-php": "^0.24.0",
+        "@prettier/plugin-xml": "^3.4.2",
+        "prettier": "^3.6.2",
+      },
+    },
+  },
+  "packages": {
+    "@prettier/plugin-php": ["@prettier/plugin-php@0.24.0", "", { "dependencies": { "linguist-languages": "^8.0.0", "php-parser": "^3.2.5" }, "peerDependencies": { "prettier": "^3.0.0" } }, "sha512-x9l65fCE/pgoET6RQowgdgG8Xmzs44z6j6Hhg3coINCyCw9JBGJ5ZzMR2XHAM2jmAdbJAIgqB6cUn4/3W3XLTA=="],
+
+    "@prettier/plugin-xml": ["@prettier/plugin-xml@3.4.2", "", { "dependencies": { "@xml-tools/parser": "^1.0.11" }, "peerDependencies": { "prettier": "^3.0.0" } }, "sha512-/UyNlHfkuLXG6Ed85KB0WBF283xn2yavR+UtRibBRUcvEJId2DSLdGXwJ/cDa1X++SWDPzq3+GSFniHjkNy7yg=="],
+
+    "@xml-tools/parser": ["@xml-tools/parser@1.0.11", "", { "dependencies": { "chevrotain": "7.1.1" } }, "sha512-aKqQ077XnR+oQtHJlrAflaZaL7qZsulWc/i/ZEooar5JiWj1eLt0+Wg28cpa+XLney107wXqneC+oG1IZvxkTA=="],
+
+    "chevrotain": ["chevrotain@7.1.1", "", { "dependencies": { "regexp-to-ast": "0.5.0" } }, "sha512-wy3mC1x4ye+O+QkEinVJkPf5u2vsrDIYW9G7ZuwFl6v/Yu0LwUuT2POsb+NUWApebyxfkQq6+yDfRExbnI5rcw=="],
+
+    "linguist-languages": ["linguist-languages@8.2.0", "", {}, "sha512-KCUUH9x97QWYU0SXOCGxUrZR6cSfuQrMhABB7L/0I8N0LXOeaKe7+RZs7FAwvWCV2qKfZ4Wv1luLq4OfMezSJg=="],
+
+    "php-parser": ["php-parser@3.2.5", "", {}, "sha512-M1ZYlALFFnESbSdmRtTQrBFUHSriHgPhgqtTF/LCbZM4h7swR5PHtUceB2Kzby5CfqcsYwBn7OXTJ0+8Sajwkw=="],
+
+    "prettier": ["prettier@3.6.2", "", { "bin": "bin/prettier.cjs" }, "sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ=="],
+
+    "regexp-to-ast": ["regexp-to-ast@0.5.0", "", {}, "sha512-tlbJqcMHnPKI9zSrystikWKwHkBqu2a/Sgw01h3zFjvYrMxEDYHzzoMZnUrbIfpTFEsoRnnviOXNCzFiSc54Qw=="],
+  }
+}

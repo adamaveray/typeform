@@ -16,8 +16,6 @@
   ],
   "scripts": {
     "analyze": "./vendor/bin/psalm",
-    "format": "npx prettier --write src/ tests/ .github/ *.{md,xml,json} .*.json",
-    "format-check": "npx prettier --check src/ tests/ .github/ *.{md,xml,json} .*.json",
     "scan-malware": "php vendor/marcocesarato/amwscan/dist/scanner",
     "test": "./vendor/bin/phpunit"
   },
