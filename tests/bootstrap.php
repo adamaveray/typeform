@@ -8,6 +8,6 @@ set_error_handler(static function (
   string $errorString,
   string $errorFile = '',
   int $errorLine = 0,
-): bool {
+): never {
   throw new \ErrorException($errorString, $errorNo, 1, $errorFile, $errorLine);
 });
