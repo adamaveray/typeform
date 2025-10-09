@@ -3,25 +3,93 @@ declare(strict_types=1);
 
 namespace AdamAveray\Typeform;
 
+use AdamAveray\Typeform\Utils\OperationType;
+use AdamAveray\Typeform\Values\Images\ImageFormat;
+use AdamAveray\Typeform\Values\Images\Sizes;
+
 interface ApiClientInterface
 {
-  public const IMAGE_FORMAT_BACKGROUND = 'background';
-  public const IMAGE_FORMAT_CHOICE = 'choice';
-  public const IMAGE_FORMAT_IMAGE = 'image';
+  /**
+   * @deprecated
+   * @see ImageFormat::Background
+   */
+  public const IMAGE_FORMAT_BACKGROUND = ImageFormat::Background->value;
+  /**
+   * @deprecated
+   * @see ImageFormat::Choice
+   */
+  public const IMAGE_FORMAT_CHOICE = ImageFormat::Choice->value;
+  /**
+   * @deprecated
+   * @see ImageFormat::Image
+   */
+  public const IMAGE_FORMAT_IMAGE = ImageFormat::Image->value;
 
-  public const IMAGE_SIZE_BACKGROUND_DEFAULT = 'default';
-  public const IMAGE_SIZE_BACKGROUND_TABLET = 'tablet';
-  public const IMAGE_SIZE_BACKGROUND_MOBILE = 'mobile';
-  public const IMAGE_SIZE_BACKGROUND_THUMBNAIL = 'thumbnail';
-  public const IMAGE_SIZE_CHOICE_DEFAULT = 'default';
-  public const IMAGE_SIZE_CHOICE_THUMBNAIL = 'thumbnail';
-  public const IMAGE_SIZE_CHOICE_SUPERSIZE = 'supersize';
-  public const IMAGE_SIZE_CHOICE_SUPERMOBILE = 'supermobile';
-  public const IMAGE_SIZE_CHOICE_SUPERSIZEFIT = 'supersizefit';
-  public const IMAGE_SIZE_CHOICE_SUPERMOBILEFIT = 'supermobilefit';
-  public const IMAGE_SIZE_IMAGE_DEFAULT = 'default';
-  public const IMAGE_SIZE_IMAGE_MOBILE = 'mobile';
-  public const IMAGE_SIZE_IMAGE_THUMBNAIL = 'thumbnail';
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeBackground::Default
+   */
+  public const IMAGE_SIZE_BACKGROUND_DEFAULT = Sizes\ImageSizeBackground::Default->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeBackground::Tablet
+   */
+  public const IMAGE_SIZE_BACKGROUND_TABLET = Sizes\ImageSizeBackground::Tablet->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeBackground::Mobile
+   */
+  public const IMAGE_SIZE_BACKGROUND_MOBILE = Sizes\ImageSizeBackground::Mobile->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeBackground::Thumbnail
+   */
+  public const IMAGE_SIZE_BACKGROUND_THUMBNAIL = Sizes\ImageSizeBackground::Thumbnail->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeChoice::Default
+   */
+  public const IMAGE_SIZE_CHOICE_DEFAULT = Sizes\ImageSizeChoice::Default->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeChoice::Thumbnail
+   */
+  public const IMAGE_SIZE_CHOICE_THUMBNAIL = Sizes\ImageSizeChoice::Thumbnail->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeChoice::Supersize
+   */
+  public const IMAGE_SIZE_CHOICE_SUPERSIZE = Sizes\ImageSizeChoice::Supersize->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeChoice::Supermobile
+   */
+  public const IMAGE_SIZE_CHOICE_SUPERMOBILE = Sizes\ImageSizeChoice::Supermobile->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeChoice::Supersizefit
+   */
+  public const IMAGE_SIZE_CHOICE_SUPERSIZEFIT = Sizes\ImageSizeChoice::Supersizefit->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeChoice::Supermobilefit
+   */
+  public const IMAGE_SIZE_CHOICE_SUPERMOBILEFIT = Sizes\ImageSizeChoice::Supermobilefit->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeImage::Default
+   */
+  public const IMAGE_SIZE_IMAGE_DEFAULT = Sizes\ImageSizeImage::Default->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeImage::Mobile
+   */
+  public const IMAGE_SIZE_IMAGE_MOBILE = Sizes\ImageSizeImage::Mobile->value;
+  /**
+   * @deprecated
+   * @see Sizes\ImageSizeImage::Thumbnail
+   */
+  public const IMAGE_SIZE_IMAGE_THUMBNAIL = Sizes\ImageSizeImage::Thumbnail->value;
 
   public function setDefaultPageSize(int $defaultPageSize): void;
 
@@ -124,7 +192,7 @@ interface ApiClientInterface
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the form
-   * @psalm-type Op = Utils\Operation<Utils\Operation::TYPE_*, Models\Forms\Form::OPERATION_PATH_*, mixed>
+   * @psalm-type Op = Utils\Operation<OperationType, Models\Forms\Form::OPERATION_PATH_*, mixed>
    * @psalm-param list<Op>|Op $operations
    * @link https://developer.typeform.com/create/reference/update-form-patch/
    */
@@ -159,8 +227,6 @@ interface ApiClientInterface
   public function getImages(): array;
   /**
    * @param string|Models\Images\Image $image An image ID or Image instance
-   * @psalm-param null|self::IMAGE_FORMAT_* $format
-   * @psalm-param null|self::IMAGE_SIZE_* $size
    * @link https://developer.typeform.com/create/reference/retrieve-image/
    * @link https://developer.typeform.com/create/reference/retrieve-background-by-size/
    * @link https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/
@@ -174,8 +240,6 @@ interface ApiClientInterface
 
   /**
    * @param string|Models\Images\Image $image An image ID or Image instance
-   * @psalm-param null|self::IMAGE_FORMAT_* $format
-   * @psalm-param null|self::IMAGE_SIZE_* $size
    * @link https://developer.typeform.com/create/reference/retrieve-image/
    * @link https://developer.typeform.com/create/reference/retrieve-background-by-size/
    * @link https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/

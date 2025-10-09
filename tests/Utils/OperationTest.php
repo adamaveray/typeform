@@ -5,6 +5,7 @@ namespace AdamAveray\Typeform\Tests\Utils;
 
 use AdamAveray\Typeform\Tests\TestCase;
 use AdamAveray\Typeform\Utils\Operation;
+use AdamAveray\Typeform\Utils\OperationType;
 
 /**
  * @coversDefaultClass Operation
@@ -17,7 +18,7 @@ class OperationTest extends TestCase
   public function testAdd(): void
   {
     $this->assertOperationFormats(
-      self::getConst(Operation::class, 'TYPE_ADD'),
+      OperationType::Add,
       self::TEST_PATH,
       self::TEST_VALUE,
       Operation::add(self::TEST_PATH, self::TEST_VALUE),
@@ -27,7 +28,7 @@ class OperationTest extends TestCase
   public function testRemove(): void
   {
     $this->assertOperationFormats(
-      self::getConst(Operation::class, 'TYPE_REMOVE'),
+      OperationType::Remove,
       self::TEST_PATH,
       self::TEST_VALUE,
       Operation::remove(self::TEST_PATH, self::TEST_VALUE),
@@ -37,7 +38,7 @@ class OperationTest extends TestCase
   public function testReplace(): void
   {
     $this->assertOperationFormats(
-      self::getConst(Operation::class, 'TYPE_REPLACE'),
+      OperationType::Replace,
       self::TEST_PATH,
       self::TEST_VALUE,
       Operation::replace(self::TEST_PATH, self::TEST_VALUE),
@@ -45,14 +46,14 @@ class OperationTest extends TestCase
   }
 
   private function assertOperationFormats(
-    string $expectedType,
+    OperationType $expectedType,
     string $expectedPath,
     mixed $expectedValue,
     Operation $operation,
   ): void {
     $this->assertEquals(
       [
-        'op' => $expectedType,
+        'op' => $expectedType->value,
         'path' => $expectedPath,
         'value' => $expectedValue,
       ],

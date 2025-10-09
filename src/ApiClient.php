@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace AdamAveray\Typeform;
 
+use AdamAveray\Typeform\Utils\OperationType;
+use AdamAveray\Typeform\Values\Images\ImageFormat;
+use AdamAveray\Typeform\Values\Images\Sizes\ImageSizeBackground;
+use AdamAveray\Typeform\Values\Images\Sizes\ImageSizeChoice;
+use AdamAveray\Typeform\Values\Images\Sizes\ImageSizeImage;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -18,35 +23,6 @@ final class ApiClient implements ApiClientInterface
   private const QUERY_PARAM_SEARCH = 'search';
   private const QUERY_PARAM_PAGE_NUMBER = 'page';
   private const QUERY_PARAM_PAGE_SIZE = 'page_size';
-
-  /** @readonly  */
-  private static array $imageFormats = [
-    self::IMAGE_FORMAT_BACKGROUND,
-    self::IMAGE_FORMAT_CHOICE,
-    self::IMAGE_FORMAT_IMAGE,
-  ];
-  /** @readonly  */
-  private static array $imageSizes = [
-    self::IMAGE_FORMAT_BACKGROUND => [
-      self::IMAGE_SIZE_BACKGROUND_DEFAULT,
-      self::IMAGE_SIZE_BACKGROUND_TABLET,
-      self::IMAGE_SIZE_BACKGROUND_MOBILE,
-      self::IMAGE_SIZE_BACKGROUND_THUMBNAIL,
-    ],
-    self::IMAGE_FORMAT_CHOICE => [
-      self::IMAGE_SIZE_CHOICE_DEFAULT,
-      self::IMAGE_SIZE_CHOICE_THUMBNAIL,
-      self::IMAGE_SIZE_CHOICE_SUPERSIZE,
-      self::IMAGE_SIZE_CHOICE_SUPERMOBILE,
-      self::IMAGE_SIZE_CHOICE_SUPERSIZEFIT,
-      self::IMAGE_SIZE_CHOICE_SUPERMOBILEFIT,
-    ],
-    self::IMAGE_FORMAT_IMAGE => [
-      self::IMAGE_SIZE_IMAGE_DEFAULT,
-      self::IMAGE_SIZE_IMAGE_MOBILE,
-      self::IMAGE_SIZE_IMAGE_THUMBNAIL,
-    ],
-  ];
 
   private readonly string $accessToken;
   private readonly HttpClientInterface $httpClient;
@@ -297,7 +273,7 @@ final class ApiClient implements ApiClientInterface
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the form
-   * @psalm-type Op = Utils\Operation<Utils\Operation::TYPE_*, Models\Forms\Form::OPERATION_PATH_*, mixed>
+   * @psalm-type Op = Utils\Operation<OperationType, Models\Forms\Form::OPERATION_PATH_*, mixed>
    * @psalm-param list<Op>|Op $operations
    * @link https://developer.typeform.com/create/reference/update-form-patch/
    */
@@ -370,8 +346,6 @@ final class ApiClient implements ApiClientInterface
 
   /**
    * @param string|Models\Images\Image $image An image ID or Image instance
-   * @psalm-param null|self::IMAGE_FORMAT_* $format
-   * @psalm-param null|self::IMAGE_SIZE_* $size
    * @link https://developer.typeform.com/create/reference/retrieve-image/
    * @link https://developer.typeform.com/create/reference/retrieve-background-by-size/
    * @link https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/
@@ -379,8 +353,8 @@ final class ApiClient implements ApiClientInterface
    */
   public function getImage(
     Models\Images\Image|string $image,
-    ?string $format = null,
-    ?string $size = null,
+    string|ImageFormat|null $format = null,
+    string|ImageSizeBackground|ImageSizeChoice|ImageSizeImage|null $size = null,
   ): Models\Images\Image {
     $endpoint = self::buildImageEndpoint($image, $format, $size);
     $data = $this->get($endpoint);
@@ -389,8 +363,6 @@ final class ApiClient implements ApiClientInterface
 
   /**
    * @param string|Models\Images\Image $image An image ID or Image instance
-   * @psalm-param null|self::IMAGE_FORMAT_* $format
-   * @psalm-param null|self::IMAGE_SIZE_* $size
    * @link https://developer.typeform.com/create/reference/retrieve-image/
    * @link https://developer.typeform.com/create/reference/retrieve-background-by-size/
    * @link https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/
@@ -398,8 +370,8 @@ final class ApiClient implements ApiClientInterface
    */
   public function getImageSource(
     Models\Images\Image|string $image,
-    ?string $format = null,
-    ?string $size = null,
+    string|ImageFormat|null $format = null,
+    string|ImageSizeBackground|ImageSizeChoice|ImageSizeImage|null $size = null,
   ): string {
     $endpoint = self::buildImageEndpoint($image, $format, $size);
     return $this->makeRequest('GET', self::URL_BASE . $endpoint, null, null, false)->getContent();
@@ -745,25 +717,24 @@ final class ApiClient implements ApiClientInterface
 
   private static function buildImageEndpoint(
     Models\Images\Image|string $image,
-    ?string $format = null,
-    ?string $size = null,
+    string|ImageFormat|null $format = null,
+    string|ImageSizeBackground|ImageSizeChoice|ImageSizeImage|null $size = null,
   ): string {
+    // Convert legacy strings to enum cases
+    if (\is_string($format)) {
+      $format = ImageFormat::from($format);
+    }
+    if (\is_string($size)) {
+      $size = $format === null ? null : $format->getSizeEnum()::from($size);
+    }
+
     $imageId = self::getId($image, [Models\Images\Image::class]);
     if ($format === null) {
       return self::buildEndpoint('/images/%', $imageId);
     }
 
-    if (!\in_array($format, self::$imageFormats, true)) {
-      throw new \OutOfBoundsException('Invalid image format');
-    }
-    $validSizes = self::$imageSizes[$format];
-    if ($size === null) {
-      // Use default value
-      $size = $validSizes[0];
-    } elseif (!\in_array($size, $validSizes, false)) {
-      throw new \OutOfBoundsException('Invalid image size');
-    }
-    return self::buildEndpoint('/images/%/%/%', $imageId, $format, $size);
+    $size ??= $format->getSizes()[0];
+    return self::buildEndpoint('/images/%/%/%', $imageId, $format->value, $size->value);
   }
 
   /**
@@ -794,7 +765,7 @@ final class ApiClient implements ApiClientInterface
 
   /**
    * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the form
-   * @return list<array{ op: Utils\Operation::TYPE_*, path: string, value: mixed }>
+   * @return list<array{ op: string, path: string, value: mixed }>
    * @psalm-pure
    */
   private static function formatOperations(Utils\Operation|array $operations): array

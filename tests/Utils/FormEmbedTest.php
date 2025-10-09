@@ -8,6 +8,8 @@ use AdamAveray\Typeform\Models\Forms\FormStub;
 use AdamAveray\Typeform\Models\Model;
 use AdamAveray\Typeform\Tests\TestCase;
 use AdamAveray\Typeform\Utils\FormEmbed;
+use AdamAveray\Typeform\Utils\FormEmbedModalType;
+use AdamAveray\Typeform\Utils\FormEmbedType;
 
 /**
  * @coversDefaultClass FormEmbed
@@ -21,7 +23,7 @@ class FormEmbedTest extends TestCase
    */
   public function testGetLibHtml(string $expected, bool $loadLib, bool $async): void
   {
-    $embed = new FormEmbed('123', FormEmbed::TYPE_MODAL);
+    $embed = new FormEmbed('123', FormEmbedType::Modal);
     $embed->setLoadLib($loadLib, $async);
     $this->assertEquals($expected, $embed->getLibHtml(), 'The correct lib HTML should be generated');
   }
@@ -36,11 +38,14 @@ class FormEmbedTest extends TestCase
 
   /**
    * @dataProvider generationDataProvider
-   * @psalm-param FormEmbed::TYPE_* $type
    * @psalm-param (callable(FormEmbed):void)|null $configurator
    */
-  public function testGeneration(string $expected, string $formId, string $type, ?callable $configurator = null): void
-  {
+  public function testGeneration(
+    string $expected,
+    string $formId,
+    FormEmbedType|string $type,
+    ?callable $configurator = null,
+  ): void {
     // Strip expected newlines & indentation
     $expected = str_replace("\n", '', preg_replace('~\n +~', ' ', $expected));
 
@@ -64,6 +69,13 @@ class FormEmbedTest extends TestCase
       yield 'Inline: ' . $key => [
         'expected' => $case[0],
         'formId' => $formId,
+        'type' => FormEmbedType::Inline,
+        'generator' => $case[1] ?? null,
+      ];
+      /** @psalm-suppress DeprecatedConstant Testing deprecated behaviour. */
+      yield 'Inline (Legacy): ' . $key => [
+        'expected' => $case[0],
+        'formId' => $formId,
         'type' => FormEmbed::TYPE_INLINE,
         'generator' => $case[1] ?? null,
       ];
@@ -71,6 +83,13 @@ class FormEmbedTest extends TestCase
 
     foreach ($this->getModalGenerationCases($formId) as $key => $case) {
       yield 'Modal: ' . $key => [
+        'expected' => $case[0],
+        'formId' => $formId,
+        'type' => FormEmbedType::Modal,
+        'generator' => $case[1] ?? null,
+      ];
+      /** @psalm-suppress DeprecatedConstant Testing deprecated behaviour. */
+      yield 'Modal (Legacy): ' . $key => [
         'expected' => $case[0],
         'formId' => $formId,
         'type' => FormEmbed::TYPE_MODAL,
@@ -82,8 +101,8 @@ class FormEmbedTest extends TestCase
   private function getInlineGenerationCases(string $formId): iterable
   {
     $formIdSafe = self::e($formId);
-    $lib = (new FormEmbed($formId, FormEmbed::TYPE_INLINE))->getLibHtml();
-    $libSync = (new FormEmbed($formId, FormEmbed::TYPE_INLINE))->setLoadLib(true, false)->getLibHtml();
+    $lib = (new FormEmbed($formId, FormEmbedType::Inline))->getLibHtml();
+    $libSync = (new FormEmbed($formId, FormEmbedType::Inline))->setLoadLib(true, false)->getLibHtml();
 
     yield 'Default' => [
       <<<HTML
@@ -165,8 +184,8 @@ class FormEmbedTest extends TestCase
   private function getModalGenerationCases(string $formId): iterable
   {
     $formIdSafe = self::e($formId);
-    $lib = (new FormEmbed($formId, FormEmbed::TYPE_MODAL))->getLibHtml();
-    $libSync = (new FormEmbed($formId, FormEmbed::TYPE_MODAL))->setLoadLib(true, false)->getLibHtml();
+    $lib = (new FormEmbed($formId, FormEmbedType::Modal))->getLibHtml();
+    $libSync = (new FormEmbed($formId, FormEmbedType::Modal))->setLoadLib(true, false)->getLibHtml();
 
     yield 'Default' => [
       <<<HTML
@@ -237,7 +256,7 @@ class FormEmbedTest extends TestCase
           ->setHiddenFields(['merged_field' => 'merge value']);
 
         // Modal-specific
-        $embed->setLabel('New Label')->setModalType($embed::MODAL_SLIDER);
+        $embed->setLabel('New Label')->setModalType(FormEmbedModalType::Slider);
       },
     ];
   }
@@ -277,7 +296,7 @@ class FormEmbedTest extends TestCase
   public function testSetSeamlessOnModal(): void
   {
     $this->expectException(\BadMethodCallException::class);
-    (new FormEmbed('abc', FormEmbed::TYPE_MODAL))->setSeamless();
+    (new FormEmbed('abc', FormEmbedType::Modal))->setSeamless();
   }
 
   /**
@@ -286,7 +305,7 @@ class FormEmbedTest extends TestCase
   public function testSetLabelOnInline(): void
   {
     $this->expectException(\BadMethodCallException::class);
-    (new FormEmbed('abc', FormEmbed::TYPE_INLINE))->setLabel('Label');
+    (new FormEmbed('abc', FormEmbedType::Inline))->setLabel('Label');
   }
 
   /**
@@ -295,7 +314,7 @@ class FormEmbedTest extends TestCase
   public function testSetModalTypeOnInline(): void
   {
     $this->expectException(\BadMethodCallException::class);
-    (new FormEmbed('abc', FormEmbed::TYPE_INLINE))->setModalType(FormEmbed::MODAL_POPOVER);
+    (new FormEmbed('abc', FormEmbedType::Inline))->setModalType(FormEmbedModalType::Popover);
   }
 
   /**
@@ -303,9 +322,8 @@ class FormEmbedTest extends TestCase
    */
   public function testSetInvalidModalType(): void
   {
-    $this->expectException(\InvalidArgumentException::class);
-    /** @psalm-suppress InvalidArgument */
-    (new FormEmbed('abc', FormEmbed::TYPE_MODAL))->setModalType('not-a-modal-type');
+    $this->expectException(\ValueError::class);
+    (new FormEmbed('abc', FormEmbedType::Modal))->setModalType('not-a-modal-type');
   }
 
   /**
@@ -313,8 +331,7 @@ class FormEmbedTest extends TestCase
    */
   public function testInvalidType(): void
   {
-    $this->expectException(\InvalidArgumentException::class);
-    /** @psalm-suppress InvalidArgument */
+    $this->expectException(\ValueError::class);
     new FormEmbed('abc', 'unknown-type');
   }
 

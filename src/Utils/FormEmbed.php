@@ -12,27 +12,44 @@ use AdamAveray\Typeform\Models\Forms\FormStub;
  */
 class FormEmbed
 {
-  public const TYPE_INLINE = 'inline';
-  public const TYPE_MODAL = 'modal';
-  public const MODAL_POPUP = 'popup';
-  public const MODAL_SLIDER = 'slider';
-  public const MODAL_SIDETAB = 'sidetab';
-  public const MODAL_POPOVER = 'popover';
+  /**
+   * @deprecated
+   * @see FormEmbedType::Inline
+   */
+  public const TYPE_INLINE = FormEmbedType::Inline->value;
+  /**
+   * @deprecated
+   * @see FormEmbedType::Modal
+   */
+  public const TYPE_MODAL = FormEmbedType::Modal->value;
+
+  /**
+   * @deprecated
+   * @see FormEmbedModalType::Popup
+   */
+  public const MODAL_POPUP = FormEmbedModalType::Popup->value;
+  /**
+   * @deprecated
+   * @see FormEmbedModalType::Slider
+   */
+  public const MODAL_SLIDER = FormEmbedModalType::Slider->value;
+  /**
+   * @deprecated
+   * @see FormEmbedModalType::Sidetab
+   */
+  public const MODAL_SIDETAB = FormEmbedModalType::Sidetab->value;
+  /**
+   * @deprecated
+   * @see FormEmbedModalType::Popover
+   */
+  public const MODAL_POPOVER = FormEmbedModalType::Popover->value;
+
   private const LIB_URL = 'https://embed.typeform.com/next/embed.js';
   private const OPTION_PREFIX = 'data-tf-';
 
-  /** @psalm-var list<self::TYPE_*> $types */
-  private static array $types = [self::TYPE_INLINE, self::TYPE_MODAL];
-  /** @psalm-var list<self::MODAL_*> $modalTypes */
-  private static array $modalTypes = [self::MODAL_POPUP, self::MODAL_SLIDER, self::MODAL_SIDETAB, self::MODAL_POPOVER];
-
   private readonly string $formId;
-  /**
-   * @psalm-var self::TYPE_* $type
-   */
-  private readonly string $type;
-  /** @psalm-var self::MODAL_* $modalType */
-  private string $modalType = self::MODAL_POPUP;
+  private readonly FormEmbedType $type;
+  private FormEmbedModalType $modalType = FormEmbedModalType::Popup;
   private bool $loadLib = true;
   private bool $loadLibAsync = true;
   private bool $seamless = false;
@@ -42,15 +59,13 @@ class FormEmbed
   /** @psalm-var HiddenFields */
   private array $hiddenFields = [];
 
-  /**
-   * @param string|Form|FormStub $form
-   * @psalm-param self::TYPE_* $type
-   */
-  public function __construct($form, string $type)
+  public function __construct(string|Form|FormStub $form, FormEmbedType|string $type)
   {
-    if (!\in_array($type, self::$types, true)) {
-      throw new \InvalidArgumentException('Invalid embed type');
+    // Convert legacy string to enum case
+    if (\is_string($type)) {
+      $type = FormEmbedType::from($type);
     }
+
     $this->formId = $form instanceof Form || $form instanceof FormStub ? $form->id : $form;
     $this->type = $type;
   }
@@ -73,7 +88,7 @@ class FormEmbed
    */
   public function setSeamless(bool $seamless = true): self
   {
-    if ($this->type !== self::TYPE_INLINE) {
+    if ($this->type !== FormEmbedType::Inline) {
       throw new \BadMethodCallException('Only inline embeds can be seamless');
     }
     $this->seamless = $seamless;
@@ -86,7 +101,7 @@ class FormEmbed
    */
   public function setLabel(string $label): self
   {
-    if ($this->type !== self::TYPE_MODAL) {
+    if ($this->type !== FormEmbedType::Modal) {
       throw new \BadMethodCallException('Only modal embeds can have labels');
     }
     $this->label = $label;
@@ -94,16 +109,17 @@ class FormEmbed
   }
 
   /**
-   * @psalm-param self::MODAL_* $modalType
    * @return $this
    */
-  public function setModalType(string $modalType): self
+  public function setModalType(string|FormEmbedModalType $modalType): self
   {
-    if ($this->type !== self::TYPE_MODAL) {
-      throw new \BadMethodCallException('Only modal embeds can have modal types');
+    // Convert legacy string to enum case
+    if (\is_string($modalType)) {
+      $modalType = FormEmbedModalType::from($modalType);
     }
-    if (!in_array($modalType, self::$modalTypes, true)) {
-      throw new \InvalidArgumentException('Invalid modal type');
+
+    if ($this->type !== FormEmbedType::Modal) {
+      throw new \BadMethodCallException('Only modal embeds can have modal types');
     }
     $this->modalType = $modalType;
     return $this;
@@ -179,7 +195,7 @@ class FormEmbed
     }
 
     switch ($this->type) {
-      case self::TYPE_INLINE:
+      case FormEmbedType::Inline:
         /** @psalm-var array<string,Option|null> $options */
         $options = array_merge(['widget' => $this->formId], $options);
         if ($this->seamless) {
@@ -189,9 +205,9 @@ class FormEmbed
         }
         break;
 
-      case self::TYPE_MODAL:
+      case FormEmbedType::Modal:
         /** @psalm-var array<string,Option|null> $options */
-        $options = array_merge([$this->modalType => $this->formId], $options);
+        $options = array_merge([$this->modalType->value => $this->formId], $options);
         break;
     }
 
@@ -215,8 +231,8 @@ class FormEmbed
     $attrs = $this->getHtmlAttrs();
 
     $html = match ($this->type) {
-      self::TYPE_INLINE => '<div ' . $attrs . '></div>',
-      self::TYPE_MODAL => '<button ' . $attrs . '>' . self::e($this->label) . '</button>',
+      FormEmbedType::Inline => '<div ' . $attrs . '></div>',
+      FormEmbedType::Modal => '<button ' . $attrs . '>' . self::e($this->label) . '</button>',
     };
 
     return $html . ($this->loadLib ? $this->getLibHtml() : '');

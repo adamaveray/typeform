@@ -4,21 +4,17 @@ declare(strict_types=1);
 namespace AdamAveray\Typeform\Utils;
 
 /**
- * @psalm-template TType of Operation::TYPE_*
+ * @psalm-template TType of OperationType
  * @psalm-template TPath of string
  * @psalm-template TValue af mixed
  * @psalm-immutable
  */
 final class Operation
 {
-  private const TYPE_ADD = 'add';
-  private const TYPE_REMOVE = 'remove';
-  private const TYPE_REPLACE = 'replace';
-
   /**
    * @psalm-var TType
    */
-  private readonly string $type;
+  private readonly OperationType $type;
   /**
    * @psalm-var TPath
    */
@@ -29,24 +25,30 @@ final class Operation
   private readonly mixed $value;
 
   /**
-   * @psalm-param TType $type
+   * @psalm-param TType|string $type
    * @psalm-param TPath $path
    * @psalm-param TValue $value
    */
-  private function __construct(string $type, string $path, mixed $value)
+  private function __construct(string|OperationType $type, string $path, mixed $value)
   {
+    // Convert legacy string to enum case
+    if (\is_string($type)) {
+      /** @var TType $type */
+      $type = OperationType::from($type);
+    }
+
     $this->type = $type;
     $this->path = $path;
     $this->value = $value;
   }
 
   /**
-   * @return array{ op: TType, path: TPath, value: TValue }
+   * @return array{ op: string, path: TPath, value: TValue }
    */
   public function formatForRequest(): array
   {
     return [
-      'op' => $this->type,
+      'op' => $this->type->value,
       'path' => $this->path,
       'value' => $this->value,
     ];
@@ -57,12 +59,12 @@ final class Operation
    * @psalm-template TValueIn
    * @psalm-param TPathIn $path
    * @psalm-param TValueIn $value
-   * @psalm-return Operation<self::TYPE_ADD, TPathIn, TValueIn>
+   * @psalm-return Operation<OperationType::Add, TPathIn, TValueIn>
    * @psalm-pure
    */
   public static function add(string $path, mixed $value): self
   {
-    return new self(self::TYPE_ADD, $path, $value);
+    return new self(OperationType::Add, $path, $value);
   }
 
   /**
@@ -70,12 +72,12 @@ final class Operation
    * @psalm-template TValueIn
    * @psalm-param TPathIn $path
    * @psalm-param TValueIn $value
-   * @psalm-return Operation<self::TYPE_REMOVE, TPathIn, TValueIn>
+   * @psalm-return Operation<OperationType::Remove, TPathIn, TValueIn>
    * @psalm-pure
    */
   public static function remove(string $path, mixed $value): self
   {
-    return new self(self::TYPE_REMOVE, $path, $value);
+    return new self(OperationType::Remove, $path, $value);
   }
 
   /**
@@ -83,11 +85,11 @@ final class Operation
    * @psalm-template TValueIn
    * @psalm-param TPathIn $path
    * @psalm-param TValueIn $value
-   * @psalm-return Operation<self::TYPE_REPLACE, TPathIn, TValueIn>
+   * @psalm-return Operation<OperationType::Replace, TPathIn, TValueIn>
    * @psalm-pure
    */
   public static function replace(string $path, mixed $value): self
   {
-    return new self(self::TYPE_REPLACE, $path, $value);
+    return new self(OperationType::Replace, $path, $value);
   }
 }

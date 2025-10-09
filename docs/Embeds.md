@@ -16,15 +16,15 @@ $embed
 echo $embed->getHtml();
 ```
 
-Call `->getEmbed(FormEmbed::TYPE_* $type)` on a `Form` or `FormStub` instance to generate a `FormEmbed` instance.
+Call `->getEmbed(FormEmbedType $type)` on a `Form` or `FormStub` instance to generate a `FormEmbed` instance.
 
 ## Embed Types
 
 The following types should be passed to `->getEmbed()` calls to determine how the form will be rendered:
 
-- **`FormEmbed::TYPE_INLINE`:** Will render the form directly on the page. See [the API docs](https://developer.typeform.com/embed/inline/) for full details.
+- **`FormEmbedType::Inline`:** Will render the form directly on the page. See [the API docs](https://developer.typeform.com/embed/inline/) for full details.
 
-- **`FormEmbed::TYPE_MODAL`:** Will render a button opening the form in a modal when clicked. See [the API docs](https://developer.typeform.com/embed/modal/) for full details.
+- **`FormEmbedType::Modal`:** Will render a button opening the form in a modal when clicked. See [the API docs](https://developer.typeform.com/embed/modal/) for full details.
 
 ## Configuration
 
@@ -36,7 +36,7 @@ The following methods are available to customise rendering the embed:
 
 - _(`TYPE_MODAL` only)_ **`setLabel(string $label): $this`:** Set the text within the generated `<button>` element for opening the form modal.
 
-- _(`TYPE_MODAL` only)_ **`setModalType(FormEmbed::MODAL_* $modalType): $this`:** Set the type of modal to display the form in. See [the API docs](https://developer.typeform.com/embed/modal/) for details on each possible modal type.
+- _(`TYPE_MODAL` only)_ **`setModalType(FormEmbedModalType $modalType): $this`:** Set the type of modal to display the form in. See [the API docs](https://developer.typeform.com/embed/modal/) for details on each possible modal type.
 
 - **`setOption(string $option, mixed $value): $this`:** Set a single embed options. See [the API docs](https://developer.typeform.com/embed/configuration/#available-options) for all available options.
 

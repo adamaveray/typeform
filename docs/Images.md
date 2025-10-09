@@ -10,13 +10,13 @@ The following methods are available on ApiClient instances to manage images. Unl
 
 - ## `getImage`
 
-  **`getImage(string|Image $image, ?ApiClient::IMAGE_FORMAT_* $format = null, ?ApiClient::IMAGE_SIZE_* $size = null): Image`**
+  **`getImage(string|Image $image, ?ImageFormat $format = null, ImageSizeBackground|ImageSizeChoice|ImageSizeImage|null $size = null): Image`**
 
   Load a specific image, optionally with a predefined format and size. See the API docs for details on formats and sizes. ([Image API docs](https://developer.typeform.com/create/reference/retrieve-image/); Format API docs: [`background`](https://developer.typeform.com/create/reference/retrieve-background-by-size/), [`choice-image`](https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/), [`image`](https://developer.typeform.com/create/reference/retrieve-image-by-size/))
 
 - ## `getImageSource`
 
-  **`getImageSource(string|Image $image, ?ApiClient::IMAGE_FORMAT_* $format = null, ?ApiClient::IMAGE_SIZE_* $size = null): string`**
+  **`getImageSource(string|Image $image, ?ImageFormat $format = null, ImageSizeBackground|ImageSizeChoice|ImageSizeImage|null $size = null): string`**
 
   Load the raw source for a specific image, optionally with a predefined format and size. See the API docs for details on formats and sizes. ([Image API docs](https://developer.typeform.com/create/reference/retrieve-image/); Format API docs: [`background`](https://developer.typeform.com/create/reference/retrieve-background-by-size/), [`choice-image`](https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/), [`image`](https://developer.typeform.com/create/reference/retrieve-image-by-size/))
 

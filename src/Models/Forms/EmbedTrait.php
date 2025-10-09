@@ -4,16 +4,14 @@ declare(strict_types=1);
 namespace AdamAveray\Typeform\Models\Forms;
 
 use AdamAveray\Typeform\Utils\FormEmbed;
+use AdamAveray\Typeform\Utils\FormEmbedType;
 
 /**
  * @psalm-immutable
  */
 trait EmbedTrait
 {
-  /**
-   * @psalm-param FormEmbed::TYPE_* $type
-   */
-  public function getEmbed(string $type): FormEmbed
+  public function getEmbed(FormEmbedType|string $type): FormEmbed
   {
     return new FormEmbed($this, $type);
   }
