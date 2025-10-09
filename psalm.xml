@@ -4,6 +4,7 @@
   findUnusedBaselineEntry="true"
   findUnusedPsalmSuppress="true"
   findUnusedVariablesAndParams="true"
+  errorLevel="1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="https://getpsalm.org/schema/config"
   xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
@@ -12,4 +13,8 @@
     <directory name="src" />
     <directory name="tests" />
   </projectFiles>
+
+  <issueHandlers>
+    <MixedArgumentTypeCoercion errorLevel="info" />
+  </issueHandlers>
 </psalm>

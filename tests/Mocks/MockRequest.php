@@ -22,11 +22,15 @@ class MockRequest
   private ?array $responseJson = null;
   private ?string $responseText = null;
 
+  /**
+   * @param array<string, mixed> $options
+   */
   private function __construct(string $method, string $endpoint, array $options = [])
   {
     $this->method = $method;
     $this->endpoint = $endpoint;
     $this->options = array_merge(HttpClientInterface::OPTIONS_DEFAULTS, $options);
+    /** @psalm-suppress MixedArgument */
     $this->options['headers'] = array_merge(['Accept' => 'application/json'], $this->options['headers']);
   }
 
@@ -61,12 +65,16 @@ class MockRequest
     return $this;
   }
 
+  /**
+   * @param array<string, mixed> $options
+   */
   public function matches(string $method, string $endpoint, array $options, string $accessToken): bool
   {
     if ($this->method !== $method || $this->endpoint !== $endpoint) {
       return false;
     }
 
+    /** @var mixed $value */
     foreach ($options as $key => $value) {
       if ($key === 'auth_bearer') {
         // Special access token handler

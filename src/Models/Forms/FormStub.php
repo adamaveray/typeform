@@ -8,6 +8,15 @@ use AdamAveray\Typeform\Models\Themes\Theme;
 use AdamAveray\Typeform\Utils\Refs;
 
 /**
+ * @psalm-type RawData = array{
+ *   id: string,
+ *   title: string,
+ *   created_at: string,
+ *   last_updated_at: string,
+ *   self: array,
+ *   theme: array,
+ * }
+ * @extends Model<RawData>
  * @psalm-immutable
  */
 final class FormStub extends Model
@@ -22,6 +31,9 @@ final class FormStub extends Model
   /** @psalm-var Refs\SingleRef<Theme> */
   public Refs\SingleRef $theme;
 
+  /**
+   * @param RawData $data
+   */
   public function __construct(array $data)
   {
     parent::__construct($data);

@@ -6,6 +6,13 @@ namespace AdamAveray\Typeform\Models\Forms;
 use AdamAveray\Typeform\Models\Model;
 
 /**
+ * @psalm-type RawData = array{
+ *   id: string,
+ *   ref: string,
+ *   title: string,
+ *   properties: array,
+ * }
+ * @extends Model<RawData>
  * @psalm-immutable
  */
 final class Screen extends Model
@@ -14,6 +21,9 @@ final class Screen extends Model
   public string $title;
   public array $properties;
 
+  /**
+   * @param RawData $data
+   */
   public function __construct(array $data)
   {
     parent::__construct($data);

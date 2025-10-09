@@ -14,11 +14,13 @@ final class CollectionRef extends Ref
   public readonly int $count;
 
   /**
-   * @psalm-param class-string<T2> $className
+   * @param class-string<T2> $className
+   * @psalm-param class-string $className See https://github.com/vimeo/psalm/issues/7913
    * @param array{ count: int, href: string } $data
    */
   public function __construct(string $className, array $data)
   {
+    /*** @psalm-var class-string<T2> $className */
     $this->count = $data['count'];
     unset($data['count']);
 

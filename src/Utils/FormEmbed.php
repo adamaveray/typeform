@@ -7,8 +7,9 @@ use AdamAveray\Typeform\Models\Forms\Form;
 use AdamAveray\Typeform\Models\Forms\FormStub;
 
 /**
- * @psalm-type Option = bool|string|int|float|list<string|int|float>|array<string,string|int|float>
- * @psalm-type HiddenFields = array<string,string>
+ * @psalm-type OptionValue = string | int | float
+ * @psalm-type Option = OptionValue | list<OptionValue> | array<string, OptionValue> | bool
+ * @psalm-type HiddenFields = array<string, string>
  */
 class FormEmbed
 {
@@ -299,9 +300,11 @@ class FormEmbed
     }
 
     if (is_array($value)) {
-      $isList = $value === [] || $value === array_values($value);
+      $isList = $value === [] || array_is_list($value);
       if (!$isList) {
-        $value = self::formatAssociativeArray($value);
+        /** @var array<string, OptionValue> $associativeValue */
+        $associativeValue = $value;
+        $value = self::formatAssociativeArray($associativeValue);
       }
       return implode(',', $value);
     }
@@ -309,6 +312,10 @@ class FormEmbed
     return (string) $value;
   }
 
+  /**
+   * @param array<string, OptionValue> $values
+   * @return list<string>
+   */
   private static function formatAssociativeArray(array $values): array
   {
     $list = [];

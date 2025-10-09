@@ -301,12 +301,12 @@ final class ApiClient implements ApiClientInterface
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @return list<string>
-   * @psalm-return array<string, string|null>
+   * @return array<string, string|null>
    * @link https://developer.typeform.com/create/reference/retrieve-custom-form-messages/
    */
   public function getFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form): array
   {
+    /** @var array<string, string|null> As per API documentation. */
     return $this->get(
       self::buildEndpoint(
         '/forms/%/messages',
@@ -592,9 +592,11 @@ final class ApiClient implements ApiClientInterface
       '/forms/%/webhooks',
       self::getId($form, [Models\Forms\Form::class, Models\Forms\FormStub::class]),
     );
+    /** @var array<array-key, mixed> $items */
+    $items = $this->get($endpoint)['items'];
     return array_map(
       static fn(array $item): Models\Forms\Webhook => new Models\Forms\Webhook($item),
-      array_values($this->get($endpoint)['items']), // Docs don't show regular pagination values
+      array_values($items), // Docs don't show regular pagination values
     );
   }
 
@@ -740,10 +742,12 @@ final class ApiClient implements ApiClientInterface
   /**
    * Converts a model or ID to an ID
    *
-   * @psalm-param list<class-string<Models\Model>> $classNames
+   * @param list<class-string<Models\Model>> $classNames
+   * @psalm-param list<class-string> $classNames Psalm cannot handle templated class strings here - see https://github.com/vimeo/psalm/issues/7913
    */
   private static function getId(mixed $modelOrId, array $classNames): string
   {
+    /** @psalm-var list<class-string<Models\Model>> $classNames */
     if (\is_string($modelOrId)) {
       return $modelOrId;
     }
@@ -781,6 +785,12 @@ final class ApiClient implements ApiClientInterface
     );
   }
 
+  /**
+   * @param array<string, mixed> $values
+   * @param array<string, mixed> $defaults
+   * @param list<string> $listKeys
+   * @return array<string, mixed>
+   */
   private static function formatQuery(array $values, array $defaults, array $listKeys = []): array
   {
     $query = array_merge($defaults, $values);

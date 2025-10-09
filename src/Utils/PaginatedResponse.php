@@ -37,12 +37,14 @@ final class PaginatedResponse
 
   /**
    * @psalm-template TStatic of Model
-   * @psalm-param class-string<TStatic> $modelClass
+   * @param class-string<TStatic> $modelClass
+   * @psalm-param class-string $modelClass See https://github.com/vimeo/psalm/issues/7913
    * @psalm-param RawData $data
    * @psalm-return self<TStatic>
    */
   public static function createForModel(string $modelClass, array $data): self
   {
+    /** @psalm-var class-string<TStatic> $modelClass */
     $data['items'] = array_map(static fn(array $item): Model => new $modelClass($item), $data['items']);
     /** @psalm-var self<TStatic> $instance */
     $instance = new self($data);

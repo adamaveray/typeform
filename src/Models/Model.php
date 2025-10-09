@@ -6,6 +6,7 @@ namespace AdamAveray\Typeform\Models;
 use AdamAveray\Typeform\Utils\Refs;
 
 /**
+ * @psalm-template TRawData of (array{ id: string} & array<string, mixed>)
  * @psalm-immutable
  * @psalm-consistent-constructor
  */
@@ -15,8 +16,12 @@ abstract class Model
   private const TIMESTAMP_FORMAT_MICROSECONDS = 'Y-m-d\\TH:i:s.u\\Z';
 
   public string $id;
+  /** @var TRawData $rawData */
   public array $rawData;
 
+  /**
+   * @param TRawData $data
+   */
   public function __construct(array $data)
   {
     $this->id = $data['id'];
@@ -46,7 +51,10 @@ abstract class Model
    */
   public static function ref(array $data): Refs\SingleRef
   {
-    /** @psalm-suppress ImpureMethodCall */
+    /**
+     * @psalm-suppress ImpureMethodCall
+     * @psalm-var Refs\SingleRef<static> See https://github.com/vimeo/psalm/issues/7913
+     */
     return new Refs\SingleRef(static::class, $data);
   }
 
@@ -56,7 +64,10 @@ abstract class Model
    */
   public static function collectionRef(array $data): Refs\CollectionRef
   {
-    /** @psalm-suppress ImpureMethodCall */
+    /**
+     * @psalm-suppress ImpureMethodCall
+     * @psalm-var Refs\CollectionRef<static> See https://github.com/vimeo/psalm/issues/7913
+     */
     return new Refs\CollectionRef(static::class, $data);
   }
 }

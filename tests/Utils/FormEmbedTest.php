@@ -30,6 +30,7 @@ class FormEmbedTest extends TestCase
 
   public function getLibHtmlDataProvider(): iterable
   {
+    /** @var string $libUrl */
     $libUrl = self::getConst(FormEmbed::class, 'LIB_URL');
     yield 'Sync' => ['<script src="' . self::e($libUrl) . '"></script>', true, false];
     yield 'Async' => ['<script src="' . self::e($libUrl) . '" async defer></script>', true, true];
@@ -98,6 +99,7 @@ class FormEmbedTest extends TestCase
     }
   }
 
+  /** @return iterable<string, array{ 0: string, 1?: (callable(FormEmbed):void)|null }> */
   private function getInlineGenerationCases(string $formId): iterable
   {
     $formIdSafe = self::e($formId);
@@ -181,6 +183,7 @@ class FormEmbedTest extends TestCase
     ];
   }
 
+  /** @return iterable<string, array{ 0: string, 1?: (callable(FormEmbed):void)|null }> */
   private function getModalGenerationCases(string $formId): iterable
   {
     $formIdSafe = self::e($formId);

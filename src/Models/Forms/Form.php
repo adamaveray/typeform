@@ -9,6 +9,21 @@ use AdamAveray\Typeform\Models\Workspaces\Workspace;
 use AdamAveray\Typeform\Utils\Refs;
 
 /**
+ * @psalm-type RawData = array{
+ *   id: string,
+ *   title: string,
+ *   created_at?: string,
+ *   last_updated_at?: string,
+ *   type: string,
+ *   workspace: array,
+ *   theme: array,
+ *   settings: array,
+ *   thankyou_screens: array<array-key, array>,
+ *   welcome_screens: array<array-key, array>,
+ *   fields: array<array-key, array>,
+ *   _links: array,
+ * }
+ * @extends Model<RawData>
  * @psalm-immutable
  */
 final class Form extends Model
@@ -44,6 +59,9 @@ final class Form extends Model
   public array $fields;
   public array $links;
 
+  /**
+   * @param RawData $data
+   */
   public function __construct(array $data)
   {
     parent::__construct($data);

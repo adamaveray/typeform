@@ -6,6 +6,18 @@ namespace AdamAveray\Typeform\Models\Forms;
 use AdamAveray\Typeform\Models\Model;
 
 /**
+ * @psalm-type RawData = array{
+ *   id: string,
+ *   enabled: bool,
+ *   form_id: string,
+ *   tag: string,
+ *   url: string,
+ *   verify_ssl: bool,
+ *   secret?: string,
+ *   created_at: string,
+ *   updated_at: string,
+ * }
+ * @extends Model<RawData>
  * @psalm-immutable
  */
 class Webhook extends Model
@@ -20,6 +32,9 @@ class Webhook extends Model
   public \DateTimeImmutable $createdAt;
   public \DateTimeImmutable $updatedAt;
 
+  /**
+   * @param RawData $data
+   */
   public function __construct(array $data)
   {
     parent::__construct($data);

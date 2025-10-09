@@ -6,6 +6,19 @@ namespace AdamAveray\Typeform\Models\Forms;
 use AdamAveray\Typeform\Models\Model;
 
 /**
+ * @psalm-type RawData = array{
+ *   token: string,
+ *   answers?: array,
+ *   calculated: array,
+ *   hidden: array,
+ *   metadata: array,
+ *   variables?: array,
+ *   landed_at: string,
+ *   submitted_at: string,
+ *   landing_id: string,
+ *   response_id: string,
+ * }
+ * @extends Model<RawData & array{ id: string }>
  * @psalm-immutable
  */
 final class Response extends Model
@@ -20,6 +33,10 @@ final class Response extends Model
   public string $landingId;
   public string $responseId;
 
+  /**
+   * @param RawData $data
+   * @psalm-suppress ImplementedParamTypeMismatch Alternate key ID used.
+   */
   public function __construct(array $data)
   {
     parent::__construct($data + ['id' => $data['token']]);

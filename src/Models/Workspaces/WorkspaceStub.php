@@ -8,6 +8,17 @@ use AdamAveray\Typeform\Models\Model;
 use AdamAveray\Typeform\Utils\Refs;
 
 /**
+ * @psalm-type RawData = array{
+ *   id: string,
+ *   name: string,
+ *   account_id: string,
+ *   shared: bool,
+ *   default: bool,
+ *   forms: array,
+ *   self: array,
+ * } & array<string, mixed>
+ * @psalm-template TWorkplaceData of RawData
+ * @extends Model<TWorkplaceData>
  * @psalm-immutable
  */
 class WorkspaceStub extends Model
@@ -21,6 +32,9 @@ class WorkspaceStub extends Model
   /** @psalm-var Refs\SingleRef<Workspace> */
   public Refs\SingleRef $self;
 
+  /**
+   * @param TWorkplaceData $data
+   */
   public function __construct(array $data)
   {
     parent::__construct($data);

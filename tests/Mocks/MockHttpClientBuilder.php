@@ -18,6 +18,7 @@ class MockHttpClientBuilder
 {
   private readonly TestCase $testCase;
   private readonly MockBuilder $mockBuilder;
+  /** @var list<MockRequest> */
   private array $requests = [];
 
   public function __construct(TestCase $testCase)

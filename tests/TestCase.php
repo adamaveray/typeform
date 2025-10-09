@@ -12,6 +12,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TestCase extends BaseTestCase
 {
+  /** @var string */
   protected const TEST_ACCESS_TOKEN = 'test-access-token';
 
   protected $backupStaticAttributes = false;
@@ -35,22 +36,26 @@ class TestCase extends BaseTestCase
 
   /**
    * @psalm-template T of Model
-   * @psalm-param class-string<T> $className
+   * @param class-string<T> $className
+   * @psalm-param class-string $className See https://github.com/vimeo/psalm/issues/7913
    * @psalm-param list<array> $items
    * @psalm-return list<T>
    */
   protected static function instantiateModels(string $className, array $items): array
   {
+    /** @psalm-var class-string<T> $className */
     return array_map(static fn(array $item): Model => new $className($item), $items);
   }
 
   /**
+   * @psalm-template T
    * @psalm-param class-string $class
-   * @return mixed
+   * @return T
    */
-  protected static function getConst(string $class, string $name)
+  protected static function getConst(string $class, string $name): mixed
   {
     $reflectionClass = new \ReflectionClass($class);
+    /** @var T|false $value */
     $value = $reflectionClass->getConstant($name);
     if ($value === false) {
       throw new \InvalidArgumentException($class . '::' . $name . ' not found');

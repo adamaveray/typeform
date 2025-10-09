@@ -6,6 +6,17 @@ namespace AdamAveray\Typeform\Models\Images;
 use AdamAveray\Typeform\Models\Model;
 
 /**
+ * @psalm-type RawData = array{
+ *   id: string,
+ *   src: string,
+ *   file_name: string,
+ *   width: int,
+ *   height: int,
+ *   media_type: string,
+ *   has_alpha: bool,
+ *   avg_color: string,
+ * }
+ * @extends Model<RawData>
  * @psalm-immutable
  */
 final class Image extends Model
@@ -18,6 +29,9 @@ final class Image extends Model
   public bool $hasAlpha;
   public string $avgColor;
 
+  /**
+   * @param RawData $data
+   */
   public function __construct(array $data)
   {
     parent::__construct($data);

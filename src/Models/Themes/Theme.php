@@ -6,6 +6,17 @@ namespace AdamAveray\Typeform\Models\Themes;
 use AdamAveray\Typeform\Models\Model;
 
 /**
+ * @psalm-type RawData = array{
+ *   id: string,
+ *   font: string,
+ *   name: string,
+ *   has_transparent_button: bool,
+ *   colors: array<"question"|"answer"|"button"|"background", string>,
+ *   visibility: string,
+ *   screens: array{ form_size: string, alignment: string },
+ *   fields: array{ form_size: string, alignment: string },
+ * }
+ * @extends Model<RawData>
  * @psalm-immutable
  */
 final class Theme extends Model
@@ -21,6 +32,9 @@ final class Theme extends Model
   /** @var array{ form_size: string, alignment: string } */
   public array $fields;
 
+  /**
+   * @param RawData $data
+   */
   public function __construct(array $data)
   {
     parent::__construct($data);
