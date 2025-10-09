@@ -8,8 +8,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 abstract class HttpClientException extends \Exception implements HttpExceptionInterface
 {
-  /** @readonly */
-  private ResponseInterface $response;
+  private readonly ResponseInterface $response;
 
   public function __construct(
     ResponseInterface $response,

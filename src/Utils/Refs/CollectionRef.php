@@ -11,8 +11,7 @@ use AdamAveray\Typeform\Models\Model;
  */
 final class CollectionRef extends Ref
 {
-  /** @readonly */
-  public int $count;
+  public readonly int $count;
 
   /**
    * @psalm-param class-string<T2> $className

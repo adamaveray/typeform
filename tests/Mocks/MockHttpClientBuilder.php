@@ -16,11 +16,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 class MockHttpClientBuilder
 {
-  /** @readonly */
-  private TestCase $testCase;
-  /** @readonly */
-  private MockBuilder $mockBuilder;
-  /** @var list<MockRequest> $requests */
+  private readonly TestCase $testCase;
+  private readonly MockBuilder $mockBuilder;
   private array $requests = [];
 
   public function __construct(TestCase $testCase)

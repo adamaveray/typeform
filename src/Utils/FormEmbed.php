@@ -26,13 +26,11 @@ class FormEmbed
   /** @psalm-var list<self::MODAL_*> $modalTypes */
   private static array $modalTypes = [self::MODAL_POPUP, self::MODAL_SLIDER, self::MODAL_SIDETAB, self::MODAL_POPOVER];
 
-  /** @readonly */
-  private string $formId;
+  private readonly string $formId;
   /**
-   * @readonly
    * @psalm-var self::TYPE_* $type
    */
-  private string $type;
+  private readonly string $type;
   /** @psalm-var self::MODAL_* $modalType */
   private string $modalType = self::MODAL_POPUP;
   private bool $loadLib = true;

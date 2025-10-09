@@ -17,19 +17,16 @@ final class Operation
 
   /**
    * @psalm-var TType
-   * @readonly
    */
-  private string $type;
+  private readonly string $type;
   /**
    * @psalm-var TPath
-   * @readonly
    */
-  private string $path;
+  private readonly string $path;
   /**
    * @psalm-var TValue
-   * @readonly
    */
-  private mixed $value;
+  private readonly mixed $value;
 
   /**
    * @psalm-param TType $type

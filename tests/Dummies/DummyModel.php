@@ -8,8 +8,7 @@ use AdamAveray\Typeform\Models\Model;
 /** @psalm-immutable */
 class DummyModel extends Model
 {
-  /** @readonly */
-  public string $dummyValue;
+  public readonly string $dummyValue;
 
   public function __construct(array $data)
   {

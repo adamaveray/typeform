@@ -11,12 +11,10 @@ use AdamAveray\Typeform\Models\Model;
 abstract class Ref
 {
   /**
-   * @readonly
    * @psalm-var class-string<T>
    */
-  private string $className;
-  /** @readonly */
-  public string $href;
+  private readonly string $className;
+  public readonly string $href;
 
   /**
    * @psalm-param class-string<T> $className

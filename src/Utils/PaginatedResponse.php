@@ -13,19 +13,14 @@ use AdamAveray\Typeform\Models\Model;
  */
 final class PaginatedResponse
 {
-  /** @readonly */
-  public int $pageCount;
-  /** @readonly */
-  public int $pageItems;
-  /** @readonly */
-  public int $totalItems;
+  public readonly int $pageCount;
+  public readonly int $pageItems;
+  public readonly int $totalItems;
   /**
-   * @readonly
    * @psalm-var list<T>
    */
-  public array $items;
-  /** @readonly */
-  public bool $containsAllItems;
+  public readonly array $items;
+  public readonly bool $containsAllItems;
 
   /**
    * @psalm-param RawData $data

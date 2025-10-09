@@ -8,8 +8,7 @@ use AdamAveray\Typeform\Models\Model;
 /** @psalm-immutable */
 class DummyTimestampModel extends Model
 {
-  /** @readonly */
-  public \DateTimeImmutable $dummyTimestamp;
+  public readonly \DateTimeImmutable $dummyTimestamp;
 
   public function __construct(array $data)
   {

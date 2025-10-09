@@ -14,11 +14,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class MockRequest
 {
-  /** @readonly */
-  public string $method;
-  /** @readonly */
-  public string $endpoint;
-  /** @readonly */
+  public readonly string $method;
+  public readonly string $endpoint;
   private array $options;
   private bool $isSealed = false;
   private ?int $statusCode = null;

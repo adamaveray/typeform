@@ -48,10 +48,8 @@ final class ApiClient implements ApiClientInterface
     ],
   ];
 
-  /** @readonly */
-  private string $accessToken;
-  /** @readonly */
-  private HttpClientInterface $httpClient;
+  private readonly string $accessToken;
+  private readonly HttpClientInterface $httpClient;
   private int $defaultPageSize = 10;
 
   public function __construct(string $accessToken, ?HttpClientInterface $httpClient = null)
