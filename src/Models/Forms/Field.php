@@ -31,7 +31,6 @@ final class Field extends Model
   public function __construct(array $data)
   {
     parent::__construct($data);
-    $this->id = $data['id'];
     $this->ref = $data['ref'];
     $this->title = $data['title'];
     $this->type = $data['type'];
