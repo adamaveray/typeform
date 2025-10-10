@@ -46,8 +46,7 @@ final readonly class PaginatedResponse
   {
     /** @psalm-var class-string<TStatic> $modelClass */
     $data['items'] = array_map(static fn(array $item): Model => new $modelClass($item), $data['items']);
-    /** @psalm-var self<TStatic> $instance */
-    $instance = new self($data);
-    return $instance;
+    /** @psalm-var self<TStatic> */
+    return new self($data);
   }
 }
