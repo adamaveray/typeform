@@ -6,6 +6,7 @@ namespace AdamAveray\Typeform\Utils\Refs;
 use AdamAveray\Typeform\Models\Model;
 
 /**
+ * @psalm-type RawData = array{ href: string }
  * @template T of \AdamAveray\Typeform\Models\Model
  * @psalm-immutable
  */
@@ -20,7 +21,7 @@ abstract readonly class Ref
   /**
    * @param class-string<T> $className
    * @psalm-param class-string $className See https://github.com/vimeo/psalm/issues/7913
-   * @param array{ href: string } $data
+   * @param RawData $data
    */
   public function __construct(string $className, array $data)
   {

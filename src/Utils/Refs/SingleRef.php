@@ -6,6 +6,7 @@ namespace AdamAveray\Typeform\Utils\Refs;
 use AdamAveray\Typeform\Models\Model;
 
 /**
+ * @psalm-type RawData = array{ href: string }
  * @template T2 of \AdamAveray\Typeform\Models\Model
  * @extends Ref<T2>
  * @psalm-immutable

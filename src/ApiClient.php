@@ -12,6 +12,20 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * @psalm-import-type RawData from Models\Forms\Form as FormRawData
+ * @psalm-import-type RawData from Models\Forms\FormStub as FormStubRawData
+ * @psalm-import-type RawData from Models\Forms\InsightsSummary as InsightsSummaryRawData
+ * @psalm-import-type RawData from Models\Forms\Response as ResponseRawData
+ * @psalm-import-type RawData from Models\Forms\Webhook as WebhookRawData
+ * @psalm-import-type RawData from Models\Images\Image as ImageRawData
+ * @psalm-import-type RawData from Models\Jobs\Status as StatusRawData
+ * @psalm-import-type RawData from Models\Themes\Theme as ThemeRawData
+ * @psalm-import-type RawData from Models\Users\User as UserRawData
+ * @psalm-import-type RawData from Models\Workspaces\Workspace as WorkspaceRawData
+ * @psalm-import-type RawData from Utils\PaginatedResponse as PaginatedResponseRawData
+ * @psalm-import-type CollectionData from Utils\Refs\CollectionRef
+ */
 final class ApiClient implements ApiClientInterface
 {
   private const URL_BASE = 'https://api.typeform.com';
@@ -111,6 +125,7 @@ final class ApiClient implements ApiClientInterface
   public function loadCollectionRef(Utils\Refs\CollectionRef $ref, bool $loadMax = true): array
   {
     $pageSize = $loadMax ? min($ref->count, self::PAGE_SIZE_MAX) : $this->defaultPageSize;
+    /** @var CollectionData $data */
     $data = $this->makeRequest('GET', $ref->href, [self::QUERY_PARAM_PAGE_SIZE => $pageSize])->toArray();
     return $ref->instantiateCollection($data);
   }
@@ -120,7 +135,9 @@ final class ApiClient implements ApiClientInterface
    */
   public function getCurrentUser(): Models\Users\User
   {
-    return new Models\Users\User($this->get('/me'));
+    /** @var UserRawData $data */
+    $data = $this->get('/me');
+    return new Models\Users\User($data);
   }
 
   /**
@@ -135,14 +152,13 @@ final class ApiClient implements ApiClientInterface
   ): Utils\PaginatedResponse {
     self::validatePageNumber($page1);
     self::validatePageSize($pageSize);
-    return Utils\PaginatedResponse::createForModel(
-      Models\Workspaces\WorkspaceStub::class,
-      $this->get(self::buildEndpoint('/accounts/%/workspaces', $accountId), [
-        self::QUERY_PARAM_SEARCH => $search,
-        self::QUERY_PARAM_PAGE_NUMBER => $page1,
-        self::QUERY_PARAM_PAGE_SIZE => $pageSize ?? $this->defaultPageSize,
-      ]),
-    );
+    /** @var PaginatedResponseRawData $data */
+    $data = $this->get(self::buildEndpoint('/accounts/%/workspaces', $accountId), [
+      self::QUERY_PARAM_SEARCH => $search,
+      self::QUERY_PARAM_PAGE_NUMBER => $page1,
+      self::QUERY_PARAM_PAGE_SIZE => $pageSize ?? $this->defaultPageSize,
+    ]);
+    return Utils\PaginatedResponse::createForModel(Models\Workspaces\WorkspaceStub::class, $data);
   }
 
   /**
@@ -156,14 +172,13 @@ final class ApiClient implements ApiClientInterface
   ): Utils\PaginatedResponse {
     self::validatePageNumber($page1);
     self::validatePageSize($pageSize);
-    return Utils\PaginatedResponse::createForModel(
-      Models\Workspaces\WorkspaceStub::class,
-      $this->get('/workspaces', [
-        self::QUERY_PARAM_SEARCH => $search,
-        self::QUERY_PARAM_PAGE_NUMBER => $page1,
-        self::QUERY_PARAM_PAGE_SIZE => $pageSize ?? $this->defaultPageSize,
-      ]),
-    );
+    /** @var PaginatedResponseRawData $data */
+    $data = $this->get('/workspaces', [
+      self::QUERY_PARAM_SEARCH => $search,
+      self::QUERY_PARAM_PAGE_NUMBER => $page1,
+      self::QUERY_PARAM_PAGE_SIZE => $pageSize ?? $this->defaultPageSize,
+    ]);
+    return Utils\PaginatedResponse::createForModel(Models\Workspaces\WorkspaceStub::class, $data);
   }
 
   /**
@@ -172,6 +187,7 @@ final class ApiClient implements ApiClientInterface
    */
   public function getWorkspace($workspace): Models\Workspaces\Workspace
   {
+    /** @var WorkspaceRawData $data */
     $data = $this->get(
       self::buildEndpoint('/workspaces/%', self::getId($workspace, [Models\Workspaces\WorkspaceStub::class])),
     );
@@ -183,6 +199,7 @@ final class ApiClient implements ApiClientInterface
    */
   public function createWorkspace(string $name): Models\Workspaces\Workspace
   {
+    /** @var WorkspaceRawData $data */
     $data = $this->post('/workspaces', ['name' => $name]);
     return new Models\Workspaces\Workspace($data);
   }
@@ -227,16 +244,14 @@ final class ApiClient implements ApiClientInterface
     self::validatePageNumber($page1);
     self::validatePageSize($pageSize);
 
-    return Utils\PaginatedResponse::createForModel(
-      Models\Forms\FormStub::class,
-      $this->get('/forms', [
-        'workspace_id' =>
-          $workspace === null ? null : self::getId($workspace, [Models\Workspaces\WorkspaceStub::class]),
-        self::QUERY_PARAM_SEARCH => $search,
-        self::QUERY_PARAM_PAGE_NUMBER => $page1,
-        self::QUERY_PARAM_PAGE_SIZE => $pageSize ?? $this->defaultPageSize,
-      ]),
-    );
+    /** @var PaginatedResponseRawData $data */
+    $this->get('/forms', [
+      'workspace_id' => $workspace === null ? null : self::getId($workspace, [Models\Workspaces\WorkspaceStub::class]),
+      self::QUERY_PARAM_SEARCH => $search,
+      self::QUERY_PARAM_PAGE_NUMBER => $page1,
+      self::QUERY_PARAM_PAGE_SIZE => $pageSize ?? $this->defaultPageSize,
+    ]);
+    return Utils\PaginatedResponse::createForModel(Models\Forms\FormStub::class, $data);
   }
 
   /**
@@ -245,15 +260,18 @@ final class ApiClient implements ApiClientInterface
    */
   public function getForm(Models\Forms\FormStub|string $form): Models\Forms\Form
   {
+    /** @var FormRawData $data */
     $data = $this->get(self::buildEndpoint('/forms/%', self::getId($form, [Models\Forms\FormStub::class])));
     return new Models\Forms\Form($data);
   }
 
   /**
+   * @param array $data
    * @link https://www.typeform.com/developers/create/reference/create-form/
    */
   public function createForm(array $data): Models\Forms\Form
   {
+    /** @var FormRawData $responseData */
     $responseData = $this->post('/forms', $data);
     return new Models\Forms\Form($responseData);
   }
@@ -335,9 +353,11 @@ final class ApiClient implements ApiClientInterface
    */
   public function getImages(): array
   {
+    /** @var array<array-key, ImageRawData> $images */
+    $images = $this->get('/images');
     return array_map(
       static fn(array $image): Models\Images\Image => new Models\Images\Image($image),
-      array_values($this->get('/images')),
+      array_values($images),
     );
   }
 
@@ -354,6 +374,7 @@ final class ApiClient implements ApiClientInterface
     string|ImageSizeBackground|ImageSizeChoice|ImageSizeImage|null $size = null,
   ): Models\Images\Image {
     $endpoint = self::buildImageEndpoint($image, $format, $size);
+    /** @var ImageRawData $data */
     $data = $this->get($endpoint);
     return new Models\Images\Image($data);
   }
@@ -404,13 +425,12 @@ final class ApiClient implements ApiClientInterface
     self::validatePageNumber($page1);
     self::validatePageSize($pageSize);
 
-    return Utils\PaginatedResponse::createForModel(
-      Models\Themes\Theme::class,
-      $this->get('/themes', [
-        self::QUERY_PARAM_PAGE_NUMBER => $page1,
-        self::QUERY_PARAM_PAGE_SIZE => $pageSize ?? $this->defaultPageSize,
-      ]),
-    );
+    /** @var PaginatedResponseRawData $data */
+    $this->get('/themes', [
+      self::QUERY_PARAM_PAGE_NUMBER => $page1,
+      self::QUERY_PARAM_PAGE_SIZE => $pageSize ?? $this->defaultPageSize,
+    ]);
+    return Utils\PaginatedResponse::createForModel(Models\Themes\Theme::class, $data);
   }
 
   /**
@@ -419,15 +439,18 @@ final class ApiClient implements ApiClientInterface
    */
   public function getTheme(Models\Themes\Theme|string $theme): Models\Themes\Theme
   {
+    /** @var ThemeRawData $data */
     $data = $this->get(self::buildEndpoint('/themes/%', self::getId($theme, [Models\Themes\Theme::class])));
     return new Models\Themes\Theme($data);
   }
 
   /**
+   * @param array $data
    * @link https://www.typeform.com/developers/create/reference/create-theme/
    */
   public function createTheme(array $data): Models\Themes\Theme
   {
+    /** @var ThemeRawData $responseData */
     $responseData = $this->post('/themes', $data);
     return new Models\Themes\Theme($responseData);
   }
@@ -447,7 +470,7 @@ final class ApiClient implements ApiClientInterface
    */
   public function updateTheme(Models\Themes\Theme|string $theme, array $data): Models\Themes\Theme
   {
-    /** @var array $responseData */
+    /** @var ThemeRawData $responseData */
     $responseData = $this->put(
       self::buildEndpoint('/themes/%', self::getId($theme, [Models\Themes\Theme::class])),
       $data,
@@ -478,29 +501,27 @@ final class ApiClient implements ApiClientInterface
     Models\Forms\Form|Models\Forms\FormStub|string $form,
     array $options,
   ): Utils\PaginatedResponse {
-    $query = self::formatQuery(
-      $options,
-      [
-        'page_size' => null,
-        'since' => null,
-        'until' => null,
-        'after' => null,
-        'before' => null,
-        'included_response_ids' => null,
-        'excluded_response_ids' => null,
-        'completed' => null,
-        'sort' => null,
-        'query' => null,
-        'fields' => null,
-        'answered_fields' => null,
-      ],
-      ['included_response_ids', 'excluded_response_ids', 'fields', 'answered_fields'],
-    );
+    $query = self::formatQuery($options, [
+      'page_size' => null,
+      'since' => null,
+      'until' => null,
+      'after' => null,
+      'before' => null,
+      'included_response_ids' => null,
+      'excluded_response_ids' => null,
+      'completed' => null,
+      'sort' => null,
+      'query' => null,
+      'fields' => null,
+      'answered_fields' => null,
+    ]);
     $endpoint = self::buildEndpoint(
       '/forms/%/responses',
       self::getId($form, [Models\Forms\Form::class, Models\Forms\FormStub::class]),
     );
-    return Utils\PaginatedResponse::createForModel(Models\Forms\Response::class, $this->get($endpoint, $query));
+    /** @var PaginatedResponseRawData $data */
+    $data = $this->get($endpoint, $query);
+    return Utils\PaginatedResponse::createForModel(Models\Forms\Response::class, $data);
   }
 
   /**
@@ -553,7 +574,9 @@ final class ApiClient implements ApiClientInterface
       '/insights/%/summary',
       self::getId($form, [Models\Forms\Form::class, Models\Forms\FormStub::class]),
     );
-    return new Models\Forms\InsightsSummary($this->get($endpoint));
+    /** @var InsightsSummaryRawData $data */
+    $data = $this->get($endpoint);
+    return new Models\Forms\InsightsSummary($data);
   }
 
   /**
@@ -563,7 +586,9 @@ final class ApiClient implements ApiClientInterface
   public function rtbfGetJobStatus(string $accountId, Models\Jobs\Job|string $job): Models\Jobs\Status
   {
     $endpoint = self::buildEndpoint('/rtbf/%/job/%', $accountId, self::getId($job, [Models\Jobs\Job::class]));
-    return new Models\Jobs\Status($this->get($endpoint));
+    /** @var StatusRawData $data */
+    $data = $this->get($endpoint);
+    return new Models\Jobs\Status($data);
   }
 
   /**
@@ -589,7 +614,7 @@ final class ApiClient implements ApiClientInterface
       '/forms/%/webhooks',
       self::getId($form, [Models\Forms\Form::class, Models\Forms\FormStub::class]),
     );
-    /** @var array<array-key, mixed> $items */
+    /** @var array<array-key, WebhookRawData> $items */
     $items = $this->get($endpoint)['items'];
     return array_map(
       static fn(array $item): Models\Forms\Webhook => new Models\Forms\Webhook($item),
@@ -611,7 +636,9 @@ final class ApiClient implements ApiClientInterface
       self::getId($form, [Models\Forms\Form::class, Models\Forms\FormStub::class]),
       $tagOrWebhook instanceof Models\Forms\Webhook ? $tagOrWebhook->tag : $tagOrWebhook,
     );
-    return new Models\Forms\Webhook($this->get($endpoint));
+    /** @var WebhookRawData $data */
+    $data = $this->get($endpoint);
+    return new Models\Forms\Webhook($data);
   }
 
   /**
@@ -649,18 +676,18 @@ final class ApiClient implements ApiClientInterface
       self::getId($form, [Models\Forms\Form::class, Models\Forms\FormStub::class]),
       $tagOrWebhook instanceof Models\Forms\Webhook ? $tagOrWebhook->tag : $tagOrWebhook,
     );
-    return new Models\Forms\Webhook(
-      (array) $this->put(
-        $endpoint,
-        [
-          'enabled' => $enabled,
-          'url' => $url,
-          'secret' => $secret,
-          'verify_ssl' => $verifySsl,
-        ],
-        true,
-      ),
+    /** @var WebhookRawData $data */
+    $data = (array) $this->put(
+      $endpoint,
+      [
+        'enabled' => $enabled,
+        'url' => $url,
+        'secret' => $secret,
+        'verify_ssl' => $verifySsl,
+      ],
+      true,
     );
+    return new Models\Forms\Webhook($data);
   }
 
   /**
@@ -783,19 +810,24 @@ final class ApiClient implements ApiClientInterface
   }
 
   /**
-   * @param array<string, mixed> $values
-   * @param array<string, mixed> $defaults
-   * @param list<string> $listKeys
-   * @return array<string, mixed>
+   * @template TValueKey of string
+   * @template TDefaultKey of string
+   * @psalm-type TQueryValue = string | int | bool | list<string>
+   * @param array<TValueKey, TQueryValue | null> $values
+   * @param array<TDefaultKey, TQueryValue | null> $defaults
+   * @return array<TValueKey | TDefaultKey, string | null>
    */
-  private static function formatQuery(array $values, array $defaults, array $listKeys = []): array
+  private static function formatQuery(array $values, array $defaults): array
   {
-    $query = array_merge($defaults, $values);
-    foreach ($listKeys as $listKey) {
-      if (is_array($query[$listKey])) {
-        $query[$listKey] = implode(',', $query[$listKey]);
-      }
-    }
-    return $query;
+    return \array_map(
+      /** @param TQueryValue $value */
+      static fn(string|int|bool|array|null $value): ?string => match (true) {
+        $value === null => null,
+        \is_array($value) => \implode(',', $value),
+        \is_bool($value) => $value ? '1' : '0',
+        default => (string) $value,
+      },
+      \array_merge($defaults, $values),
+    );
   }
 }

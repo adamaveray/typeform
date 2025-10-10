@@ -64,14 +64,18 @@ class MockHttpClientBuilder
 
   private function getHandler(string $accessToken): callable
   {
-    return function (string $method, string $url, array $options = []) use ($accessToken): ResponseInterface {
-      foreach ($this->requests as $request) {
-        if ($request->matches($method, $url, $options, $accessToken)) {
-          return $request->getResponse($this->testCase);
+    return /** @param array<string, mixed> $options */ function (
+        string $method,
+        string $url,
+        array $options = [],
+      ) use ($accessToken): ResponseInterface {
+        foreach ($this->requests as $request) {
+          if ($request->matches($method, $url, $options, $accessToken)) {
+            return $request->getResponse($this->testCase);
+          }
         }
-      }
 
-      throw new ExpectationFailedException('Request [' . $method . '] ' . $url . ' was not defined');
-    };
+        throw new ExpectationFailedException('Request [' . $method . '] ' . $url . ' was not defined');
+      };
   }
 }

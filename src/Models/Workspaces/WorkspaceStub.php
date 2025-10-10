@@ -8,14 +8,16 @@ use AdamAveray\Typeform\Models\Model;
 use AdamAveray\Typeform\Utils\Refs;
 
 /**
+ * @psalm-import-type RawData from Refs\Ref as RefRawData
+ * @psalm-import-type RawData from Refs\CollectionRef as CollectionRefRawData
  * @psalm-type RawData = array{
  *   id: string,
  *   name: string,
  *   account_id: string,
  *   shared: bool,
  *   default: bool,
- *   forms: array,
- *   self: array,
+ *   forms: CollectionRefRawData,
+ *   self: RefRawData,
  * } & array<string, mixed>
  * @template TWorkplaceData of RawData
  * @extends Model<TWorkplaceData>

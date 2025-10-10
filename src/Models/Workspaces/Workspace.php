@@ -3,16 +3,21 @@ declare(strict_types=1);
 
 namespace AdamAveray\Typeform\Models\Workspaces;
 
+use AdamAveray\Typeform\Utils\Refs;
+
 /**
+ * @psalm-import-type RawData from Member as MemberRawData
+ * @psalm-import-type RawData from Refs\Ref as RefRawData
+ * @psalm-import-type RawData from Refs\CollectionRef as CollectionRefRawData
  * @psalm-type RawData = array{
  *   id: string,
  *   name: string,
  *   account_id: string,
  *   shared: bool,
  *   default: bool,
- *   forms: array,
- *   self: array,
- *   members: array<array-key, array>,
+ *   forms: CollectionRefRawData,
+ *   self: RefRawData,
+ *   members: array<array-key, MemberRawData>,
  * }
  * @extends WorkspaceStub<RawData>
  * @psalm-immutable

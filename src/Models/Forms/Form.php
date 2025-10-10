@@ -9,18 +9,21 @@ use AdamAveray\Typeform\Models\Workspaces\Workspace;
 use AdamAveray\Typeform\Utils\Refs;
 
 /**
+ * @psalm-import-type RawData from Screen as ScreenRawData
+ * @psalm-import-type RawData from Field as FieldRawData
+ * @psalm-import-type RawData from Refs\Ref as RefRawData
  * @psalm-type RawData = array{
  *   id: string,
  *   title: string,
  *   created_at?: string,
  *   last_updated_at?: string,
  *   type: string,
- *   workspace: array,
- *   theme: array,
+ *   workspace: RefRawData,
+ *   theme: RefRawData,
  *   settings: array,
- *   thankyou_screens: array<array-key, array>,
- *   welcome_screens: array<array-key, array>,
- *   fields: array<array-key, array>,
+ *   thankyou_screens: array<array-key, ScreenRawData>,
+ *   welcome_screens: array<array-key, ScreenRawData>,
+ *   fields: array<array-key, FieldRawData>,
  *   _links: array,
  * }
  * @extends Model<RawData>

@@ -8,13 +8,14 @@ use AdamAveray\Typeform\Models\Themes\Theme;
 use AdamAveray\Typeform\Utils\Refs;
 
 /**
+ * @psalm-import-type RawData from Refs\Ref as RefRawData
  * @psalm-type RawData = array{
  *   id: string,
  *   title: string,
  *   created_at: string,
  *   last_updated_at: string,
- *   self: array,
- *   theme: array,
+ *   self: RefRawData,
+ *   theme: RefRawData,
  * }
  * @extends Model<RawData>
  * @psalm-immutable
