@@ -66,7 +66,7 @@ jobs:
         run: composer install
 
       - name: Check code format
-        run: bun run-script format-check
+        run: bun run format-check
 
       - name: Check code format
         run: composer run-script analyze
