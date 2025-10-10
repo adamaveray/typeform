@@ -111,13 +111,13 @@ interface ApiClientInterface
   public function loadCollectionRef(Utils\Refs\CollectionRef $ref, bool $loadMax = true): array;
 
   /**
-   * @link https://developer.typeform.com/create/reference/retrieve-your-own-user/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-your-own-user/
    */
   public function getCurrentUser(): Models\Users\User;
 
   /**
    * @return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
-   * @link https://developer.typeform.com/create/reference/retrieve-account-workspaces/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-account-workspaces/
    */
   public function getAccountWorkspaces(
     string $accountId,
@@ -128,7 +128,7 @@ interface ApiClientInterface
 
   /**
    * @return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
-   * @link https://developer.typeform.com/create/reference/retrieve-workspaces/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-workspaces/
    */
   public function getWorkspaces(
     ?string $search = null,
@@ -138,25 +138,25 @@ interface ApiClientInterface
 
   /**
    * @param string|Models\Workspaces\WorkspaceStub $workspace A workspace ID or WorkspaceStub instance
-   * @link https://developer.typeform.com/create/reference/retrieve-workspace/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-workspace/
    */
   public function getWorkspace($workspace): Models\Workspaces\Workspace;
 
   /**
-   * @link https://developer.typeform.com/create/reference/create-workspace/
+   * @link https://www.typeform.com/developers/create/reference/create-workspace/
    */
   public function createWorkspace(string $name): Models\Workspaces\Workspace;
 
   /**
    * @param string|Models\Workspaces\WorkspaceStub $workspace A workspace ID or WorkspaceStub instance
-   * @link https://developer.typeform.com/create/reference/delete-workspace/
+   * @link https://www.typeform.com/developers/create/reference/delete-workspace/
    */
   public function deleteWorkspace(Models\Workspaces\WorkspaceStub|string $workspace): void;
 
   /**
    * @param string|Models\Workspaces\WorkspaceStub $workspace A workspace ID or WorkspaceStub instance
    * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the workspace
-   * @link https://developer.typeform.com/create/reference/update-workspace/
+   * @link https://www.typeform.com/developers/create/reference/update-workspace/
    */
   public function updateWorkspace(
     Models\Workspaces\WorkspaceStub|string $workspace,
@@ -166,7 +166,7 @@ interface ApiClientInterface
   /**
    * @param string|Models\Workspaces\WorkspaceStub|null $workspace A workspace ID or WorkspaceStub instance
    * @return Utils\PaginatedResponse<Models\Forms\FormStub>
-   * @link https://developer.typeform.com/create/reference/retrieve-forms/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-forms/
    */
   public function getForms(
     Models\Workspaces\WorkspaceStub|string|null $workspace = null,
@@ -177,23 +177,23 @@ interface ApiClientInterface
 
   /**
    * @param string|Models\Forms\FormStub $form A form ID or FormStub instance
-   * @link https://developer.typeform.com/create/reference/retrieve-form/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-form/
    */
   public function getForm(Models\Forms\FormStub|string $form): Models\Forms\Form;
   /**
-   * @link https://developer.typeform.com/create/reference/create-form/
+   * @link https://www.typeform.com/developers/create/reference/create-form/
    */
   public function createForm(array $data): Models\Forms\Form;
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @link https://developer.typeform.com/create/reference/delete-form/
+   * @link https://www.typeform.com/developers/create/reference/delete-form/
    */
   public function deleteForm(Models\Forms\Form|Models\Forms\FormStub|string $form): void;
   /**
    * @psalm-type Op = Utils\Operation<OperationType, Models\Forms\Form::OPERATION_PATH_*, mixed>
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @param list<Op>|Op $operations One or more operations to perform on the form
-   * @link https://developer.typeform.com/create/reference/update-form-patch/
+   * @link https://www.typeform.com/developers/create/reference/update-form-patch/
    */
   public function updateForm(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
@@ -202,32 +202,32 @@ interface ApiClientInterface
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @link https://developer.typeform.com/create/reference/update-form/
+   * @link https://www.typeform.com/developers/create/reference/update-form/
    */
   public function overwriteForm(Models\Forms\Form|Models\Forms\FormStub|string $form, array $data): void;
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @return array<string, string|null>
-   * @link https://developer.typeform.com/create/reference/retrieve-custom-form-messages/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-custom-form-messages/
    */
   public function getFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form): array;
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @param array<string, string|null> $messages
-   * @link https://developer.typeform.com/create/reference/update-custom-messages/
+   * @link https://www.typeform.com/developers/create/reference/update-custom-messages/
    */
   public function updateFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form, array $messages): void;
   /**
    * @return list<Models\Images\Image>
-   * @link https://developer.typeform.com/create/reference/retrieve-images-collection/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-images-collection/
    */
   public function getImages(): array;
   /**
    * @param string|Models\Images\Image $image An image ID or Image instance
-   * @link https://developer.typeform.com/create/reference/retrieve-image/
-   * @link https://developer.typeform.com/create/reference/retrieve-background-by-size/
-   * @link https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/
-   * @link https://developer.typeform.com/create/reference/retrieve-image-by-size/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-image/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-background-by-size/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-choice-image-by-size/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-image-by-size/
    */
   public function getImage(
     Models\Images\Image|string $image,
@@ -237,10 +237,10 @@ interface ApiClientInterface
 
   /**
    * @param string|Models\Images\Image $image An image ID or Image instance
-   * @link https://developer.typeform.com/create/reference/retrieve-image/
-   * @link https://developer.typeform.com/create/reference/retrieve-background-by-size/
-   * @link https://developer.typeform.com/create/reference/retrieve-choice-image-by-size/
-   * @link https://developer.typeform.com/create/reference/retrieve-image-by-size/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-image/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-background-by-size/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-choice-image-by-size/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-image-by-size/
    */
   public function getImageSource(
     Models\Images\Image|string $image,
@@ -249,36 +249,36 @@ interface ApiClientInterface
   ): string;
 
   /**
-   * @link https://developer.typeform.com/create/reference/create-image/
+   * @link https://www.typeform.com/developers/create/reference/create-image/
    */
   public function createImage(string $fileName, string $base64Source, string $url): array;
   /**
    * @param string|Models\Images\Image $image An image ID or Image instance
-   * @link https://developer.typeform.com/create/reference/delete-image/
+   * @link https://www.typeform.com/developers/create/reference/delete-image/
    */
   public function deleteImage(Models\Images\Image|string $image): void;
   /**
    * @return Utils\PaginatedResponse<Models\Themes\Theme>
-   * @link https://developer.typeform.com/create/reference/retrieve-themes/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-themes/
    */
   public function getThemes(?int $page1 = null, ?int $pageSize = null): Utils\PaginatedResponse;
   /**
    * @param string|Models\Themes\Theme $theme A theme ID or Theme instance
-   * @link https://developer.typeform.com/create/reference/retrieve-theme/
+   * @link https://www.typeform.com/developers/create/reference/retrieve-theme/
    */
   public function getTheme(Models\Themes\Theme|string $theme): Models\Themes\Theme;
   /**
-   * @link https://developer.typeform.com/create/reference/create-theme/
+   * @link https://www.typeform.com/developers/create/reference/create-theme/
    */
   public function createTheme(array $data): Models\Themes\Theme;
   /**
    * @param string|Models\Themes\Theme $theme A theme ID or Theme instance
-   * @link https://developer.typeform.com/create/reference/delete-theme/
+   * @link https://www.typeform.com/developers/create/reference/delete-theme/
    */
   public function deleteTheme(Models\Themes\Theme|string $theme): void;
   /**
    * @param string|Models\Themes\Theme $theme A theme ID or Theme instance
-   * @link https://developer.typeform.com/create/reference/update-theme/
+   * @link https://www.typeform.com/developers/create/reference/update-theme/
    */
   public function updateTheme(Models\Themes\Theme|string $theme, array $data): Models\Themes\Theme;
   /**
@@ -297,7 +297,7 @@ interface ApiClientInterface
    *   fields?: string|list<string>,
    *   answered_fields?: string|list<string>,
    * } $options
-   * @link https://developer.typeform.com/responses/reference/retrieve-responses/
+   * @link https://www.typeform.com/developers/responses/reference/retrieve-responses/
    */
   public function getResponses(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
@@ -307,14 +307,14 @@ interface ApiClientInterface
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @param list<string|Models\Forms\Response> $responses Response IDs or Response instances
-   * @link https://developer.typeform.com/responses/reference/delete-responses/
+   * @link https://www.typeform.com/developers/responses/reference/delete-responses/
    */
   public function deleteResponses(Models\Forms\Form|Models\Forms\FormStub|string $form, array $responses): void;
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @param string|Models\Forms\Response $response A response ID or Response instance
    * @param string|Models\Forms\Field $field A field ID or Field instance
-   * @link https://developer.typeform.com/responses/reference/retrieve-response-file/
+   * @link https://www.typeform.com/developers/responses/reference/retrieve-response-file/
    */
   public function getResponseFile(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
@@ -325,30 +325,30 @@ interface ApiClientInterface
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @link https://developer.typeform.com/responses/reference/retrieve-form-insights/
+   * @link https://www.typeform.com/developers/responses/reference/retrieve-form-insights/
    */
   public function getFormInsights(Models\Forms\Form|Models\Forms\FormStub|string $form): Models\Forms\InsightsSummary;
   /**
    * @param string|Models\Jobs\Job $job A job ID or Job instance
-   * @link https://developer.typeform.com/responses/reference/rtbf-retrieve-job-status/
+   * @link https://www.typeform.com/developers/responses/reference/rtbf-retrieve-job-status/
    */
   public function rtbfGetJobStatus(string $accountId, Models\Jobs\Job|string $job): Models\Jobs\Status;
   /**
    * @param list<string> $emails
    * @return list<string>
-   * @link https://developer.typeform.com/responses/reference/rtbf-delete-responses/
+   * @link https://www.typeform.com/developers/responses/reference/rtbf-delete-responses/
    */
   public function rtbfDeleteResponses(string $accountId, array $emails): array;
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @return list<Models\Forms\Webhook>
-   * @link https://developer.typeform.com/webhooks/reference/retrieve-webhooks/
+   * @link https://www.typeform.com/developers/webhooks/reference/retrieve-webhooks/
    */
   public function getWebhooks(Models\Forms\Form|Models\Forms\FormStub|string $form): array;
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @param string|Models\Forms\Webhook $tagOrWebhook A webhook tag or Webhook instance
-   * @link https://developer.typeform.com/webhooks/reference/retrieve-single-webhook/
+   * @link https://www.typeform.com/developers/webhooks/reference/retrieve-single-webhook/
    */
   public function getWebhook(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
@@ -358,7 +358,7 @@ interface ApiClientInterface
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @param string|Models\Forms\Webhook $tagOrWebhook A webhook tag or Webhook instance
-   * @link https://developer.typeform.com/webhooks/reference/delete-webhook/
+   * @link https://www.typeform.com/developers/webhooks/reference/delete-webhook/
    */
   public function deleteWebhook(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
@@ -368,7 +368,7 @@ interface ApiClientInterface
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @param string|Models\Forms\Webhook $tagOrWebhook A webhook tag or Webhook instance
-   * @link https://developer.typeform.com/webhooks/reference/create-or-update-webhook/
+   * @link https://www.typeform.com/developers/webhooks/reference/create-or-update-webhook/
    */
   public function createUpdateWebhook(
     Models\Forms\Form|Models\Forms\FormStub|string $form,

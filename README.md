@@ -1,6 +1,6 @@
 # Typeform API Client
 
-A strongly-typed interface to the complete [Typeform API](https://developer.typeform.com/get-started/).
+A strongly-typed interface to the complete [Typeform API](https://www.typeform.com/developers/get-started/).
 
 ```
 composer require adamaveray/typeform
@@ -9,7 +9,7 @@ composer require adamaveray/typeform
 ## Setup
 
 1. Install the library with Composer (`composer require adamaveray/typeform`).
-2. [Generate a Typeform personal access token](https://developer.typeform.com/get-started/personal-access-token/).
+2. [Generate a Typeform personal access token](https://www.typeform.com/developers/get-started/personal-access-token/).
 
 ## Usage
 

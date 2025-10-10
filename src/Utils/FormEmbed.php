@@ -130,7 +130,7 @@ class FormEmbed
    * @param string $option A camelCased embed option name
    * @param Option|null $value
    * @return $this
-   * @link https://developer.typeform.com/embed/configuration/#options-in-plain-html-embed
+   * @link https://www.typeform.com/developers/embed/configuration/#options-in-plain-html-embed
    * @see setOptions
    */
   public function setOption(string $option, mixed $value): self
@@ -145,7 +145,7 @@ class FormEmbed
    * @param array<string,Option|null> $options
    * @param bool $merge If true, will preserve existing options, if false will remove any previously-set options
    * @return $this
-   * @link https://developer.typeform.com/embed/configuration/#options-in-plain-html-embed
+   * @link https://www.typeform.com/developers/embed/configuration/#options-in-plain-html-embed
    * @see setOption
    */
   public function setOptions(array $options, bool $merge = true): self
@@ -159,7 +159,7 @@ class FormEmbed
    * @param string $value
    * @return $this
    * @see setHiddenFields
-   * @link https://developer.typeform.com/embed/hidden-fields/#pass-values-from-host-page-url
+   * @link https://www.typeform.com/developers/embed/hidden-fields/#pass-values-from-host-page-url
    */
   public function setHiddenField(string $field, string $value): self
   {
@@ -172,7 +172,7 @@ class FormEmbed
    * @param bool $merge If true, will preserve existing fields, if false will remove any previously-set fields
    * @return $this
    * @see setHiddenField
-   * @link https://developer.typeform.com/embed/hidden-fields/#pass-values-from-host-page-url
+   * @link https://www.typeform.com/developers/embed/hidden-fields/#pass-values-from-host-page-url
    */
   public function setHiddenFields(array $fields, bool $merge = true): self
   {
@@ -281,7 +281,7 @@ class FormEmbed
   /**
    * @param Option $value The option value
    * @return string|null A serialised string representation of $value, or null if it should be omitted
-   * @link https://developer.typeform.com/embed/configuration/#options-in-plain-html-embed
+   * @link https://www.typeform.com/developers/embed/configuration/#options-in-plain-html-embed
    */
   private static function getOptionAttrValue(mixed $value): ?string
   {
