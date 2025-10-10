@@ -83,8 +83,7 @@ final class ApiClient implements ApiClientInterface
     $this->makeRequest('PATCH', self::URL_BASE . $endpoint, null, $data)->getContent();
   }
 
-  /** @return array|string */
-  private function put(string $endpoint, array $data, bool $returnResponse = false)
+  private function put(string $endpoint, array $data, bool $returnResponse = false): array|string
   {
     $response = $this->makeRequest('PUT', self::URL_BASE . $endpoint, null, $data);
     return $returnResponse ? $response->toArray() : $response->getContent();
