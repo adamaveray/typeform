@@ -39,7 +39,7 @@ class FormEmbedTest extends TestCase
 
   /**
    * @dataProvider generationDataProvider
-   * @psalm-param (callable(FormEmbed):void)|null $configurator
+   * @param (callable(FormEmbed):void)|null $configurator
    */
   public function testGeneration(
     string $expected,
@@ -265,7 +265,7 @@ class FormEmbedTest extends TestCase
   }
 
   /**
-   * @psalm-param callable(Form|FormStub|string):FormEmbed $generator
+   * @param callable(Form|FormStub|string):FormEmbed $generator
    */
   private function assertEmbedHtmlForAllTypes(string $expected, string $formId, callable $generator): void
   {
@@ -279,7 +279,7 @@ class FormEmbedTest extends TestCase
   }
 
   /**
-   * @psalm-param callable(Form|FormStub|string, string):void $fn
+   * @param callable(Form|FormStub|string, string):void $fn
    */
   private static function runForAllFormTypes(string $formId, callable $fn): void
   {
@@ -354,8 +354,8 @@ class FormEmbedTest extends TestCase
   }
 
   /**
-   * @psalm-param class-string<Form>|class-string<FormStub> $className
-   * @psalm-return Form|FormStub
+   * @param class-string<Form>|class-string<FormStub> $className
+   * @return Form|FormStub
    */
   private static function getPseudoForm(string $id, string $className): Model
   {

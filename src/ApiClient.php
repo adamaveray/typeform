@@ -41,7 +41,7 @@ final class ApiClient implements ApiClientInterface
   }
 
   /**
-   * @psalm-param "GET"|"POST"|"DELETE"|"PATCH"|"PUT" $method
+   * @param "GET"|"POST"|"DELETE"|"PATCH"|"PUT" $method
    */
   private function makeRequest(
     string $method,
@@ -61,7 +61,7 @@ final class ApiClient implements ApiClientInterface
   }
 
   /**
-   * @psalm-param array<string,string|int|float|null>|null $queryString
+   * @param array<string,string|int|float|null>|null $queryString
    */
   private function get(string $endpoint, ?array $queryString = null): array
   {
@@ -91,9 +91,9 @@ final class ApiClient implements ApiClientInterface
   }
 
   /**
-   * @psalm-template TModel of \AdamAveray\Typeform\Models\Model
-   * @psalm-param Utils\Refs\SingleRef<TModel> $ref
-   * @psalm-return TModel
+   * @template TModel of \AdamAveray\Typeform\Models\Model
+   * @param Utils\Refs\SingleRef<TModel> $ref
+   * @return TModel
    * @see loadCollectionRef
    */
   public function loadRef(Utils\Refs\SingleRef $ref): Models\Model
@@ -104,9 +104,9 @@ final class ApiClient implements ApiClientInterface
 
   /**
    * @param bool $loadMax Whether to attempt to load all referenced items, overriding the default page size
-   * @psalm-template TModel of Models\Model
-   * @psalm-param Utils\Refs\CollectionRef<TModel> $ref
-   * @psalm-return list<TModel>
+   * @template TModel of Models\Model
+   * @param Utils\Refs\CollectionRef<TModel> $ref
+   * @return list<TModel>
    * @see loadRef
    */
   public function loadCollectionRef(Utils\Refs\CollectionRef $ref, bool $loadMax = true): array
@@ -125,7 +125,7 @@ final class ApiClient implements ApiClientInterface
   }
 
   /**
-   * @psalm-return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
+   * @return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
    * @link https://developer.typeform.com/create/reference/retrieve-account-workspaces/
    */
   public function getAccountWorkspaces(
@@ -147,7 +147,7 @@ final class ApiClient implements ApiClientInterface
   }
 
   /**
-   * @psalm-return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
+   * @return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
    * @link https://developer.typeform.com/create/reference/retrieve-workspaces/
    */
   public function getWorkspaces(
@@ -216,7 +216,7 @@ final class ApiClient implements ApiClientInterface
 
   /**
    * @param string|Models\Workspaces\WorkspaceStub|null $workspace A workspace ID or WorkspaceStub instance
-   * @psalm-return Utils\PaginatedResponse<Models\Forms\FormStub>
+   * @return Utils\PaginatedResponse<Models\Forms\FormStub>
    * @link https://developer.typeform.com/create/reference/retrieve-forms/
    */
   public function getForms(
@@ -271,10 +271,9 @@ final class ApiClient implements ApiClientInterface
   }
 
   /**
-   * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the form
    * @psalm-type Op = Utils\Operation<OperationType, Models\Forms\Form::OPERATION_PATH_*, mixed>
-   * @psalm-param list<Op>|Op $operations
+   * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
+   * @param list<Op>|Op $operations One or more operations to perform on the form
    * @link https://developer.typeform.com/create/reference/update-form-patch/
    */
   public function updateForm(
@@ -317,8 +316,7 @@ final class ApiClient implements ApiClientInterface
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @param list<string> $messages
-   * @psalm-param array<string, string|null> $messages
+   * @param array<string, string|null> $messages
    * @link https://developer.typeform.com/create/reference/update-custom-messages/
    */
   public function updateFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form, array $messages): void
@@ -399,7 +397,7 @@ final class ApiClient implements ApiClientInterface
   }
 
   /**
-   * @psalm-return Utils\PaginatedResponse<Models\Themes\Theme>
+   * @return Utils\PaginatedResponse<Models\Themes\Theme>
    * @link https://developer.typeform.com/create/reference/retrieve-themes/
    */
   public function getThemes(?int $page1 = null, ?int $pageSize = null): Utils\PaginatedResponse
@@ -461,7 +459,7 @@ final class ApiClient implements ApiClientInterface
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @psalm-param array{
+   * @param array{
    *   page_size?: int,
    *   since?: string,
    *   until?: string,
@@ -508,7 +506,7 @@ final class ApiClient implements ApiClientInterface
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @psalm-param list<string|Models\Forms\Response> $responses Response IDs or Response instances
+   * @param list<string|Models\Forms\Response> $responses Response IDs or Response instances
    * @link https://developer.typeform.com/responses/reference/delete-responses/
    */
   public function deleteResponses(Models\Forms\Form|Models\Forms\FormStub|string $form, array $responses): void
@@ -704,7 +702,7 @@ final class ApiClient implements ApiClientInterface
   /**
    * Replaces the '%' character within a URL path pattern with a number of values, ensuring each value is URL safe
    *
-   * @psalm-param string|int|float ...$parts
+   * @param string|int|float ...$parts
    */
   private static function buildEndpoint(string $pattern, ...$parts): string
   {
@@ -770,7 +768,7 @@ final class ApiClient implements ApiClientInterface
   /**
    * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the form
    * @return list<array{ op: string, path: string, value: mixed }>
-   * @psalm-pure
+   * @pure
    */
   private static function formatOperations(Utils\Operation|array $operations): array
   {
@@ -779,7 +777,7 @@ final class ApiClient implements ApiClientInterface
     }
 
     return array_map(
-      /** @psalm-pure */
+      /** @pure */
       static fn(Utils\Operation $operation): array => $operation->formatForRequest(),
       $operations,
     );

@@ -35,11 +35,11 @@ class TestCase extends BaseTestCase
   }
 
   /**
-   * @psalm-template T of Model
+   * @template T of Model
    * @param class-string<T> $className
    * @psalm-param class-string $className See https://github.com/vimeo/psalm/issues/7913
-   * @psalm-param list<array> $items
-   * @psalm-return list<T>
+   * @param list<array> $items
+   * @return list<T>
    */
   final protected static function instantiateModels(string $className, array $items): array
   {
@@ -48,8 +48,8 @@ class TestCase extends BaseTestCase
   }
 
   /**
-   * @psalm-template T
-   * @psalm-param class-string $class
+   * @template T
+   * @param class-string $class
    * @return T
    */
   final protected static function getConst(string $class, string $name): mixed

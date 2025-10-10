@@ -4,30 +4,30 @@ declare(strict_types=1);
 namespace AdamAveray\Typeform\Utils;
 
 /**
- * @psalm-template TType of OperationType
- * @psalm-template TPath of string
- * @psalm-template TValue af mixed
+ * @template TType of OperationType
+ * @template TPath of string
+ * @template TValue af mixed
  * @psalm-immutable
  */
 final readonly class Operation
 {
   /**
-   * @psalm-var TType
+   * @var TType
    */
   private OperationType $type;
   /**
-   * @psalm-var TPath
+   * @var TPath
    */
   private string $path;
   /**
-   * @psalm-var TValue
+   * @var TValue
    */
   private mixed $value;
 
   /**
-   * @psalm-param TType|string $type
-   * @psalm-param TPath $path
-   * @psalm-param TValue $value
+   * @param TType|string $type
+   * @param TPath $path
+   * @param TValue $value
    */
   private function __construct(string|OperationType $type, string $path, mixed $value)
   {
@@ -56,12 +56,12 @@ final readonly class Operation
   }
 
   /**
-   * @psalm-template TPathIn of string
-   * @psalm-template TValueIn
-   * @psalm-param TPathIn $path
-   * @psalm-param TValueIn $value
-   * @psalm-return Operation<OperationType::Add, TPathIn, TValueIn>
-   * @psalm-pure
+   * @template TPathIn of string
+   * @template TValueIn
+   * @param TPathIn $path
+   * @param TValueIn $value
+   * @return Operation<OperationType::Add, TPathIn, TValueIn>
+   * @pure
    */
   public static function add(string $path, mixed $value): self
   {
@@ -69,12 +69,12 @@ final readonly class Operation
   }
 
   /**
-   * @psalm-template TPathIn of string
-   * @psalm-template TValueIn
-   * @psalm-param TPathIn $path
-   * @psalm-param TValueIn $value
-   * @psalm-return Operation<OperationType::Remove, TPathIn, TValueIn>
-   * @psalm-pure
+   * @template TPathIn of string
+   * @template TValueIn
+   * @param TPathIn $path
+   * @param TValueIn $value
+   * @return Operation<OperationType::Remove, TPathIn, TValueIn>
+   * @pure
    */
   public static function remove(string $path, mixed $value): self
   {
@@ -82,12 +82,12 @@ final readonly class Operation
   }
 
   /**
-   * @psalm-template TPathIn of string
-   * @psalm-template TValueIn
-   * @psalm-param TPathIn $path
-   * @psalm-param TValueIn $value
-   * @psalm-return Operation<OperationType::Replace, TPathIn, TValueIn>
-   * @psalm-pure
+   * @template TPathIn of string
+   * @template TValueIn
+   * @param TPathIn $path
+   * @param TValueIn $value
+   * @return Operation<OperationType::Replace, TPathIn, TValueIn>
+   * @pure
    */
   public static function replace(string $path, mixed $value): self
   {

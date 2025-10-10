@@ -6,7 +6,7 @@ namespace AdamAveray\Typeform\Utils\Refs;
 use AdamAveray\Typeform\Models\Model;
 
 /**
- * @psalm-template T of \AdamAveray\Typeform\Models\Model
+ * @template T of \AdamAveray\Typeform\Models\Model
  * @psalm-immutable
  */
 abstract readonly class Ref
@@ -24,14 +24,14 @@ abstract readonly class Ref
    */
   public function __construct(string $className, array $data)
   {
-    /** @psalm-var class-string<T> $className */
+    /** @var class-string<T> $className */
     $this->className = $className;
     $this->href = $data['href'];
   }
 
   /**
-   * @psalm-return T
-   * @psalm-mutation-free
+   * @return T
+   * @mutation-free
    */
   protected function instantiateOne(array $data): Model
   {

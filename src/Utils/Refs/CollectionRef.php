@@ -6,7 +6,7 @@ namespace AdamAveray\Typeform\Utils\Refs;
 use AdamAveray\Typeform\Models\Model;
 
 /**
- * @psalm-template T2 of \AdamAveray\Typeform\Models\Model
+ * @template T2 of \AdamAveray\Typeform\Models\Model
  * @extends Ref<T2>
  * @psalm-immutable
  */
@@ -15,13 +15,12 @@ final readonly class CollectionRef extends Ref
   public int $count;
 
   /**
-   * @param class-string<T2> $className
-   * @psalm-param class-string $className See https://github.com/vimeo/psalm/issues/7913
+   * @param class-string $className See https://github.com/vimeo/psalm/issues/7913
    * @param array{ count: int, href: string } $data
    */
   public function __construct(string $className, array $data)
   {
-    /*** @psalm-var class-string<T2> $className */
+    /*** @var class-string<T2> $className */
     $this->count = $data['count'];
     unset($data['count']);
 
@@ -29,9 +28,8 @@ final readonly class CollectionRef extends Ref
   }
 
   /**
-   * @return list<Model>
-   * @psalm-return list<T2>
-   * @psalm-mutation-free
+   * @return list<T2>
+   * @mutation-free
    */
   public function instantiateCollection(array $data): array
   {

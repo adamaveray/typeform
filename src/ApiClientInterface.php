@@ -94,18 +94,18 @@ interface ApiClientInterface
   public function setDefaultPageSize(int $defaultPageSize): void;
 
   /**
-   * @psalm-template TModel of \AdamAveray\Typeform\Models\Model
-   * @psalm-param Utils\Refs\SingleRef<TModel> $ref
-   * @psalm-return TModel
+   * @template TModel of \AdamAveray\Typeform\Models\Model
+   * @param Utils\Refs\SingleRef<TModel> $ref
+   * @return TModel
    * @see loadCollectionRef
    */
   public function loadRef(Utils\Refs\SingleRef $ref): Models\Model;
 
   /**
    * @param bool $loadMax Whether to attempt to load all referenced items, overriding the default page size
-   * @psalm-template TModel of Models\Model
-   * @psalm-param Utils\Refs\CollectionRef<TModel> $ref
-   * @psalm-return list<TModel>
+   * @template TModel of Models\Model
+   * @param Utils\Refs\CollectionRef<TModel> $ref
+   * @return list<TModel>
    * @see loadRef
    */
   public function loadCollectionRef(Utils\Refs\CollectionRef $ref, bool $loadMax = true): array;
@@ -116,7 +116,7 @@ interface ApiClientInterface
   public function getCurrentUser(): Models\Users\User;
 
   /**
-   * @psalm-return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
+   * @return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
    * @link https://developer.typeform.com/create/reference/retrieve-account-workspaces/
    */
   public function getAccountWorkspaces(
@@ -127,7 +127,7 @@ interface ApiClientInterface
   ): Utils\PaginatedResponse;
 
   /**
-   * @psalm-return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
+   * @return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
    * @link https://developer.typeform.com/create/reference/retrieve-workspaces/
    */
   public function getWorkspaces(
@@ -165,7 +165,7 @@ interface ApiClientInterface
 
   /**
    * @param string|Models\Workspaces\WorkspaceStub|null $workspace A workspace ID or WorkspaceStub instance
-   * @psalm-return Utils\PaginatedResponse<Models\Forms\FormStub>
+   * @return Utils\PaginatedResponse<Models\Forms\FormStub>
    * @link https://developer.typeform.com/create/reference/retrieve-forms/
    */
   public function getForms(
@@ -190,10 +190,9 @@ interface ApiClientInterface
    */
   public function deleteForm(Models\Forms\Form|Models\Forms\FormStub|string $form): void;
   /**
-   * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the form
    * @psalm-type Op = Utils\Operation<OperationType, Models\Forms\Form::OPERATION_PATH_*, mixed>
-   * @psalm-param list<Op>|Op $operations
+   * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
+   * @param list<Op>|Op $operations One or more operations to perform on the form
    * @link https://developer.typeform.com/create/reference/update-form-patch/
    */
   public function updateForm(
@@ -208,15 +207,13 @@ interface ApiClientInterface
   public function overwriteForm(Models\Forms\Form|Models\Forms\FormStub|string $form, array $data): void;
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @return list<string>
-   * @psalm-return array<string, string|null>
+   * @return array<string, string|null>
    * @link https://developer.typeform.com/create/reference/retrieve-custom-form-messages/
    */
   public function getFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form): array;
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @param list<string> $messages
-   * @psalm-param array<string, string|null> $messages
+   * @param array<string, string|null> $messages
    * @link https://developer.typeform.com/create/reference/update-custom-messages/
    */
   public function updateFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form, array $messages): void;
@@ -261,7 +258,7 @@ interface ApiClientInterface
    */
   public function deleteImage(Models\Images\Image|string $image): void;
   /**
-   * @psalm-return Utils\PaginatedResponse<Models\Themes\Theme>
+   * @return Utils\PaginatedResponse<Models\Themes\Theme>
    * @link https://developer.typeform.com/create/reference/retrieve-themes/
    */
   public function getThemes(?int $page1 = null, ?int $pageSize = null): Utils\PaginatedResponse;
@@ -286,7 +283,7 @@ interface ApiClientInterface
   public function updateTheme(Models\Themes\Theme|string $theme, array $data): Models\Themes\Theme;
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @psalm-param array{
+   * @param array{
    *   page_size?: int,
    *   since?: string,
    *   until?: string,
@@ -309,7 +306,7 @@ interface ApiClientInterface
 
   /**
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
-   * @psalm-param list<string|Models\Forms\Response> $responses Response IDs or Response instances
+   * @param list<string|Models\Forms\Response> $responses Response IDs or Response instances
    * @link https://developer.typeform.com/responses/reference/delete-responses/
    */
   public function deleteResponses(Models\Forms\Form|Models\Forms\FormStub|string $form, array $responses): void;

@@ -37,8 +37,8 @@ class PaginatedResponseTest extends TestCase
 
   /**
    * @dataProvider containsAllItemsDataProvider
-   * @psalm-param class-string<Model> $modelClass
-   * @psalm-param list<mixed> $itemsData
+   * @param class-string<Model> $modelClass
+   * @param list<mixed> $itemsData
    */
   public function testContainsAllItems(
     bool $expected,

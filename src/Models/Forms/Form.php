@@ -46,9 +46,9 @@ final readonly class Form extends Model
   public ?\DateTimeImmutable $createdAt;
   public ?\DateTimeImmutable $lastUpdatedAt;
   public string $type;
-  /** @psalm-var Refs\SingleRef<Workspace> */
+  /** @var Refs\SingleRef<Workspace> */
   public Refs\SingleRef $workspace;
-  /** @psalm-var Refs\SingleRef<Theme> */
+  /** @var Refs\SingleRef<Theme> */
   public Refs\SingleRef $theme;
   public array $settings;
   /** @var list<Screen> */

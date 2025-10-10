@@ -55,9 +55,9 @@ class FormEmbed
   private bool $loadLibAsync = true;
   private bool $seamless = false;
   private string $label = 'Open Form';
-  /** @psalm-var array<string,Option|null> */
+  /** @var array<string,Option|null> */
   private array $options = [];
-  /** @psalm-var HiddenFields */
+  /** @var HiddenFields */
   private array $hiddenFields = [];
 
   public function __construct(string|Form|FormStub $form, FormEmbedType|string $type)
@@ -128,8 +128,7 @@ class FormEmbed
 
   /**
    * @param string $option A camelCased embed option name
-   * @param mixed $value
-   * @psalm-param Option|null $value
+   * @param Option|null $value
    * @return $this
    * @link https://developer.typeform.com/embed/configuration/#options-in-plain-html-embed
    * @see setOptions
@@ -143,8 +142,7 @@ class FormEmbed
   }
 
   /**
-   * @param array $options
-   * @psalm-param array<string,Option|null> $options
+   * @param array<string,Option|null> $options
    * @param bool $merge If true, will preserve existing options, if false will remove any previously-set options
    * @return $this
    * @link https://developer.typeform.com/embed/configuration/#options-in-plain-html-embed
@@ -170,8 +168,7 @@ class FormEmbed
   }
 
   /**
-   * @param array $fields
-   * @psalm-param HiddenFields $fields
+   * @param HiddenFields $fields
    * @param bool $merge If true, will preserve existing fields, if false will remove any previously-set fields
    * @return $this
    * @see setHiddenField
@@ -184,9 +181,7 @@ class FormEmbed
   }
 
   /**
-   * @return array The full Typeform SDK options for the form
-   *
-   * @psalm-return array<string,Option>
+   * @return array<string,Option> The full Typeform SDK options for the form
    */
   public function getFullOptions(): array
   {
@@ -197,7 +192,7 @@ class FormEmbed
 
     switch ($this->type) {
       case FormEmbedType::Inline:
-        /** @psalm-var array<string,Option|null> $options */
+        /** @var array<string,Option|null> $options */
         $options = array_merge(['widget' => $this->formId], $options);
         if ($this->seamless) {
           $options['hideHeaders'] ??= true;
@@ -207,7 +202,7 @@ class FormEmbed
         break;
 
       case FormEmbedType::Modal:
-        /** @psalm-var array<string,Option|null> $options */
+        /** @var array<string,Option|null> $options */
         $options = array_merge([$this->modalType->value => $this->formId], $options);
         break;
     }
@@ -261,7 +256,7 @@ class FormEmbed
   }
 
   /**
-   * @psalm-param array<string,Option> $options
+   * @param array<string,Option> $options
    */
   private static function buildOptions(array $options): string
   {
@@ -284,8 +279,7 @@ class FormEmbed
   }
 
   /**
-   * @param mixed $value The option value
-   * @psalm-param Option $value
+   * @param Option $value The option value
    * @return string|null A serialised string representation of $value, or null if it should be omitted
    * @link https://developer.typeform.com/embed/configuration/#options-in-plain-html-embed
    */

@@ -17,7 +17,7 @@ use AdamAveray\Typeform\Utils\Refs;
  *   forms: array,
  *   self: array,
  * } & array<string, mixed>
- * @psalm-template TWorkplaceData of RawData
+ * @template TWorkplaceData of RawData
  * @extends Model<TWorkplaceData>
  * @psalm-immutable
  */
@@ -27,9 +27,9 @@ readonly class WorkspaceStub extends Model
   public string $accountId;
   public bool $shared;
   public bool $default;
-  /** @psalm-var Refs\CollectionRef<FormStub> */
+  /** @var Refs\CollectionRef<FormStub> */
   public Refs\CollectionRef $forms;
-  /** @psalm-var Refs\SingleRef<Workspace> */
+  /** @var Refs\SingleRef<Workspace> */
   public Refs\SingleRef $self;
 
   /**

@@ -26,9 +26,9 @@ final readonly class FormStub extends Model
   public string $title;
   public \DateTimeImmutable $createdAt;
   public \DateTimeImmutable $lastUpdatedAt;
-  /** @psalm-var Refs\SingleRef<Form> */
+  /** @var Refs\SingleRef<Form> */
   public Refs\SingleRef $self;
-  /** @psalm-var Refs\SingleRef<Theme> */
+  /** @var Refs\SingleRef<Theme> */
   public Refs\SingleRef $theme;
 
   /**

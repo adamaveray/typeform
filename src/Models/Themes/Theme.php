@@ -25,7 +25,7 @@ final readonly class Theme extends Model
   public string $font;
   public bool $hasTransparentButton;
   public string $visibility;
-  /** @psalm-var array<"question"|"answer"|"button"|"background", string> */
+  /** @var array<"question"|"answer"|"button"|"background", string> */
   public array $colors;
   /** @var array{ form_size: string, alignment: string } */
   public array $screens;

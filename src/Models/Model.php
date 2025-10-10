@@ -6,7 +6,7 @@ namespace AdamAveray\Typeform\Models;
 use AdamAveray\Typeform\Utils\Refs;
 
 /**
- * @psalm-template TRawData of (array{ id: string} & array<string, mixed>)
+ * @template TRawData of (array{ id: string} & array<string, mixed>)
  * @psalm-consistent-constructor
  * @psalm-immutable
  */
@@ -29,7 +29,7 @@ abstract readonly class Model
   }
 
   /**
-   * @psalm-pure
+   * @pure
    */
   protected static function convertTimestamp(string $timestamp): \DateTimeImmutable
   {
@@ -46,27 +46,27 @@ abstract readonly class Model
   }
 
   /**
-   * @psalm-return \AdamAveray\Typeform\Utils\Refs\SingleRef<static>
-   * @psalm-pure
+   * @return \AdamAveray\Typeform\Utils\Refs\SingleRef<static>
+   * @pure
    */
   public static function ref(array $data): Refs\SingleRef
   {
     /**
-     * @psalm-suppress ImpureMethodCall
-     * @psalm-var Refs\SingleRef<static> See https://github.com/vimeo/psalm/issues/7913
+     * @suppress ImpureMethodCall
+     * @var Refs\SingleRef<static> See https://github.com/vimeo/psalm/issues/7913
      */
     return new Refs\SingleRef(static::class, $data);
   }
 
   /**
-   * @psalm-return \AdamAveray\Typeform\Utils\Refs\CollectionRef<static>
-   * @psalm-pure
+   * @return \AdamAveray\Typeform\Utils\Refs\CollectionRef<static>
+   * @pure
    */
   public static function collectionRef(array $data): Refs\CollectionRef
   {
     /**
-     * @psalm-suppress ImpureMethodCall
-     * @psalm-var Refs\CollectionRef<static> See https://github.com/vimeo/psalm/issues/7913
+     * @suppress ImpureMethodCall
+     * @var Refs\CollectionRef<static> See https://github.com/vimeo/psalm/issues/7913
      */
     return new Refs\CollectionRef(static::class, $data);
   }
