@@ -32,4 +32,4 @@ See the following sections for full documentation:
 
 ---
 
-[MIT Licence](LICENSE)
+[MIT Licence](LICENCE)
