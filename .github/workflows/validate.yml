@@ -63,7 +63,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Install Composer packages
-        run: composer install
+        run: composer install --ignore-platform-req=php
 
       - name: Check code format
         run: bun run format-check
