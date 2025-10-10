@@ -16,5 +16,10 @@
 
   <issueHandlers>
     <MixedArgumentTypeCoercion errorLevel="info" />
+    <UnusedMethodCall errorLevel="error">
+      <errorLevel type="suppress">
+        <directory name="tests" />
+      </errorLevel>
+    </UnusedMethodCall>
   </issueHandlers>
 </psalm>
