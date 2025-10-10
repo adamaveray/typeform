@@ -7,10 +7,10 @@ use AdamAveray\Typeform\Utils\Refs;
 
 /**
  * @psalm-template TRawData of (array{ id: string} & array<string, mixed>)
- * @psalm-immutable
  * @psalm-consistent-constructor
+ * @psalm-immutable
  */
-abstract class Model
+abstract readonly class Model
 {
   private const TIMESTAMP_FORMAT_SECONDS = 'Y-m-d\\TH:i:s\\Z';
   private const TIMESTAMP_FORMAT_MICROSECONDS = 'Y-m-d\\TH:i:s.u\\Z';

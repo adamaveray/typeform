@@ -17,7 +17,7 @@ use AdamAveray\Typeform\Models\Model;
  * @extends Model<RawData>
  * @psalm-immutable
  */
-final class Field extends Model
+final readonly class Field extends Model
 {
   public string $ref;
   public string $title;

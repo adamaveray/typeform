@@ -9,20 +9,20 @@ namespace AdamAveray\Typeform\Utils;
  * @psalm-template TValue af mixed
  * @psalm-immutable
  */
-final class Operation
+final readonly class Operation
 {
   /**
    * @psalm-var TType
    */
-  private readonly OperationType $type;
+  private OperationType $type;
   /**
    * @psalm-var TPath
    */
-  private readonly string $path;
+  private string $path;
   /**
    * @psalm-var TValue
    */
-  private readonly mixed $value;
+  private mixed $value;
 
   /**
    * @psalm-param TType|string $type
@@ -44,6 +44,7 @@ final class Operation
 
   /**
    * @return array{ op: string, path: TPath, value: TValue }
+   * @mutation-free
    */
   public function formatForRequest(): array
   {

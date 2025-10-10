@@ -11,7 +11,7 @@ namespace AdamAveray\Typeform\Models\Jobs;
  * }
  * @psalm-immutable
  */
-class Status
+readonly class Status
 {
   public string $accountId;
   public string $status;

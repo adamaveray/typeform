@@ -7,12 +7,12 @@ use AdamAveray\Typeform\Models\Model;
 
 /**
  * @psalm-type RawData = array{ id: string, dummy_time: string }
- * @psalm-immutable
  * @extends Model<RawData>
+ * @psalm-immutable
  */
-class DummyTimestampModel extends Model
+readonly class DummyTimestampModel extends Model
 {
-  public readonly \DateTimeImmutable $dummyTimestamp;
+  public \DateTimeImmutable $dummyTimestamp;
 
   /** @param RawData $data */
   public function __construct(array $data)

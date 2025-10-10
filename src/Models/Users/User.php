@@ -15,7 +15,7 @@ use AdamAveray\Typeform\Models\Model;
  * @extends Model<RawData & array{ id: string }>
  * @psalm-immutable
  */
-final class User extends Model
+final readonly class User extends Model
 {
   public string $alias;
   public string $email;

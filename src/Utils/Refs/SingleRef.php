@@ -8,8 +8,9 @@ use AdamAveray\Typeform\Models\Model;
 /**
  * @psalm-template T2 of \AdamAveray\Typeform\Models\Model
  * @extends Ref<T2>
+ * @psalm-immutable
  */
-final class SingleRef extends Ref
+final readonly class SingleRef extends Ref
 {
   /**
    * @psalm-return T2

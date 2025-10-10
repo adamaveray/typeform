@@ -8,10 +8,11 @@ use AdamAveray\Typeform\Models\Model;
 /**
  * @psalm-template T2 of \AdamAveray\Typeform\Models\Model
  * @extends Ref<T2>
+ * @psalm-immutable
  */
-final class CollectionRef extends Ref
+final readonly class CollectionRef extends Ref
 {
-  public readonly int $count;
+  public int $count;
 
   /**
    * @param class-string<T2> $className

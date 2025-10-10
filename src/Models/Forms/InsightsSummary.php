@@ -10,7 +10,7 @@ namespace AdamAveray\Typeform\Models\Forms;
  * }
  * @psalm-immutable
  */
-class InsightsSummary
+final readonly class InsightsSummary
 {
   public array $fields;
   public array $form;

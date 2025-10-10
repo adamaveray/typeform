@@ -12,7 +12,7 @@ namespace AdamAveray\Typeform\Models\Workspaces;
  * }
  * @psalm-immutable
  */
-final class Member
+final readonly class Member
 {
   public string $email;
   public string $name;

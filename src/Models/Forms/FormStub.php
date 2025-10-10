@@ -19,7 +19,7 @@ use AdamAveray\Typeform\Utils\Refs;
  * @extends Model<RawData>
  * @psalm-immutable
  */
-final class FormStub extends Model
+final readonly class FormStub extends Model
 {
   use EmbedTrait;
 

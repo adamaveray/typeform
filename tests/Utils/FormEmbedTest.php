@@ -359,9 +359,9 @@ class FormEmbedTest extends TestCase
    */
   private static function getPseudoForm(string $id, string $className): Model
   {
-    $form = (new \ReflectionClass($className))->newInstanceWithoutConstructor();
-    /** @psalm-suppress InaccessibleProperty */
-    $form->id = $id;
+    $reflectionClass = new \ReflectionClass($className);
+    $form = $reflectionClass->newInstanceWithoutConstructor();
+    self::setReadonlyProperties($form, 'id', $id);
     return $form;
   }
 }

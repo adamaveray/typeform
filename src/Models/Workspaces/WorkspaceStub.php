@@ -21,7 +21,7 @@ use AdamAveray\Typeform\Utils\Refs;
  * @extends Model<TWorkplaceData>
  * @psalm-immutable
  */
-class WorkspaceStub extends Model
+readonly class WorkspaceStub extends Model
 {
   public string $name;
   public string $accountId;

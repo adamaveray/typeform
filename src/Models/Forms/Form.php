@@ -26,7 +26,7 @@ use AdamAveray\Typeform\Utils\Refs;
  * @extends Model<RawData>
  * @psalm-immutable
  */
-final class Form extends Model
+final readonly class Form extends Model
 {
   use EmbedTrait;
 

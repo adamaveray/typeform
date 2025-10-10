@@ -6,7 +6,7 @@ namespace AdamAveray\Typeform\Models\Jobs;
 use AdamAveray\Typeform\Models\Model;
 
 /**
- * @psalm-immutable
  * @extends Model<array{ id: string }>
+ * @psalm-immutable
  */
-class Job extends Model {}
+readonly class Job extends Model {}

@@ -19,7 +19,7 @@ use AdamAveray\Typeform\Models\Model;
  * @extends Model<RawData>
  * @psalm-immutable
  */
-final class Theme extends Model
+final readonly class Theme extends Model
 {
   public string $name;
   public string $font;

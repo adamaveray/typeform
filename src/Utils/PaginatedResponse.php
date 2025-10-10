@@ -11,16 +11,16 @@ use AdamAveray\Typeform\Models\Model;
  * @psalm-type RawData = array{ page_count: int, total_items: int, items: list<mixed> }
  * @psalm-immutable
  */
-final class PaginatedResponse
+final readonly class PaginatedResponse
 {
-  public readonly int $pageCount;
-  public readonly int $pageItems;
-  public readonly int $totalItems;
+  public int $pageCount;
+  public int $pageItems;
+  public int $totalItems;
   /**
    * @psalm-var list<T>
    */
-  public readonly array $items;
-  public readonly bool $containsAllItems;
+  public array $items;
+  public bool $containsAllItems;
 
   /**
    * @psalm-param RawData $data

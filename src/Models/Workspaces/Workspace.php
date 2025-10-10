@@ -17,7 +17,7 @@ namespace AdamAveray\Typeform\Models\Workspaces;
  * @extends WorkspaceStub<RawData>
  * @psalm-immutable
  */
-final class Workspace extends WorkspaceStub
+final readonly class Workspace extends WorkspaceStub
 {
   /** @var list<Member> */
   public array $members;

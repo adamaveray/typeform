@@ -20,7 +20,7 @@ use AdamAveray\Typeform\Models\Model;
  * @extends Model<RawData>
  * @psalm-immutable
  */
-class Webhook extends Model
+readonly class Webhook extends Model
 {
   public bool $enabled;
   public string $formId;

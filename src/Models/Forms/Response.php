@@ -21,7 +21,7 @@ use AdamAveray\Typeform\Models\Model;
  * @extends Model<RawData & array{ id: string }>
  * @psalm-immutable
  */
-final class Response extends Model
+final readonly class Response extends Model
 {
   public array $answers;
   public array $calculated;

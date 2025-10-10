@@ -19,7 +19,7 @@ use AdamAveray\Typeform\Models\Model;
  * @extends Model<RawData>
  * @psalm-immutable
  */
-final class Image extends Model
+final readonly class Image extends Model
 {
   public string $src;
   public string $fileName;

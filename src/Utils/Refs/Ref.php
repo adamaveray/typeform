@@ -7,14 +7,15 @@ use AdamAveray\Typeform\Models\Model;
 
 /**
  * @psalm-template T of \AdamAveray\Typeform\Models\Model
+ * @psalm-immutable
  */
-abstract class Ref
+abstract readonly class Ref
 {
   /**
    * @var class-string<T>
    */
-  private readonly string $className;
-  public readonly string $href;
+  private string $className;
+  public string $href;
 
   /**
    * @param class-string<T> $className
