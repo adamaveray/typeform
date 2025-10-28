@@ -245,7 +245,7 @@ final class ApiClient implements ApiClientInterface
     self::validatePageSize($pageSize);
 
     /** @var PaginatedResponseRawData $data */
-    $this->get('/forms', [
+    $data = $this->get('/forms', [
       'workspace_id' => $workspace === null ? null : self::getId($workspace, [Models\Workspaces\WorkspaceStub::class]),
       self::QUERY_PARAM_SEARCH => $search,
       self::QUERY_PARAM_PAGE_NUMBER => $page1,
@@ -426,7 +426,7 @@ final class ApiClient implements ApiClientInterface
     self::validatePageSize($pageSize);
 
     /** @var PaginatedResponseRawData $data */
-    $this->get('/themes', [
+    $data = $this->get('/themes', [
       self::QUERY_PARAM_PAGE_NUMBER => $page1,
       self::QUERY_PARAM_PAGE_SIZE => $pageSize ?? $this->defaultPageSize,
     ]);
