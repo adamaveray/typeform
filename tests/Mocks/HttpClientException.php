@@ -20,6 +20,7 @@ abstract class HttpClientException extends \Exception implements HttpExceptionIn
     $this->response = $response;
   }
 
+  #[\Override]
   public function getResponse(): ResponseInterface
   {
     return $this->response;

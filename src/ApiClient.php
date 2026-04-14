@@ -48,6 +48,7 @@ final class ApiClient implements ApiClientInterface
     $this->httpClient = $httpClient ?? HttpClient::create();
   }
 
+  #[\Override]
   public function setDefaultPageSize(int $defaultPageSize): void
   {
     self::validatePageSize($defaultPageSize);
@@ -109,6 +110,7 @@ final class ApiClient implements ApiClientInterface
    * @return TModel
    * @see loadCollectionRef
    */
+  #[\Override]
   public function loadRef(Utils\Refs\SingleRef $ref): Models\Model
   {
     $data = $this->makeRequest('GET', $ref->href)->toArray();
@@ -122,6 +124,7 @@ final class ApiClient implements ApiClientInterface
    * @return list<TModel>
    * @see loadRef
    */
+  #[\Override]
   public function loadCollectionRef(Utils\Refs\CollectionRef $ref, bool $loadMax = true): array
   {
     $pageSize = $loadMax ? min($ref->count, self::PAGE_SIZE_MAX) : $this->defaultPageSize;
@@ -133,6 +136,7 @@ final class ApiClient implements ApiClientInterface
   /**
    * @link https://www.typeform.com/developers/create/reference/retrieve-your-own-user/
    */
+  #[\Override]
   public function getCurrentUser(): Models\Users\User
   {
     /** @var UserRawData $data */
@@ -144,6 +148,7 @@ final class ApiClient implements ApiClientInterface
    * @return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
    * @link https://www.typeform.com/developers/create/reference/retrieve-account-workspaces/
    */
+  #[\Override]
   public function getAccountWorkspaces(
     string $accountId,
     ?string $search = null,
@@ -165,6 +170,7 @@ final class ApiClient implements ApiClientInterface
    * @return Utils\PaginatedResponse<Models\Workspaces\WorkspaceStub>
    * @link https://www.typeform.com/developers/create/reference/retrieve-workspaces/
    */
+  #[\Override]
   public function getWorkspaces(
     ?string $search = null,
     ?int $page1 = null,
@@ -185,6 +191,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Workspaces\WorkspaceStub $workspace A workspace ID or WorkspaceStub instance
    * @link https://www.typeform.com/developers/create/reference/retrieve-workspace/
    */
+  #[\Override]
   public function getWorkspace($workspace): Models\Workspaces\Workspace
   {
     /** @var WorkspaceRawData $data */
@@ -197,6 +204,7 @@ final class ApiClient implements ApiClientInterface
   /**
    * @link https://www.typeform.com/developers/create/reference/create-workspace/
    */
+  #[\Override]
   public function createWorkspace(string $name): Models\Workspaces\Workspace
   {
     /** @var WorkspaceRawData $data */
@@ -208,6 +216,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Workspaces\WorkspaceStub $workspace A workspace ID or WorkspaceStub instance
    * @link https://www.typeform.com/developers/create/reference/delete-workspace/
    */
+  #[\Override]
   public function deleteWorkspace(Models\Workspaces\WorkspaceStub|string $workspace): void
   {
     $this->delete(
@@ -220,6 +229,7 @@ final class ApiClient implements ApiClientInterface
    * @param list<Utils\Operation>|Utils\Operation $operations One or more operations to perform on the workspace
    * @link https://www.typeform.com/developers/create/reference/update-workspace/
    */
+  #[\Override]
   public function updateWorkspace(
     Models\Workspaces\WorkspaceStub|string $workspace,
     Utils\Operation|array $operations,
@@ -235,6 +245,7 @@ final class ApiClient implements ApiClientInterface
    * @return Utils\PaginatedResponse<Models\Forms\FormStub>
    * @link https://www.typeform.com/developers/create/reference/retrieve-forms/
    */
+  #[\Override]
   public function getForms(
     Models\Workspaces\WorkspaceStub|string|null $workspace = null,
     ?string $search = null,
@@ -258,6 +269,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Forms\FormStub $form A form ID or FormStub instance
    * @link https://www.typeform.com/developers/create/reference/retrieve-form/
    */
+  #[\Override]
   public function getForm(Models\Forms\FormStub|string $form): Models\Forms\Form
   {
     /** @var FormRawData $data */
@@ -269,6 +281,7 @@ final class ApiClient implements ApiClientInterface
    * @param array $data
    * @link https://www.typeform.com/developers/create/reference/create-form/
    */
+  #[\Override]
   public function createForm(array $data): Models\Forms\Form
   {
     /** @var FormRawData $responseData */
@@ -280,6 +293,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @link https://www.typeform.com/developers/create/reference/delete-form/
    */
+  #[\Override]
   public function deleteForm(Models\Forms\Form|Models\Forms\FormStub|string $form): void
   {
     $this->delete(
@@ -293,6 +307,7 @@ final class ApiClient implements ApiClientInterface
    * @param list<Op>|Op $operations One or more operations to perform on the form
    * @link https://www.typeform.com/developers/create/reference/update-form-patch/
    */
+  #[\Override]
   public function updateForm(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
     Utils\Operation|array $operations,
@@ -307,6 +322,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @link https://www.typeform.com/developers/create/reference/update-form/
    */
+  #[\Override]
   public function overwriteForm(Models\Forms\Form|Models\Forms\FormStub|string $form, array $data): void
   {
     $this->put(
@@ -320,6 +336,7 @@ final class ApiClient implements ApiClientInterface
    * @return array<string, string|null>
    * @link https://www.typeform.com/developers/create/reference/retrieve-custom-form-messages/
    */
+  #[\Override]
   public function getFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form): array
   {
     /** @var array<string, string|null> As per API documentation. */
@@ -336,6 +353,7 @@ final class ApiClient implements ApiClientInterface
    * @param array<string, string|null> $messages
    * @link https://www.typeform.com/developers/create/reference/update-custom-messages/
    */
+  #[\Override]
   public function updateFormMessages(Models\Forms\Form|Models\Forms\FormStub|string $form, array $messages): void
   {
     $this->put(
@@ -351,6 +369,7 @@ final class ApiClient implements ApiClientInterface
    * @return list<Models\Images\Image>
    * @link https://www.typeform.com/developers/create/reference/retrieve-images-collection/
    */
+  #[\Override]
   public function getImages(): array
   {
     /** @var array<array-key, ImageRawData> $images */
@@ -368,6 +387,7 @@ final class ApiClient implements ApiClientInterface
    * @link https://www.typeform.com/developers/create/reference/retrieve-choice-image-by-size/
    * @link https://www.typeform.com/developers/create/reference/retrieve-image-by-size/
    */
+  #[\Override]
   public function getImage(
     Models\Images\Image|string $image,
     string|ImageFormat|null $format = null,
@@ -386,6 +406,7 @@ final class ApiClient implements ApiClientInterface
    * @link https://www.typeform.com/developers/create/reference/retrieve-choice-image-by-size/
    * @link https://www.typeform.com/developers/create/reference/retrieve-image-by-size/
    */
+  #[\Override]
   public function getImageSource(
     Models\Images\Image|string $image,
     string|ImageFormat|null $format = null,
@@ -398,6 +419,7 @@ final class ApiClient implements ApiClientInterface
   /**
    * @link https://www.typeform.com/developers/create/reference/create-image/
    */
+  #[\Override]
   public function createImage(string $fileName, string $base64Source, string $url): array
   {
     return $this->post('/images', [
@@ -411,6 +433,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Images\Image $image An image ID or Image instance
    * @link https://www.typeform.com/developers/create/reference/delete-image/
    */
+  #[\Override]
   public function deleteImage(Models\Images\Image|string $image): void
   {
     $this->delete(self::buildEndpoint('/images/%', self::getId($image, [Models\Images\Image::class])));
@@ -420,6 +443,7 @@ final class ApiClient implements ApiClientInterface
    * @return Utils\PaginatedResponse<Models\Themes\Theme>
    * @link https://www.typeform.com/developers/create/reference/retrieve-themes/
    */
+  #[\Override]
   public function getThemes(?int $page1 = null, ?int $pageSize = null): Utils\PaginatedResponse
   {
     self::validatePageNumber($page1);
@@ -437,6 +461,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Themes\Theme $theme A theme ID or Theme instance
    * @link https://www.typeform.com/developers/create/reference/retrieve-theme/
    */
+  #[\Override]
   public function getTheme(Models\Themes\Theme|string $theme): Models\Themes\Theme
   {
     /** @var ThemeRawData $data */
@@ -448,6 +473,7 @@ final class ApiClient implements ApiClientInterface
    * @param array $data
    * @link https://www.typeform.com/developers/create/reference/create-theme/
    */
+  #[\Override]
   public function createTheme(array $data): Models\Themes\Theme
   {
     /** @var ThemeRawData $responseData */
@@ -459,6 +485,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Themes\Theme $theme A theme ID or Theme instance
    * @link https://www.typeform.com/developers/create/reference/delete-theme/
    */
+  #[\Override]
   public function deleteTheme(Models\Themes\Theme|string $theme): void
   {
     $this->delete(self::buildEndpoint('/themes/%', self::getId($theme, [Models\Themes\Theme::class])));
@@ -468,6 +495,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Themes\Theme $theme A theme ID or Theme instance
    * @link https://www.typeform.com/developers/create/reference/update-theme/
    */
+  #[\Override]
   public function updateTheme(Models\Themes\Theme|string $theme, array $data): Models\Themes\Theme
   {
     /** @var ThemeRawData $responseData */
@@ -497,6 +525,7 @@ final class ApiClient implements ApiClientInterface
    * } $options
    * @link https://www.typeform.com/developers/responses/reference/retrieve-responses/
    */
+  #[\Override]
   public function getResponses(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
     array $options,
@@ -529,6 +558,7 @@ final class ApiClient implements ApiClientInterface
    * @param list<string|Models\Forms\Response> $responses Response IDs or Response instances
    * @link https://www.typeform.com/developers/responses/reference/delete-responses/
    */
+  #[\Override]
   public function deleteResponses(Models\Forms\Form|Models\Forms\FormStub|string $form, array $responses): void
   {
     $endpoint = self::buildEndpoint(
@@ -548,6 +578,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Forms\Field $field A field ID or Field instance
    * @link https://www.typeform.com/developers/responses/reference/retrieve-response-file/
    */
+  #[\Override]
   public function getResponseFile(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
     Models\Forms\Response|string $response,
@@ -568,6 +599,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Forms\FormStub|Models\Forms\Form $form A form ID or FormStub|Form instance
    * @link https://www.typeform.com/developers/responses/reference/retrieve-form-insights/
    */
+  #[\Override]
   public function getFormInsights(Models\Forms\Form|Models\Forms\FormStub|string $form): Models\Forms\InsightsSummary
   {
     $endpoint = self::buildEndpoint(
@@ -583,6 +615,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Jobs\Job $job A job ID or Job instance
    * @link https://www.typeform.com/developers/responses/reference/rtbf-retrieve-job-status/
    */
+  #[\Override]
   public function rtbfGetJobStatus(string $accountId, Models\Jobs\Job|string $job): Models\Jobs\Status
   {
     $endpoint = self::buildEndpoint('/rtbf/%/job/%', $accountId, self::getId($job, [Models\Jobs\Job::class]));
@@ -596,6 +629,7 @@ final class ApiClient implements ApiClientInterface
    * @return list<string>
    * @link https://www.typeform.com/developers/responses/reference/rtbf-delete-responses/
    */
+  #[\Override]
   public function rtbfDeleteResponses(string $accountId, array $emails): array
   {
     $request = $this->makeRequest('DELETE', self::buildEndpoint('/rtbf/%/responses', $accountId), null, $emails);
@@ -608,6 +642,7 @@ final class ApiClient implements ApiClientInterface
    * @return list<Models\Forms\Webhook>
    * @link https://www.typeform.com/developers/webhooks/reference/retrieve-webhooks/
    */
+  #[\Override]
   public function getWebhooks(Models\Forms\Form|Models\Forms\FormStub|string $form): array
   {
     $endpoint = self::buildEndpoint(
@@ -627,6 +662,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Forms\Webhook $tagOrWebhook A webhook tag or Webhook instance
    * @link https://www.typeform.com/developers/webhooks/reference/retrieve-single-webhook/
    */
+  #[\Override]
   public function getWebhook(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
     Models\Forms\Webhook|string $tagOrWebhook,
@@ -646,6 +682,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Forms\Webhook $tagOrWebhook A webhook tag or Webhook instance
    * @link https://www.typeform.com/developers/webhooks/reference/delete-webhook/
    */
+  #[\Override]
   public function deleteWebhook(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
     Models\Forms\Webhook|string $tagOrWebhook,
@@ -663,6 +700,7 @@ final class ApiClient implements ApiClientInterface
    * @param string|Models\Forms\Webhook $tagOrWebhook A webhook tag or Webhook instance
    * @link https://www.typeform.com/developers/webhooks/reference/create-or-update-webhook/
    */
+  #[\Override]
   public function createUpdateWebhook(
     Models\Forms\Form|Models\Forms\FormStub|string $form,
     Models\Forms\Webhook|string $tagOrWebhook,
