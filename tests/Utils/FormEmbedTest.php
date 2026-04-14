@@ -14,7 +14,7 @@ use AdamAveray\Typeform\Utils\FormEmbedType;
 /**
  * @coversDefaultClass FormEmbed
  */
-class FormEmbedTest extends TestCase
+final class FormEmbedTest extends TestCase
 {
   /**
    * @covers ::getLibHtml

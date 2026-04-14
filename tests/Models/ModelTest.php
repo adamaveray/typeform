@@ -11,7 +11,7 @@ use AdamAveray\Typeform\Tests\TestCase;
 /**
  * @coversDefaultClass Model
  */
-class ModelTest extends TestCase
+final class ModelTest extends TestCase
 {
   public function testBasicData(): void
   {

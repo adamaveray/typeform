@@ -12,7 +12,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class MockRequest
+final class MockRequest
 {
   public readonly string $method;
   public readonly string $endpoint;

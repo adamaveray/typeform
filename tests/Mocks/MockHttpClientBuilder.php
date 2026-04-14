@@ -14,7 +14,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 /**
  * @psalm-suppress InternalClass,InternalMethod
  */
-class MockHttpClientBuilder
+final class MockHttpClientBuilder
 {
   private readonly TestCase $testCase;
   private readonly MockBuilder $mockBuilder;

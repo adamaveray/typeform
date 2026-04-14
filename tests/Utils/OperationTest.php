@@ -10,7 +10,7 @@ use AdamAveray\Typeform\Utils\OperationType;
 /**
  * @coversDefaultClass Operation
  */
-class OperationTest extends TestCase
+final class OperationTest extends TestCase
 {
   private const TEST_PATH = '/some/path';
   private const TEST_VALUE = 'abc123';

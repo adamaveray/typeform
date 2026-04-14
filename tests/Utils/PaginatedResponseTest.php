@@ -11,7 +11,7 @@ use AdamAveray\Typeform\Utils\PaginatedResponse;
 /**
  * @coversDefaultClass PaginatedResponse
  */
-class PaginatedResponseTest extends TestCase
+final class PaginatedResponseTest extends TestCase
 {
   public function testCreation(): void
   {

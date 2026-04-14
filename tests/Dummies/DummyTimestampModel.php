@@ -10,7 +10,7 @@ use AdamAveray\Typeform\Models\Model;
  * @extends Model<RawData>
  * @psalm-immutable
  */
-readonly class DummyTimestampModel extends Model
+final readonly class DummyTimestampModel extends Model
 {
   public \DateTimeImmutable $dummyTimestamp;
 

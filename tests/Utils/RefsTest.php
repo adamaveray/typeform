@@ -7,7 +7,7 @@ use AdamAveray\Typeform\Tests\Dummies\DummyModel;
 use AdamAveray\Typeform\Tests\TestCase;
 use AdamAveray\Typeform\Utils\Refs;
 
-class RefsTest extends TestCase
+final class RefsTest extends TestCase
 {
   private const TEST_HREF = 'https://www.example.com/ref';
 

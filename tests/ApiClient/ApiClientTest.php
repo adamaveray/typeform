@@ -12,7 +12,7 @@ use AdamAveray\Typeform\Utils\Refs;
 /**
  * @coversDefaultClass ApiClient
  */
-class ApiClientTest extends ApiClientTestCase
+final class ApiClientTest extends ApiClientTestCase
 {
   /**
    * @covers ::__construct

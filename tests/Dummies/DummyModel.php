@@ -10,7 +10,7 @@ use AdamAveray\Typeform\Models\Model;
  * @extends Model<RawData>
  * @psalm-immutable
  */
-readonly class DummyModel extends Model
+final readonly class DummyModel extends Model
 {
   public string $dummyValue;
 
