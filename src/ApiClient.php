@@ -772,7 +772,10 @@ final class ApiClient implements ApiClientInterface
   {
     $parts = array_map(static fn($value): string => urlencode((string) $value), $parts);
 
-    $url = preg_replace_callback('~%~', static fn(): string => array_shift($parts), $pattern, -1, $count);
+    $count = 0;
+    $url =
+      preg_replace_callback('~%~', static fn(): string => (string) array_shift($parts), $pattern, -1, $count) ??
+      throw new \RuntimeException('Regex replacement failed');
     if (\count($parts) !== $count) {
       throw new \BadMethodCallException('Invalid number of params provided');
     }

@@ -276,7 +276,9 @@ class FormEmbed
    */
   private static function getOptionAttrName(string $option): string
   {
-    return self::OPTION_PREFIX . strtolower(preg_replace('~(?<!^)[A-Z]~', '-$0', $option));
+    $processed =
+      preg_replace('~(?<!^)[A-Z]~', '-$0', $option) ?? throw new \RuntimeException('Regex replacement failed');
+    return self::OPTION_PREFIX . strtolower($processed);
   }
 
   /**

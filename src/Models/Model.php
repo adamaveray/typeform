@@ -35,7 +35,8 @@ abstract readonly class Model
    */
   protected static function convertTimestamp(string $timestamp): \DateTimeImmutable
   {
-    $timestamp = preg_replace('~[+-]00:00$~', 'Z', $timestamp);
+    $timestamp =
+      preg_replace('~[+-]00:00$~', 'Z', $timestamp) ?? throw new \RuntimeException('Regex replacement failed');
     $format = preg_match('~\.\d+Z$~', $timestamp)
       ? self::TIMESTAMP_FORMAT_MICROSECONDS
       : self::TIMESTAMP_FORMAT_SECONDS;

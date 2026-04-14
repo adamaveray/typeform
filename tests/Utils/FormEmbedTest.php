@@ -48,7 +48,7 @@ final class FormEmbedTest extends TestCase
     ?callable $configurator = null,
   ): void {
     // Strip expected newlines & indentation
-    $expected = str_replace("\n", '', preg_replace('~\n +~', ' ', $expected));
+    $expected = str_replace("\n", '', (string) preg_replace('~\n +~', ' ', $expected));
 
     $this->assertEmbedHtmlForAllTypes($expected, $formId, function (Form|FormStub|string $form) use (
       $type,
