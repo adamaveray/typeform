@@ -315,7 +315,7 @@ class FormEmbed
   {
     $list = [];
     foreach ($values as $key => $value) {
-      $list[] = $key . '=' . $value;
+      $list[] = $key . '=' . (string) $value;
     }
     return $list;
   }
