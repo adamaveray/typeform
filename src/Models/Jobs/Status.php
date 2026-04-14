@@ -10,6 +10,7 @@ namespace AdamAveray\Typeform\Models\Jobs;
  *   token: string,
  * }
  * @psalm-immutable
+ * @api
  */
 readonly class Status
 {

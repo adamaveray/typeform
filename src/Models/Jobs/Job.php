@@ -8,5 +8,6 @@ use AdamAveray\Typeform\Models\Model;
 /**
  * @extends Model<array{ id: string }>
  * @psalm-immutable
+ * @api
  */
 readonly class Job extends Model {}

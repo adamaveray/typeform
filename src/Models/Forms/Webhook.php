@@ -19,6 +19,7 @@ use AdamAveray\Typeform\Models\Model;
  * }
  * @extends Model<RawData>
  * @psalm-immutable
+ * @api
  */
 readonly class Webhook extends Model
 {

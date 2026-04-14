@@ -10,6 +10,7 @@ use AdamAveray\Typeform\Models\Forms\FormStub;
  * @psalm-type OptionValue = string | int | float
  * @psalm-type Option = OptionValue | list<OptionValue> | array<string, OptionValue> | bool
  * @psalm-type HiddenFields = array<string, string>
+ * @api
  */
 class FormEmbed
 {
