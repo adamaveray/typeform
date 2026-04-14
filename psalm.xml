@@ -13,12 +13,4 @@
     <directory name="src" />
     <directory name="tests" />
   </projectFiles>
-
-  <issueHandlers>
-    <UnusedMethodCall errorLevel="error">
-      <errorLevel type="suppress">
-        <directory name="tests" />
-      </errorLevel>
-    </UnusedMethodCall>
-  </issueHandlers>
 </psalm>
