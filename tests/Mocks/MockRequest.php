@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace AdamAveray\Typeform\Tests\Mocks;
 
-use PHPUnit\Framework\MockObject\MockBuilder;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use AdamAveray\Typeform\Tests\TestCase;
+use PHPUnit\Framework\MockObject\Stub;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -94,13 +93,11 @@ final class MockRequest
 
   /**
    * @param TestCase $testCase
-   * @return MockObject&ResponseInterface
+   * @return Stub&ResponseInterface
    */
-  public function getResponse(TestCase $testCase): MockObject
+  public function getResponse(TestCase $testCase): Stub
   {
-    $mock = (new MockBuilder($testCase, ResponseInterface::class))
-      ->onlyMethods(['toArray', 'getContent'])
-      ->getMockForAbstractClass();
+    $mock = $testCase->makeStub(ResponseInterface::class);
 
     $exception = $this->getException($mock);
     if ($exception === null) {

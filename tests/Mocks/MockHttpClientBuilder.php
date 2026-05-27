@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace AdamAveray\Typeform\Tests\Mocks;
 
+use AdamAveray\Typeform\Tests\TestCase;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
-use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -24,7 +24,7 @@ final class MockHttpClientBuilder
   public function __construct(TestCase $testCase)
   {
     $this->testCase = $testCase;
-    $this->mockBuilder = (new MockBuilder($testCase, HttpClientInterface::class))->onlyMethods(['request', 'stream']);
+    $this->mockBuilder = new MockBuilder($testCase, HttpClientInterface::class);
   }
 
   /** @return $this */
@@ -52,7 +52,7 @@ final class MockHttpClientBuilder
   public function getMock(string $accessToken): MockObject
   {
     /** @var MockObject&HttpClientInterface $mock */
-    $mock = $this->mockBuilder->getMockForAbstractClass();
+    $mock = $this->mockBuilder->getMock();
 
     $mock->method('request')->willReturnCallback($this->getHandler($accessToken));
 

@@ -7,6 +7,7 @@ use AdamAveray\Typeform\Models\Model;
 use AdamAveray\Typeform\Tests\Dummies\DummyModel;
 use AdamAveray\Typeform\Tests\Dummies\DummyTimestampModel;
 use AdamAveray\Typeform\Tests\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @coversDefaultClass Model
@@ -69,8 +70,8 @@ final class ModelTest extends TestCase
 
   /**
    * @covers ::convertTimestamp
-   * @dataProvider convertTimestampsDataProvider
    */
+  #[DataProvider('convertTimestampsDataProvider')]
   public function testConvertTimestamps(\DateTimeInterface $datetime, string $timestamp): void
   {
     $model = new DummyTimestampModel(['id' => '123', 'dummy_time' => $timestamp]);
@@ -81,7 +82,7 @@ final class ModelTest extends TestCase
     );
   }
 
-  public function convertTimestampsDataProvider(): iterable
+  public static function convertTimestampsDataProvider(): iterable
   {
     $datetime = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))
       ->setDate(2000, 1, 30)

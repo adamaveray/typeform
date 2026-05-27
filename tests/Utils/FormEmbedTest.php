@@ -10,6 +10,7 @@ use AdamAveray\Typeform\Tests\TestCase;
 use AdamAveray\Typeform\Utils\FormEmbed;
 use AdamAveray\Typeform\Utils\FormEmbedModalType;
 use AdamAveray\Typeform\Utils\FormEmbedType;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @coversDefaultClass FormEmbed
@@ -19,8 +20,8 @@ final class FormEmbedTest extends TestCase
   /**
    * @covers ::getLibHtml
    * @covers ::setLoadLib
-   * @dataProvider getLibHtmlDataProvider
    */
+  #[DataProvider('getLibHtmlDataProvider')]
   public function testGetLibHtml(string $expected, bool $loadLib, bool $async): void
   {
     $embed = new FormEmbed('123', FormEmbedType::Modal);
@@ -28,7 +29,7 @@ final class FormEmbedTest extends TestCase
     $this->assertEquals($expected, $embed->getLibHtml(), 'The correct lib HTML should be generated');
   }
 
-  public function getLibHtmlDataProvider(): iterable
+  public static function getLibHtmlDataProvider(): iterable
   {
     /** @var string $libUrl */
     $libUrl = self::getConst(FormEmbed::class, 'LIB_URL');
@@ -38,9 +39,9 @@ final class FormEmbedTest extends TestCase
   }
 
   /**
-   * @dataProvider generationDataProvider
    * @param (callable(FormEmbed):void)|null $configurator
    */
+  #[DataProvider('generationDataProvider')]
   public function testGeneration(
     string $expected,
     string $formId,
@@ -62,45 +63,45 @@ final class FormEmbedTest extends TestCase
     });
   }
 
-  public function generationDataProvider(): iterable
+  public static function generationDataProvider(): iterable
   {
     $formId = '>>form-id<<';
 
-    foreach ($this->getInlineGenerationCases($formId) as $key => $case) {
+    foreach (self::getInlineGenerationCases($formId) as $key => $case) {
       yield 'Inline: ' . $key => [
         'expected' => $case[0],
         'formId' => $formId,
         'type' => FormEmbedType::Inline,
-        'generator' => $case[1] ?? null,
+        'configurator' => $case[1] ?? null,
       ];
       /** @psalm-suppress DeprecatedConstant Testing deprecated behaviour. */
       yield 'Inline (Legacy): ' . $key => [
         'expected' => $case[0],
         'formId' => $formId,
         'type' => FormEmbed::TYPE_INLINE,
-        'generator' => $case[1] ?? null,
+        'configurator' => $case[1] ?? null,
       ];
     }
 
-    foreach ($this->getModalGenerationCases($formId) as $key => $case) {
+    foreach (self::getModalGenerationCases($formId) as $key => $case) {
       yield 'Modal: ' . $key => [
         'expected' => $case[0],
         'formId' => $formId,
         'type' => FormEmbedType::Modal,
-        'generator' => $case[1] ?? null,
+        'configurator' => $case[1] ?? null,
       ];
       /** @psalm-suppress DeprecatedConstant Testing deprecated behaviour. */
       yield 'Modal (Legacy): ' . $key => [
         'expected' => $case[0],
         'formId' => $formId,
         'type' => FormEmbed::TYPE_MODAL,
-        'generator' => $case[1] ?? null,
+        'configurator' => $case[1] ?? null,
       ];
     }
   }
 
   /** @return iterable<string, array{ 0: string, 1?: (callable(FormEmbed):void)|null }> */
-  private function getInlineGenerationCases(string $formId): iterable
+  private static function getInlineGenerationCases(string $formId): iterable
   {
     $formIdSafe = self::e($formId);
     $lib = (new FormEmbed($formId, FormEmbedType::Inline))->getLibHtml();
@@ -184,7 +185,7 @@ final class FormEmbedTest extends TestCase
   }
 
   /** @return iterable<string, array{ 0: string, 1?: (callable(FormEmbed):void)|null }> */
-  private function getModalGenerationCases(string $formId): iterable
+  private static function getModalGenerationCases(string $formId): iterable
   {
     $formIdSafe = self::e($formId);
     $lib = (new FormEmbed($formId, FormEmbedType::Modal))->getLibHtml();

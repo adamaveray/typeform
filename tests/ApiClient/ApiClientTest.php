@@ -8,6 +8,7 @@ use AdamAveray\Typeform\Models;
 use AdamAveray\Typeform\Tests\Dummies\DummyModel;
 use AdamAveray\Typeform\Tests\Mocks\MockRequest;
 use AdamAveray\Typeform\Utils\Refs;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @coversDefaultClass ApiClient
@@ -34,15 +35,15 @@ final class ApiClientTest extends ApiClientTestCase
   /**
    * @covers ::setDefaultPageSize
    * @covers ::<!public>
-   * @dataProvider invalidPageSizeDataProvider
    */
+  #[DataProvider('invalidPageSizeDataProvider')]
   public function testInvalidPageSize(int $pageSize): void
   {
     $this->expectException(\InvalidArgumentException::class);
     (new ApiClient(self::TEST_ACCESS_TOKEN))->setDefaultPageSize($pageSize);
   }
 
-  public function invalidPageSizeDataProvider(): iterable
+  public static function invalidPageSizeDataProvider(): iterable
   {
     yield 'Empty' => [0];
     yield 'Too Low' => [-1];
@@ -52,8 +53,8 @@ final class ApiClientTest extends ApiClientTestCase
   /**
    * @covers ::loadRef
    * @covers ::<!public>
-   * @dataProvider loadRefDataProvider
    */
+  #[DataProvider('loadRefDataProvider')]
   public function testLoadRef(Models\Model $expected, Refs\SingleRef $ref, MockRequest $request): void
   {
     $httpClient = $this->buildClient([$request]);
@@ -61,7 +62,7 @@ final class ApiClientTest extends ApiClientTestCase
     $this->assertEquals($expected, $result, 'The correct item should be loaded');
   }
 
-  public function loadRefDataProvider(): iterable
+  public static function loadRefDataProvider(): iterable
   {
     $modelData = [
       'id' => '123',
@@ -81,8 +82,8 @@ final class ApiClientTest extends ApiClientTestCase
    * @covers ::loadCollectionRef
    * @covers ::setDefaultPageSize
    * @covers ::<!public>
-   * @dataProvider loadCollectionRefDataProvider
    */
+  #[DataProvider('loadCollectionRefDataProvider')]
   public function testLoadCollectionRef(
     array $expected,
     Refs\CollectionRef $ref,
@@ -98,7 +99,7 @@ final class ApiClientTest extends ApiClientTestCase
     $this->assertEquals($expected, $result, 'The correct items should be loaded');
   }
 
-  public function loadCollectionRefDataProvider(): iterable
+  public static function loadCollectionRefDataProvider(): iterable
   {
     $endpoint = '/dummy-route/123';
 

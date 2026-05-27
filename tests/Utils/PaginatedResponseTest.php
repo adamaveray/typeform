@@ -7,6 +7,7 @@ use AdamAveray\Typeform\Models\Model;
 use AdamAveray\Typeform\Tests\Dummies\DummyModel;
 use AdamAveray\Typeform\Tests\TestCase;
 use AdamAveray\Typeform\Utils\PaginatedResponse;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @coversDefaultClass PaginatedResponse
@@ -36,10 +37,10 @@ final class PaginatedResponseTest extends TestCase
   }
 
   /**
-   * @dataProvider containsAllItemsDataProvider
    * @param class-string<Model> $modelClass
    * @param list<mixed> $itemsData
    */
+  #[DataProvider('containsAllItemsDataProvider')]
   public function testContainsAllItems(
     bool $expected,
     string $modelClass,
@@ -59,7 +60,7 @@ final class PaginatedResponseTest extends TestCase
     );
   }
 
-  public function containsAllItemsDataProvider(): iterable
+  public static function containsAllItemsDataProvider(): iterable
   {
     $itemsData = [
       ['id' => '123', 'dummy_value' => 'One'],

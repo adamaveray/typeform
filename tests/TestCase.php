@@ -7,6 +7,7 @@ use AdamAveray\Typeform\Models\Model;
 use AdamAveray\Typeform\Tests\Mocks\MockHttpClientBuilder;
 use AdamAveray\Typeform\Tests\Mocks\MockRequest;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -15,8 +16,21 @@ class TestCase extends BaseTestCase
   /** @var string */
   protected const TEST_ACCESS_TOKEN = 'test-access-token';
 
+  /** @psalm-suppress MissingPropertyType -- Parent class does not define types. */
   protected $backupStaticAttributes = false;
+  /** @psalm-suppress MissingPropertyType -- Parent class does not define types. */
   protected $runTestInSeparateProcess = false;
+
+  /**
+   * @template T of object
+   * @param class-string<T> $class
+   * @return Stub&T
+   */
+  public function makeStub(string $class): Stub
+  {
+    /** @var Stub&T */
+    return $this->createStub($class);
+  }
 
   final protected function getMockHttpClientBuilder(): MockHttpClientBuilder
   {
