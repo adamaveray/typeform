@@ -41,8 +41,8 @@
   },
   "require-dev": {
     "ext-json": "*",
-    "marcocesarato/amwscan": "^0.10",
-    "phpunit/phpunit": "^9.6",
+    "marcocesarato/amwscan": "^0.15",
+    "phpunit/phpunit": "^13.1",
     "roave/security-advisories": "dev-latest",
     "vimeo/psalm": "^6.16"
   }
