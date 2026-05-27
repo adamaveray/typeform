@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpunit
-  bootstrap="tests/bootstrap.php"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+  bootstrap="tests/bootstrap.php"
+  failOnAllIssues="true"
 >
   <testsuites>
     <testsuite name="Tests">
@@ -10,9 +11,4 @@
       <exclude>./bootstrap.php</exclude>
     </testsuite>
   </testsuites>
-  <coverage>
-    <include>
-      <directory suffix=".php">src</directory>
-    </include>
-  </coverage>
 </phpunit>
